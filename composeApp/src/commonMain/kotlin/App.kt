@@ -1,3 +1,7 @@
+// commonMain/src/commonMain/kotlin/com/example/common/SharedComposables.kt
+package com.example.common
+
+import PlatformSpecificMainContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -30,7 +34,7 @@ fun App() {
     MaterialTheme {
         Column(Modifier.fillMaxWidth()) {
             TopNavigationBar()
-            MainContent()
+            PlatformSpecificMainContent()
         }
     }
 }
@@ -51,9 +55,7 @@ fun TopNavigationBar() {
                     painterResource(Res.drawable.compose_multiplatform), null,
                     modifier = Modifier.size(40.dp).clip(CircleShape)
                 )
-
                 Spacer(modifier = Modifier.width(8.dp))
-
                 Text(
                     text = "Menu",
                     fontSize = 18.sp,
@@ -66,7 +68,6 @@ fun TopNavigationBar() {
                 )
                 Spacer(modifier = Modifier.width(16.dp))
             }
-
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     painter = painterResource(Res.drawable.compose_multiplatform),
@@ -74,7 +75,6 @@ fun TopNavigationBar() {
                     modifier = Modifier.size(24.dp)
                 )
                 Spacer(modifier = Modifier.width(16.dp))
-
                 TextButton(onClick = { /**TODO handle log in Click**/ }) {
                     Text(
                         text = "Log In",
@@ -83,8 +83,7 @@ fun TopNavigationBar() {
                     )
                 }
                 Spacer(modifier = Modifier.width(16.dp))
-                Button(onClick = { /**TODO Handle List Your Service*/ })
-                {
+                Button(onClick = { /**TODO Handle List Your Service*/ }) {
                     Text(
                         text = "List your Services",
                         color = Color.White,
@@ -94,25 +93,6 @@ fun TopNavigationBar() {
             }
         }
     }
-}
-
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun MainContent() {
-    Row(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        ImageCarousel(
-            modifier = Modifier.weight(1f).height(400.dp)
-        )
-        Spacer(modifier = Modifier.width(16.dp))
-        MainTextContent(
-            modifier = Modifier.weight(1f)
-        )
-    }
-    Spacer(modifier = Modifier.height(16.dp))
-    SearchTextField()
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -150,27 +130,26 @@ fun ImageCarousel(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun MainTextContent(modifier: Modifier = Modifier) {
+fun MainTextContent(modifier: Modifier = Modifier, fontSize: Int = 36) {
     Column(modifier = modifier) {
         Text(
             text = "Book something",
-            fontSize = 36.sp,
+            fontSize = fontSize.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Black
         )
         Text(
             text = "awesome",
-            fontSize = 36.sp,
+            fontSize = fontSize.sp,
             fontWeight = FontWeight.Bold,
             color = Color(0xFF007BFF)
         )
         Text(
             text = "for your next event",
-            fontSize = 36.sp,
+            fontSize = fontSize.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Black
         )
-
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = "From birthday parties to weddings, we'll help you book the best talent for any occasion",
