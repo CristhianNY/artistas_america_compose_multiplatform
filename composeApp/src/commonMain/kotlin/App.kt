@@ -2,13 +2,27 @@
 package com.example.common
 
 import PlatformSpecificMainContent
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
@@ -20,21 +34,32 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import artistas.composeapp.generated.resources.Res
 import artistas.composeapp.generated.resources.compose_multiplatform
+import coil3.compose.AsyncImage
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -132,10 +157,13 @@ fun ImageCarousel(modifier: Modifier = Modifier) {
             )
         },
         pageContent = { page ->
-            Image(
-                painter = painterResource(Res.drawable.compose_multiplatform),
+            AsyncImage(
+                model = "https://picsum.photos/200/300.jpg",
                 contentDescription = null,
-                modifier = Modifier.fillMaxSize()
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(8.dp))
             )
         },
     )
@@ -267,22 +295,22 @@ fun EntertainersCategories() {
                     Category(
                         "Bands & Groups",
                         "Blues Bands, Mariachis, Wedding Bands...",
-                        "https://example.com/bands.jpg"
+                        "https://picsum.photos/200/300.jpg"
                     ),
                     Category(
                         "Ensembles",
                         "Chamber Orchestras, Classical Ensembles, String Trios...",
-                        "https://example.com/ensembles.jpg"
+                        "https://picsum.photos/200/300.jpg"
                     ),
                     Category(
                         "Singers",
                         "Country Singers, Singing Guitarists, Rappers...",
-                        "https://example.com/singers.jpg"
+                        "https://picsum.photos/200/300.jpg"
                     ),
                     Category(
                         "Solo Musicians",
                         "Bagpipers, Guitarists, Pianists, Violinists...",
-                        "https://example.com/solo.jpg"
+                        "https://picsum.photos/200/300.jpg"
                     )
                 )
             ) { category ->
@@ -311,22 +339,22 @@ fun MusicalActs() {
                     Category(
                         "Bands & Groups",
                         "Blues Bands, Mariachis, Wedding Bands...",
-                        "https://example.com/bands.jpg"
+                        "https://picsum.photos/200/300.jpg"
                     ),
                     Category(
                         "Ensembles",
                         "Chamber Orchestras, Classical Ensembles, String Trios...",
-                        "https://example.com/ensembles.jpg"
+                        "https://picsum.photos/200/300.jpg"
                     ),
                     Category(
                         "Singers",
                         "Country Singers, Singing Guitarists, Rappers...",
-                        "https://example.com/singers.jpg"
+                        "https://picsum.photos/200/300.jpg"
                     ),
                     Category(
                         "Solo Musicians",
                         "Bagpipers, Guitarists, Pianists, Violinists...",
-                        "https://example.com/solo.jpg"
+                        "https://picsum.photos/200/300.jpg"
                     )
                 )
             ) { category ->
@@ -355,22 +383,22 @@ fun EventsServices() {
                     Category(
                         "Bands & Groups",
                         "Blues Bands, Mariachis, Wedding Bands...",
-                        "https://example.com/bands.jpg"
+                        "https://picsum.photos/200/300.jpg"
                     ),
                     Category(
                         "Ensembles",
                         "Chamber Orchestras, Classical Ensembles, String Trios...",
-                        "https://example.com/ensembles.jpg"
+                        "https://picsum.photos/200/300.jpg"
                     ),
                     Category(
                         "Singers",
                         "Country Singers, Singing Guitarists, Rappers...",
-                        "https://example.com/singers.jpg"
+                        "https://picsum.photos/200/300.jpg"
                     ),
                     Category(
                         "Solo Musicians",
                         "Bagpipers, Guitarists, Pianists, Violinists...",
-                        "https://example.com/solo.jpg"
+                        "https://picsum.photos/200/300.jpg"
                     )
                 )
             ) { category ->
@@ -386,33 +414,83 @@ fun EventsServices() {
 
 @Composable
 fun CategoryCard(title: String, description: String, imageUrl: String) {
-    Column(
+    var flipped by remember { mutableStateOf(false) }
+    val rotation = animateFloatAsState(
+        targetValue = if (flipped) 180f else 0f,
+        animationSpec = tween(durationMillis = 600, easing = FastOutSlowInEasing)
+    )
+
+    Box(
         modifier = Modifier
             .width(350.dp)
-            .background(Color.White)
+            .height(400.dp)
             .padding(8.dp)
+            .clickable { flipped = !flipped }
+            .graphicsLayer {
+                rotationY = rotation.value
+                cameraDistance = 12f * density
+            }
     ) {
-        Image(
-            painter = painterResource(Res.drawable.compose_multiplatform),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .height(350.dp)
-                .fillMaxWidth()
-
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = title,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Text(
-            text = description,
-            fontSize = 12.sp,
-            color = Color.Gray
-        )
+        if (rotation.value <= 90f) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(Color.White)
+                    .padding(8.dp)
+                    .graphicsLayer { rotationY = 0f }
+            ) {
+                AsyncImage(
+                    model = imageUrl,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(RoundedCornerShape(8.dp))
+                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color(0x80000000)) // Fondo semi-transparente para el texto
+                        .padding(8.dp),
+                    contentAlignment = Alignment.BottomStart
+                ) {
+                    Column {
+                        Text(
+                            text = title,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
+                        )
+                        Text(
+                            text = description,
+                            fontSize = 12.sp,
+                            color = Color.White
+                        )
+                    }
+                }
+            }
+        } else {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(Color.White)
+                    .padding(8.dp)
+                    .graphicsLayer { rotationY = 180f },
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Additional Info",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Gray
+                )
+            }
+        }
     }
 }
+
+
 
 data class Category(val title: String, val description: String, val imageUrl: String)

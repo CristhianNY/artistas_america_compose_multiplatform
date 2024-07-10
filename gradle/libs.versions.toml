@@ -15,6 +15,9 @@ junit = "4.13.2"
 kotlin = "2.0.0"
 ktor = "2.3.12"
 logback = "1.5.6"
+coil3 = "3.0.0-alpha06"
+ktor_wasm2 = "3.0.0-wasm2"
+
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -31,6 +34,14 @@ logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "ktor" }
 ktor-server-tests = { module = "io.ktor:ktor-server-tests-jvm", version.ref = "ktor" }
+
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil3" }
+coil-compose-core = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil3" }
+coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coil3" }
+coil-mp = { module = "io.coil-kt.coil3:coil", version.ref = "coil3" }
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor_wasm2" }
+ktor-client-okhttp = {group ="io.ktor", name = "ktor-client-okhttp", version.ref ="ktor_wasm2"}
+ktor-client-darwin = {group ="io.ktor", name = "ktor-client-ios", version.ref ="ktor_wasm2"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
