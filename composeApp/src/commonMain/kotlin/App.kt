@@ -226,28 +226,28 @@ fun CategoriesSection() {
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(35.dp))
         MusicalActs()
-        Spacer(modifier = Modifier.height(60.dp))
+        Spacer(modifier = Modifier.height(50.dp))
         Text(
             text = "Entertainers",
             fontSize = 18.sp,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(35.dp))
         EntertainersCategories()
 
-        Spacer(modifier = Modifier.height(60.dp))
+        Spacer(modifier = Modifier.height(50.dp))
         Text(
             text = "Event Services",
             fontSize = 18.sp,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(35.dp))
         EventsServices()
-        Spacer(modifier = Modifier.height(60.dp))
+        Spacer(modifier = Modifier.height(50.dp))
         // Add more LazyRow or grids as needed for the Entertainers section
     }
 }
@@ -389,10 +389,8 @@ fun CategoryCard(title: String, description: String, imageUrl: String) {
     Column(
         modifier = Modifier
             .width(350.dp)
-            .clip(RoundedCornerShape(8.dp))
             .background(Color.White)
             .padding(8.dp)
-            .shadow(1.dp)
     ) {
         Image(
             painter = painterResource(Res.drawable.compose_multiplatform),
@@ -401,7 +399,7 @@ fun CategoryCard(title: String, description: String, imageUrl: String) {
             modifier = Modifier
                 .height(350.dp)
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(8.dp))
+
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
