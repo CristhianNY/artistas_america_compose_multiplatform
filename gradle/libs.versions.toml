@@ -17,6 +17,7 @@ ktor = "2.3.12"
 logback = "1.5.6"
 coil3 = "3.0.0-alpha06"
 ktor_wasm2 = "3.0.0-wasm2"
+multiplatformSettings = "1.1.1"
 
 
 [libraries]
@@ -30,6 +31,13 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 androidx-material = { group = "com.google.android.material", name = "material", version.ref = "androidx-material" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-server-auth = { module = "io.ktor:ktor-server-auth", version.ref = "ktor" }
+ktor-server-auth-jwt = { module = "io.ktor:ktor-server-auth-jwt", version.ref = "ktor" }
+ktor-server-content-negotiation-jvm = { module = "io.ktor:ktor-server-content-negotiation-jvm", version.ref = "ktor" }
+
+ktor-server-html-builder = { module = "io.ktor:ktor-server-html-builder", version.ref = "ktor" }
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "ktor" }
@@ -42,6 +50,7 @@ coil-mp = { module = "io.coil-kt.coil3:coil", version.ref = "coil3" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor_wasm2" }
 ktor-client-okhttp = {group ="io.ktor", name = "ktor-client-okhttp", version.ref ="ktor_wasm2"}
 ktor-client-darwin = {group ="io.ktor", name = "ktor-client-ios", version.ref ="ktor_wasm2"}
+multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
