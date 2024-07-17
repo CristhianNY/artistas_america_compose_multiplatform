@@ -64,10 +64,12 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -246,12 +248,19 @@ fun SearchTextField() {
         Icon(
             imageVector = Icons.Default.Search,
             contentDescription = "Search Icon",
-            modifier = Modifier.padding(end = 8.dp) // Margen entre el icono y el campo de texto
+            modifier = Modifier.padding(end = 8.dp)
         )
         BasicTextField(
             value = searchQuery,
             onValueChange = { searchQuery = it },
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .padding(vertical = 4.dp),
+            textStyle = TextStyle(
+                color = Color.Black,
+                fontSize = 16.sp,
+                textAlign = TextAlign.Start
+            ),
             decorationBox = { innerTextField ->
                 if (searchQuery.isEmpty()) {
                     Text(
@@ -274,6 +283,7 @@ fun SearchTextField() {
         }
     }
 }
+
 
 @Composable
 fun CategoriesSection() {
@@ -639,8 +649,6 @@ fun LoginDialog(onDismiss: () -> Unit) {
                         )
                     )
 
-                    Spacer(modifier = Modifier.height(16.dp))
-
                     Button(
                         onClick = { /* Handle password reset */ },
                         modifier = Modifier.fillMaxWidth(),
@@ -649,8 +657,6 @@ fun LoginDialog(onDismiss: () -> Unit) {
                         Text("Reset Password", color = Color.White)
                     }
                 }
-
-                Spacer(modifier = Modifier.height(8.dp))
 
                 TextButton(onClick = { /* Handle trouble logging in */ }) {
                     Text("Trouble logging in?", color = MaterialTheme.colors.primary)
