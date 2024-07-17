@@ -8,9 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.common.ImageCarousel
-import com.example.common.MainTextContent
-import com.example.common.SearchTextField
 
 @Composable
 actual fun PlatformSpecificMainContent() {

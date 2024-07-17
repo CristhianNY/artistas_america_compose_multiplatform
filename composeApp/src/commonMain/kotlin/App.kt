@@ -1,7 +1,5 @@
 // commonMain/src/commonMain/kotlin/com/example/common/SharedComposables.kt
-package com.example.common
 
-import PlatformSpecificMainContent
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -23,6 +21,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
@@ -33,33 +33,49 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import artistas.composeapp.generated.resources.Res
 import artistas.composeapp.generated.resources.compose_multiplatform
 import coil3.compose.AsyncImage
+import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -67,17 +83,28 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Preview
 fun App() {
     MaterialTheme {
+
+        var showLoginDialog by remember { mutableStateOf(false) }
+
         Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState())) {
-            TopNavigationBar()
+            TopNavigationBar { showLoginDialog = true }
             PlatformSpecificMainContent()
             Spacer(modifier = Modifier.height(40.dp))
             CategoriesSection()
+            Spacer(modifier = Modifier.height(10.dp))
+            HowWorksSection()
+            CenteredButton()
+            Spacer(modifier = Modifier.height(10.dp))
+        }
+
+        if (showLoginDialog) {
+            LoginDialog(onDismiss = { showLoginDialog = false })
         }
     }
 }
 
 @Composable
-fun TopNavigationBar() {
+fun TopNavigationBar(onLoginClick: () -> Unit) {
     TopAppBar(
         backgroundColor = Color.White,
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
@@ -112,7 +139,7 @@ fun TopNavigationBar() {
                     modifier = Modifier.size(24.dp)
                 )
                 Spacer(modifier = Modifier.width(16.dp))
-                TextButton(onClick = { /**TODO handle log in Click**/ }) {
+                TextButton(onClick = onLoginClick) {
                     Text(
                         text = "Log In",
                         color = Color.Black,
@@ -120,7 +147,7 @@ fun TopNavigationBar() {
                     )
                 }
                 Spacer(modifier = Modifier.width(16.dp))
-                Button(onClick = { /**TODO Handle List Your Service*/ }) {
+                Button(onClick = { /* TODO Handle List Your Service */ }) {
                     Text(
                         text = "List your Services",
                         color = Color.White,
@@ -136,7 +163,17 @@ fun TopNavigationBar() {
 @Composable
 fun ImageCarousel(modifier: Modifier = Modifier) {
     val pageCount = 5
-    val pagerState = rememberPagerState { pageCount }
+    val pagerState = rememberPagerState(initialPage = 0) { pageCount }
+    val coroutineScope = rememberCoroutineScope()
+
+    // LaunchedEffect para cambiar la página automáticamente
+    LaunchedEffect(pagerState) {
+        while (true) {
+            delay(3000) // Tiempo de espera en milisegundos (3 segundos)
+            val nextPage = (pagerState.currentPage + 1) % pageCount
+            pagerState.animateScrollToPage(nextPage)
+        }
+    }
 
     HorizontalPager(
         state = pagerState,
@@ -227,7 +264,7 @@ fun SearchTextField() {
             }
         )
         Button(
-            onClick = { /** TODO: handle search Click */ },
+            onClick = { /* TODO: handle search Click */ },
             colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF007BFF))
         ) {
             Text(
@@ -491,6 +528,136 @@ fun CategoryCard(title: String, description: String, imageUrl: String) {
     }
 }
 
+@Composable
+fun CenteredButton() {
+    Box(
+        modifier = Modifier.fillMaxWidth(),
+        contentAlignment = Alignment.Center
+    ) {
+        Button(
+            onClick = { /* TODO: Handle button click */ },
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF007BFF))
+        ) {
+            Text(
+                text = "Get Started",
+                color = Color.White,
+                fontSize = 16.sp
+            )
+        }
+    }
+}
 
+@Composable
+fun LoginDialog(onDismiss: () -> Unit) {
+    Dialog(
+        onDismissRequest = onDismiss,
+        properties = DialogProperties(dismissOnClickOutside = true)
+    ) {
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .widthIn(min = 200.dp, max = 280.dp)
+                .shadow(16.dp, shape = RoundedCornerShape(16.dp)),
+            shape = RoundedCornerShape(16.dp),
+            color = MaterialTheme.colors.surface,
+            elevation = 8.dp
+        ) {
+            Column(
+                modifier = Modifier
+                    .padding(24.dp)
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Hello again.",
+                    style = MaterialTheme.typography.h6,
+                    color = MaterialTheme.colors.primary
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                var email by remember { mutableStateOf("") }
+                var password by remember { mutableStateOf("") }
+                var forgotPasswordEmail by remember { mutableStateOf("") }
+                var passwordVisible by remember { mutableStateOf(false) }
+                var showForgotPasswordField by remember { mutableStateOf(false) }
+
+                OutlinedTextField(
+                    value = email,
+                    onValueChange = { email = it },
+                    label = { Text("Email") },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = MaterialTheme.colors.primary,
+                        unfocusedBorderColor = MaterialTheme.colors.onSurface.copy(alpha = 0.5f)
+                    )
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                OutlinedTextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    label = { Text("Password") },
+                    modifier = Modifier.fillMaxWidth(),
+                    visualTransformation = PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = MaterialTheme.colors.primary,
+                        unfocusedBorderColor = MaterialTheme.colors.onSurface.copy(alpha = 0.5f)
+                    )
+                )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                Button(
+                    onClick = { /* Handle login */ },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
+                ) {
+                    Text("Log In", color = Color.White)
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                TextButton(onClick = { showForgotPasswordField = !showForgotPasswordField }) {
+                    Text("Forgot your password?", color = MaterialTheme.colors.primary)
+                }
+
+                if (showForgotPasswordField) {
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    OutlinedTextField(
+                        value = forgotPasswordEmail,
+                        onValueChange = { forgotPasswordEmail = it },
+                        label = { Text("Type your email address below to reset your password") },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = MaterialTheme.colors.primary,
+                            unfocusedBorderColor = MaterialTheme.colors.onSurface.copy(alpha = 0.5f)
+                        )
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Button(
+                        onClick = { /* Handle password reset */ },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
+                    ) {
+                        Text("Reset Password", color = Color.White)
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                TextButton(onClick = { /* Handle trouble logging in */ }) {
+                    Text("Trouble logging in?", color = MaterialTheme.colors.primary)
+                }
+            }
+        }
+    }
+}
 
 data class Category(val title: String, val description: String, val imageUrl: String)
