@@ -9,8 +9,11 @@ import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.routing.post
 import io.ktor.server.routing.routing
+import org.artistasamerica.artistas.bff.UserModel
 import org.artistasamerica.artistas.data.db.DatabaseConnection
 import org.artistasamerica.artistas.data.user.UserEntity
+import org.artistasamerica.artistas.domain.error.ErrorMapper
+import org.artistasamerica.artistas.domain.user.UserCredentials
 import org.artistasamerica.artistas.domain.user.UserRequest
 import org.artistasamerica.artistas.domain.user.UserResponse
 import org.artistasamerica.artistas.util.TokenManager
@@ -20,6 +23,7 @@ import org.ktorm.dsl.insert
 import org.ktorm.dsl.map
 import org.ktorm.dsl.select
 import org.ktorm.dsl.where
+import org.mindrot.jbcrypt.BCrypt
 
 const val SUCCESS_INSERT = 1
 fun Application.userModule() {
@@ -54,6 +58,8 @@ fun Application.userModule() {
                 set(it.lastName, request.lastName)
                 set(it.email, request.email)
                 set(it.password, password)
+                set(it.userStatus, 1)
+                set(it.userType, 1)
             }
 
             if (result == SUCCESS_INSERT) {
@@ -68,6 +74,43 @@ fun Application.userModule() {
                     UserResponse(success = true, data = "Error Inserting")
                 )
             }
+        }
+
+        post("/login") {
+            val userCredential = call.receive<UserCredentials>()
+
+            val email = userCredential.email.toString()
+            val password = userCredential.password
+
+            val user = db.from(UserEntity).select().where {
+                UserEntity.email eq email
+            }.map {
+                val id = it[UserEntity.id]
+                val userEmail = it[UserEntity.email]!!
+                val userPassword = it[UserEntity.password]!!
+                val idToken = it[UserEntity.idToken].orEmpty()
+                UserModel(id, userEmail, userPassword, idToken)
+            }.firstOrNull()
+
+            if (user == null) {
+                val error = ErrorMapper.INVALID_EMAIL_OR_PASSWORD
+                call.respond(HttpStatusCode.BadRequest, UserResponse(success = false, data = error))
+                return@post
+            }
+
+            val doesPasswordMatch = BCrypt.checkpw(password, user.password)
+
+            if (!doesPasswordMatch) {
+                val error = ErrorMapper.INVALID_EMAIL_OR_PASSWORD
+                call.respond(
+                    HttpStatusCode.Unauthorized,
+                    UserResponse(success = false, data = error)
+                )
+                return@post
+            }
+
+            val token = tokenManager.generateJWTToken(user)
+            call.respond(HttpStatusCode.OK, UserResponse(success = true, data = token))
         }
     }
 }
