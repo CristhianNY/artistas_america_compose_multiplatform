@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.kotlinJvm)
     alias(libs.plugins.ktor)
     application
+    kotlin("plugin.serialization") version "2.0.0"
 }
 
 group = "org.artistasamerica.artistas"
@@ -22,5 +23,9 @@ dependencies {
     implementation(libs.ktor.server.auth.jwt)
     implementation(libs.ktor.server.content.negotiation.jvm)
     implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.ktor.client.json)
     implementation(libs.ktor.server.html.builder)
+    implementation(libs.ktorm.core)
+    implementation(libs.jbcrypt)
+    implementation(libs.mysql.connector.java)
 }

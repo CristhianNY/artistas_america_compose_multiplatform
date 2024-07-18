@@ -11,16 +11,20 @@ androidx-espresso-core = "3.6.0"
 androidx-material = "1.12.0"
 androidx-test-junit = "1.2.0"
 compose-plugin = "1.6.11"
+jbcrypt = "0.3m"
 junit = "4.13.2"
 kotlin = "2.0.0"
 ktor = "2.3.12"
+ktormCore = "3.5.0"
 logback = "1.5.6"
 coil3 = "3.0.0-alpha06"
 ktor_wasm2 = "3.0.0-wasm2"
 multiplatformSettings = "1.1.1"
+mysqlConnectorJava = "8.0.33"
 
 
 [libraries]
+jbcrypt = { module = "org.mindrot:jbcrypt", version.ref = "jbcrypt" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -32,12 +36,14 @@ androidx-material = { group = "com.google.android.material", name = "material", 
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 
+ktor-client-json = { module = "io.ktor:ktor-client-json", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-server-auth = { module = "io.ktor:ktor-server-auth", version.ref = "ktor" }
 ktor-server-auth-jwt = { module = "io.ktor:ktor-server-auth-jwt", version.ref = "ktor" }
 ktor-server-content-negotiation-jvm = { module = "io.ktor:ktor-server-content-negotiation-jvm", version.ref = "ktor" }
 
 ktor-server-html-builder = { module = "io.ktor:ktor-server-html-builder", version.ref = "ktor" }
+ktorm-core = { module = "org.ktorm:ktorm-core", version.ref = "ktormCore" }
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "ktor" }
@@ -51,6 +57,7 @@ ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref =
 ktor-client-okhttp = {group ="io.ktor", name = "ktor-client-okhttp", version.ref ="ktor_wasm2"}
 ktor-client-darwin = {group ="io.ktor", name = "ktor-client-ios", version.ref ="ktor_wasm2"}
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
+mysql-connector-java = { module = "mysql:mysql-connector-java", version.ref = "mysqlConnectorJava" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
