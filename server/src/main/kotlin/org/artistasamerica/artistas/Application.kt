@@ -15,9 +15,10 @@ import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import org.artistasamerica.artistas.plugins.configureRouting
 import org.artistasamerica.artistas.plugins.userModule
 import org.artistasamerica.artistas.util.TokenManager
+import io.ktor.server.cio.*
 
 fun main() {
-    embeddedServer(Netty, port = SERVER_PORT, host = "0.0.0.0") {
+    embeddedServer(CIO, port = System.getenv("PORT").toInt(), host = "0.0.0.0") {
         val config = HoconApplicationConfig(ConfigFactory.load())
         val tokenManager = TokenManager(config)
         install(Authentication) {
