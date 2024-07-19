@@ -73,13 +73,18 @@ kotlin {
             implementation(libs.multiplatform.settings)
             implementation(libs.lifecycle.viewmodel.compose)
             implementation(libs.ktor.serialization.kotlinx.json)
-            api(libs.koin.core)
+            implementation(libs.ktor.client.content.negotiation)
+            api(libs.koin.core.v333)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
         }
 
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
+        }
+        wasmJsMain.dependencies {
+            implementation(libs.koin.core.v333)
+            implementation(libs.ktor.serialization.kotlinx.json.web)
         }
     }
 }

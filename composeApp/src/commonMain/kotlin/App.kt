@@ -37,8 +37,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
@@ -47,11 +47,10 @@ import androidx.compose.material.TextButton
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -68,7 +67,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -76,15 +74,20 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import artistas.composeapp.generated.resources.Res
 import artistas.composeapp.generated.resources.compose_multiplatform
+import auth.presentation.AuthViewModel
+import auth.presentation.LoginState
 import coil3.compose.AsyncImage
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.koinInject
 
 @Composable
 @Preview
 fun App() {
     MaterialTheme {
+
+        val authViewmodel: AuthViewModel = koinInject<AuthViewModel>()
 
         var showLoginDialog by remember { mutableStateOf(false) }
 
@@ -100,7 +103,7 @@ fun App() {
         }
 
         if (showLoginDialog) {
-            LoginDialog(onDismiss = { showLoginDialog = false })
+            LoginDialog(onDismiss = { showLoginDialog = false }, authViewmodel)
         }
     }
 }
@@ -558,7 +561,9 @@ fun CenteredButton() {
 }
 
 @Composable
-fun LoginDialog(onDismiss: () -> Unit) {
+fun LoginDialog(onDismiss: () -> Unit, viewModel: AuthViewModel) {
+    val uiState by viewModel.uiState.collectAsState()
+
     Dialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(dismissOnClickOutside = true)
@@ -590,7 +595,6 @@ fun LoginDialog(onDismiss: () -> Unit) {
                 var email by remember { mutableStateOf("") }
                 var password by remember { mutableStateOf("") }
                 var forgotPasswordEmail by remember { mutableStateOf("") }
-                var passwordVisible by remember { mutableStateOf(false) }
                 var showForgotPasswordField by remember { mutableStateOf(false) }
 
                 OutlinedTextField(
@@ -621,12 +625,18 @@ fun LoginDialog(onDismiss: () -> Unit) {
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                Button(
-                    onClick = { /* Handle login */ },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
-                ) {
-                    Text("Log In", color = Color.White)
+                if (uiState is LoginState.Loading) {
+                    CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+                } else {
+                    Button(
+                        onClick = {
+                            viewModel.login(email, password)
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
+                    ) {
+                        Text("Log In", color = Color.White)
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))

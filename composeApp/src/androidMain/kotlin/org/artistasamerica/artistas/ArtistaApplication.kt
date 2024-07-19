@@ -1,3 +1,5 @@
+package org.artistasamerica.artistas
+
 import android.app.Application
 import di.sharedModule
 import org.koin.android.ext.koin.androidContext
