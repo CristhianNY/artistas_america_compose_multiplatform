@@ -1,4 +1,8 @@
 package auth.data.data_source
 
-class AuthDataSource {
+import auth.data.entity.LoginEntity
+import support.Result
+
+interface AuthDataSource {
+    suspend fun login(): Result<LoginEntity>
 }
