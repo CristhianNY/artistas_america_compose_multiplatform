@@ -6,11 +6,11 @@ import org.koin.core.context.startKoin
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
-    ComposeViewport(document.body!!) {
-        App()
-    }
-
     startKoin {
         modules(sharedModule)
+    }
+
+    ComposeViewport(document.body!!) {
+        App()
     }
 }
