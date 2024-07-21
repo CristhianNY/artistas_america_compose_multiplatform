@@ -10,7 +10,7 @@ import io.ktor.http.contentType
 
 class LoginApiImpl(private val httpClient: HttpClient) : LoginApi {
     override suspend fun login(loginEntity: LoginRequestEntity): HttpResponse {
-        return httpClient.post("http://0.0.0.0:8081/login") {
+        return httpClient.post("https://b46a-198-154-183-1.ngrok-free.app/login") {
             contentType(ContentType.Application.Json)
             setBody(loginEntity)
         }
