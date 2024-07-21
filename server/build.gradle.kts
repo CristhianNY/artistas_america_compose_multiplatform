@@ -33,4 +33,5 @@ dependencies {
     implementation(libs.jbcrypt)
     implementation(libs.mysql.connector.java)
     implementation(libs.ktor.server.cio)
+    implementation("io.ktor:ktor-server-cors:2.3.12")
 }

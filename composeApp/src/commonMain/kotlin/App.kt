@@ -1,5 +1,3 @@
-// commonMain/src/commonMain/kotlin/com/example/common/SharedComposables.kt
-
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -9,67 +7,41 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PageSize
-import androidx.compose.foundation.pager.PagerDefaults
-import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.pager.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
-import androidx.compose.material.TextFieldDefaults
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.*
+import androidx.compose.ui.*
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.*
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import artistas.composeapp.generated.resources.Res
@@ -91,7 +63,11 @@ fun App() {
 
         var showLoginDialog by remember { mutableStateOf(false) }
 
-        Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState())) {
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
+        ) {
             TopNavigationBar { showLoginDialog = true }
             PlatformSpecificMainContent()
             Spacer(modifier = Modifier.height(40.dp))
@@ -152,7 +128,9 @@ fun TopNavigationBar(onLoginClick: () -> Unit) {
                     )
                 }
                 Spacer(modifier = Modifier.width(16.dp))
-                Button(onClick = { /* TODO Handle List Your Service */ }) {
+                Button(
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF007BFF)),
+                    onClick = { /* TODO Handle List Your Service */ }) {
                     Text(
                         text = "List your Services",
                         color = Color.White,
@@ -212,77 +190,147 @@ fun ImageCarousel(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun MainTextContent(modifier: Modifier = Modifier, fontSize: Int = 36) {
-    Column(modifier = modifier.horizontalScroll(rememberScrollState())) {
-        Text(
-            text = "Book something awesome",
-            fontSize = fontSize.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color(0xFF007BFF)
-        )
+fun MainTextContent(modifier: Modifier = Modifier) {
+    BoxWithConstraints(modifier = modifier) {
+        val fontSize = if (maxWidth < 600.dp) 24.sp else 36.sp
+        Column(modifier = Modifier.horizontalScroll(rememberScrollState())) {
+            Text(
+                text = "Book something awesome",
+                fontSize = fontSize,
+                fontWeight = FontWeight.Bold,
+                color = Color(0xFF007BFF)
+            )
 
-        Text(
-            text = "for your next event",
-            fontSize = fontSize.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = "From birthday parties to weddings, we'll help you book the best talent for any occasion",
-            fontSize = 16.sp,
-            color = Color.Gray,
-            modifier = Modifier.padding(end = 16.dp)
-        )
+            Text(
+                text = "for your next event",
+                fontSize = fontSize,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "From birthday parties to weddings, we'll help you book the best talent for any occasion",
+                fontSize = 16.sp,
+                color = Color.Gray,
+                modifier = Modifier.padding(end = 16.dp)
+            )
+        }
     }
 }
 
 @Composable
 fun SearchTextField() {
-    var searchQuery by remember { mutableStateOf("") }
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-            .background(Color.LightGray.copy(alpha = 0.3f))
-            .padding(16.dp)
-    ) {
-        Icon(
-            imageVector = Icons.Default.Search,
-            contentDescription = "Search Icon",
-            modifier = Modifier.padding(end = 8.dp)
-        )
-        BasicTextField(
-            value = searchQuery,
-            onValueChange = { searchQuery = it },
-            modifier = Modifier
-                .weight(1f)
-                .padding(vertical = 4.dp),
-            textStyle = TextStyle(
-                color = Color.Black,
-                fontSize = 16.sp,
-                textAlign = TextAlign.Start
-            ),
-            decorationBox = { innerTextField ->
-                if (searchQuery.isEmpty()) {
-                    Text(
-                        text = "What kind of talent or service can we help you find?",
-                        color = Color.Gray,
-                        fontSize = 12.sp
+    BoxWithConstraints {
+        val isSmallScreen = maxWidth < 600.dp
+        val padding = if (isSmallScreen) 8.dp else 16.dp
+        var searchQuery by remember { mutableStateOf("") }
+
+        if (!isSmallScreen) {
+            // Layout for mobile devices
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(padding)
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color.White)
+                        .padding(horizontal = padding, vertical = 4.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "Search Icon",
+                        modifier = Modifier.padding(end = 8.dp)
+                    )
+                    BasicTextField(
+                        value = searchQuery,
+                        onValueChange = { searchQuery = it },
+                        modifier = Modifier.weight(1f),
+                        textStyle = TextStyle(
+                            color = Color.Black,
+                            fontSize = 14.sp,
+                            textAlign = TextAlign.Start
+                        ),
+                        decorationBox = { innerTextField ->
+                            if (searchQuery.isEmpty()) {
+                                Text(
+                                    text = "What kind of talent or service can we help you find?",
+                                    color = Color.Gray,
+                                    fontSize = 12.sp,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            }
+                            innerTextField()
+                        }
                     )
                 }
-                innerTextField()
+                Button(
+                    onClick = { /* TODO: handle search click */ },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF007BFF)),
+                    shape = RoundedCornerShape(8.dp)
+                ) {
+                    Text(
+                        "Search",
+                        color = Color.White,
+                        fontSize = 14.sp
+                    )
+                }
             }
-        )
-        Button(
-            onClick = { /* TODO: handle search Click */ },
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF007BFF))
-        ) {
-            Text(
-                "Search",
-                color = Color.White
-            )
+        } else {
+            // Layout for web
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.White)
+                    .padding(horizontal = padding, vertical = 8.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = "Search Icon",
+                    modifier = Modifier.padding(end = 8.dp)
+                )
+                BasicTextField(
+                    value = searchQuery,
+                    onValueChange = { searchQuery = it },
+                    modifier = Modifier.weight(1f),
+                    textStyle = TextStyle(
+                        color = Color.Black,
+                        fontSize = 16.sp,
+                        textAlign = TextAlign.Start
+                    ),
+                    decorationBox = { innerTextField ->
+                        if (searchQuery.isEmpty()) {
+                            Text(
+                                text = "What kind of talent or service can we help you find?",
+                                color = Color.Gray,
+                                fontSize = 14.sp,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
+                        innerTextField()
+                    }
+                )
+                Button(
+                    onClick = { /* TODO: handle search click */ },
+                    modifier = Modifier.padding(start = 8.dp),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF007BFF)),
+                    shape = RoundedCornerShape(8.dp)
+                ) {
+                    Text(
+                        "Search",
+                        color = Color.White,
+                        fontSize = 16.sp
+                    )
+                }
+            }
         }
     }
 }
@@ -290,43 +338,45 @@ fun SearchTextField() {
 
 @Composable
 fun CategoriesSection() {
-    Column(modifier = Modifier.fillMaxWidth().background(Color(0xFFF6F9FA))) {
-        Text(
-            text = "Whatever you're planning, make it extraordinary.",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.align(Alignment.CenterHorizontally).padding(16.dp)
-        )
-        Spacer(modifier = Modifier.height(40.dp))
-        Text(
-            text = "Musical Acts",
-            fontSize = 18.sp,
-            fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
-        Spacer(modifier = Modifier.height(35.dp))
-        MusicalActs()
-        Spacer(modifier = Modifier.height(50.dp))
-        Text(
-            text = "Entertainers",
-            fontSize = 18.sp,
-            fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
-        Spacer(modifier = Modifier.height(35.dp))
-        EntertainersCategories()
+    BoxWithConstraints {
+        Column(modifier = Modifier.fillMaxWidth().background(Color(0xFFF6F9FA))) {
+            Text(
+                text = "Whatever you're planning, make it extraordinary.",
+                fontSize = if (this@BoxWithConstraints.maxWidth < 600.dp) 18.sp else 24.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.align(Alignment.CenterHorizontally).padding(16.dp)
+            )
+            Spacer(modifier = Modifier.height(40.dp))
+            Text(
+                text = "Musical Acts",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+            Spacer(modifier = Modifier.height(35.dp))
+            MusicalActs()
+            Spacer(modifier = Modifier.height(50.dp))
+            Text(
+                text = "Entertainers",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+            Spacer(modifier = Modifier.height(35.dp))
+            EntertainersCategories()
 
-        Spacer(modifier = Modifier.height(50.dp))
-        Text(
-            text = "Event Services",
-            fontSize = 18.sp,
-            fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
-        Spacer(modifier = Modifier.height(35.dp))
-        EventsServices()
-        Spacer(modifier = Modifier.height(50.dp))
-        // Add more LazyRow or grids as needed for the Entertainers section
+            Spacer(modifier = Modifier.height(50.dp))
+            Text(
+                text = "Event Services",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+            Spacer(modifier = Modifier.height(35.dp))
+            EventsServices()
+            Spacer(modifier = Modifier.height(50.dp))
+            // Add more LazyRow or grids as needed for the Entertainers section
+        }
     }
 }
 
@@ -472,8 +522,8 @@ fun CategoryCard(title: String, description: String, imageUrl: String) {
 
     Box(
         modifier = Modifier
-            .width(350.dp)
-            .height(400.dp)
+            .widthIn(max = 350.dp)
+            .heightIn(max = 400.dp)
             .padding(8.dp)
             .clickable { flipped = !flipped }
             .graphicsLayer {
@@ -560,9 +610,14 @@ fun CenteredButton() {
     }
 }
 
+
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LoginDialog(onDismiss: () -> Unit, viewModel: AuthViewModel) {
     val uiState by viewModel.uiState.collectAsState()
+
+    // Crea los FocusRequester
+    val (emailFocusRequester, passwordFocusRequester) = FocusRequester.createRefs()
 
     Dialog(
         onDismissRequest = onDismiss,
@@ -601,10 +656,26 @@ fun LoginDialog(onDismiss: () -> Unit, viewModel: AuthViewModel) {
                     value = email,
                     onValueChange = { email = it },
                     label = { Text("Email") },
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .focusRequester(emailFocusRequester)
+                        .onKeyEvent {
+                            if (it.key == Key.Tab) {
+                                passwordFocusRequester.requestFocus()
+                                true
+                            } else {
+                                false
+                            }
+                        },
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = MaterialTheme.colors.primary,
                         unfocusedBorderColor = MaterialTheme.colors.onSurface.copy(alpha = 0.5f)
+                    ),
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        imeAction = ImeAction.Next
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onNext = { passwordFocusRequester.requestFocus() }
                     )
                 )
 
@@ -614,9 +685,19 @@ fun LoginDialog(onDismiss: () -> Unit, viewModel: AuthViewModel) {
                     value = password,
                     onValueChange = { password = it },
                     label = { Text("Password") },
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .focusRequester(passwordFocusRequester),
                     visualTransformation = PasswordVisualTransformation(),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Password,
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            viewModel.login(email.trim(), password.trim())
+                        }
+                    ),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = MaterialTheme.colors.primary,
                         unfocusedBorderColor = MaterialTheme.colors.onSurface.copy(alpha = 0.5f)
@@ -630,10 +711,10 @@ fun LoginDialog(onDismiss: () -> Unit, viewModel: AuthViewModel) {
                 } else {
                     Button(
                         onClick = {
-                            viewModel.login(email, password)
+                            viewModel.login(email.trim(), password.trim())
                         },
                         modifier = Modifier.fillMaxWidth(),
-                        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
+                        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF007BFF))
                     ) {
                         Text("Log In", color = Color.White)
                     }
@@ -642,7 +723,7 @@ fun LoginDialog(onDismiss: () -> Unit, viewModel: AuthViewModel) {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 TextButton(onClick = { showForgotPasswordField = !showForgotPasswordField }) {
-                    Text("Forgot your password?", color = MaterialTheme.colors.primary)
+                    Text("Forgot your password?", color = Color(0xFF007BFF))
                 }
 
                 if (showForgotPasswordField) {
@@ -662,14 +743,14 @@ fun LoginDialog(onDismiss: () -> Unit, viewModel: AuthViewModel) {
                     Button(
                         onClick = { /* Handle password reset */ },
                         modifier = Modifier.fillMaxWidth(),
-                        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
+                        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF007BFF))
                     ) {
                         Text("Reset Password", color = Color.White)
                     }
                 }
 
                 TextButton(onClick = { /* Handle trouble logging in */ }) {
-                    Text("Trouble logging in?", color = MaterialTheme.colors.primary)
+                    Text("Trouble logging in?", color = Color(0xFF007BFF))
                 }
             }
         }
