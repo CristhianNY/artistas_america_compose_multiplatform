@@ -13,6 +13,7 @@ androidx-test-junit = "1.2.0"
 compose-plugin = "1.6.11"
 jbcrypt = "0.3m"
 junit = "4.13.2"
+kermit = "2.0.4"
 koinCore = "3.3.3"
 kotlin = "2.0.0"
 ktor = "2.3.12"
@@ -31,6 +32,7 @@ koinComposeMultiplatform = "1.2.0-Beta4"
 [libraries]
 
 jbcrypt = { module = "org.mindrot:jbcrypt", version.ref = "jbcrypt" }
+kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 koin-core-v333 = { module = "io.insert-koin:koin-core", version.ref = "koinCore" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
@@ -71,6 +73,7 @@ ktor-client-okhttp = {group ="io.ktor", name = "ktor-client-okhttp", version.ref
 ktor-client-darwin = {group ="io.ktor", name = "ktor-client-ios", version.ref ="ktor_wasm2"}
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor_wasm2" }
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
+multiplatform-settings-no-arg = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatformSettings" }
 mysql-connector-java = { module = "mysql:mysql-connector-java", version.ref = "mysqlConnectorJava" }
 
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }

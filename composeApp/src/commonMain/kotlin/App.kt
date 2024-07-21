@@ -59,8 +59,8 @@ import org.koin.compose.koinInject
 fun App() {
     MaterialTheme {
 
-        val authViewmodel: AuthViewModel = koinInject<AuthViewModel>()
-
+        val authViewModel: AuthViewModel = koinInject<AuthViewModel>()
+        val isLoggedIn by authViewModel.isLoggedIn.collectAsState()
         var showLoginDialog by remember { mutableStateOf(false) }
 
         Column(
@@ -68,7 +68,7 @@ fun App() {
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
         ) {
-            TopNavigationBar { showLoginDialog = true }
+            TopNavigationBar(isLoggedIn, { showLoginDialog = true }, { authViewModel.logout() })
             PlatformSpecificMainContent()
             Spacer(modifier = Modifier.height(40.dp))
             CategoriesSection()
@@ -79,13 +79,13 @@ fun App() {
         }
 
         if (showLoginDialog) {
-            LoginDialog(onDismiss = { showLoginDialog = false }, authViewmodel)
+            LoginDialog(onDismiss = { showLoginDialog = false }, authViewModel)
         }
     }
 }
 
 @Composable
-fun TopNavigationBar(onLoginClick: () -> Unit) {
+fun TopNavigationBar(isLoggedIn: Boolean, onLoginClick: () -> Unit, onLogoutClick: () -> Unit) {
     TopAppBar(
         backgroundColor = Color.White,
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
@@ -120,12 +120,22 @@ fun TopNavigationBar(onLoginClick: () -> Unit) {
                     modifier = Modifier.size(24.dp)
                 )
                 Spacer(modifier = Modifier.width(16.dp))
-                TextButton(onClick = onLoginClick) {
-                    Text(
-                        text = "Log In",
-                        color = Color.Black,
-                        fontSize = 16.sp
-                    )
+                if (!isLoggedIn) {
+                    TextButton(onClick = onLoginClick) {
+                        Text(
+                            text = "Log In",
+                            color = Color.Black,
+                            fontSize = 16.sp
+                        )
+                    }
+                } else {
+                    TextButton(onClick = onLogoutClick) {
+                        Text(
+                            text = "Log Out",
+                            color = Color.Black,
+                            fontSize = 16.sp
+                        )
+                    }
                 }
                 Spacer(modifier = Modifier.width(16.dp))
                 Button(
@@ -334,7 +344,6 @@ fun SearchTextField() {
         }
     }
 }
-
 
 @Composable
 fun CategoriesSection() {
@@ -610,7 +619,6 @@ fun CenteredButton() {
     }
 }
 
-
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LoginDialog(onDismiss: () -> Unit, viewModel: AuthViewModel) {
@@ -708,6 +716,10 @@ fun LoginDialog(onDismiss: () -> Unit, viewModel: AuthViewModel) {
 
                 if (uiState is LoginState.Loading) {
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+                } else if (uiState is LoginState.Success) {
+                    LaunchedEffect(Unit) {
+                        onDismiss() // Cierra el diálogo si el login es exitoso
+                    }
                 } else {
                     Button(
                         onClick = {
@@ -756,5 +768,6 @@ fun LoginDialog(onDismiss: () -> Unit, viewModel: AuthViewModel) {
         }
     }
 }
+
 
 data class Category(val title: String, val description: String, val imageUrl: String)
