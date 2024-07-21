@@ -47,6 +47,7 @@ import androidx.compose.ui.window.DialogProperties
 import artistas.composeapp.generated.resources.Res
 import artistas.composeapp.generated.resources.compose_multiplatform
 import auth.presentation.AuthViewModel
+import auth.presentation.LoginDialog
 import auth.presentation.LoginState
 import coil3.compose.AsyncImage
 import kotlinx.coroutines.delay
@@ -90,62 +91,66 @@ fun TopNavigationBar(isLoggedIn: Boolean, onLoginClick: () -> Unit, onLogoutClic
         backgroundColor = Color.White,
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
     ) {
-        Row(
-            Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Image(
-                    painterResource(Res.drawable.compose_multiplatform), null,
-                    modifier = Modifier.size(40.dp).clip(CircleShape)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "Menu",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
-                )
-                Icon(
-                    painter = painterResource(Res.drawable.compose_multiplatform),
-                    contentDescription = "Arrow Down",
-                    modifier = Modifier.size(16.dp)
-                )
-                Spacer(modifier = Modifier.width(16.dp))
-            }
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    painter = painterResource(Res.drawable.compose_multiplatform),
-                    contentDescription = "Favorite",
-                    modifier = Modifier.size(24.dp)
-                )
-                Spacer(modifier = Modifier.width(16.dp))
-                if (!isLoggedIn) {
-                    TextButton(onClick = onLoginClick) {
-                        Text(
-                            text = "Log In",
-                            color = Color.Black,
-                            fontSize = 16.sp
-                        )
-                    }
-                } else {
-                    TextButton(onClick = onLogoutClick) {
-                        Text(
-                            text = "Log Out",
-                            color = Color.Black,
-                            fontSize = 16.sp
-                        )
-                    }
-                }
-                Spacer(modifier = Modifier.width(16.dp))
-                Button(
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF007BFF)),
-                    onClick = { /* TODO Handle List Your Service */ }) {
-                    Text(
-                        text = "List your Services",
-                        color = Color.White,
-                        fontSize = 16.sp
+        BoxWithConstraints {
+            val isSmallScreen = maxWidth < 600.dp
+
+            Row(
+                Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Image(
+                        painterResource(Res.drawable.compose_multiplatform), null,
+                        modifier = Modifier.size(40.dp).clip(CircleShape)
                     )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "Menu",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Icon(
+                        painter = painterResource(Res.drawable.compose_multiplatform),
+                        contentDescription = "Arrow Down",
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
+                }
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        painter = painterResource(Res.drawable.compose_multiplatform),
+                        contentDescription = "Favorite",
+                        modifier = Modifier.size(24.dp)
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
+                    if (!isLoggedIn) {
+                        TextButton(onClick = onLoginClick) {
+                            Text(
+                                text = "Log In",
+                                color = Color.Black,
+                                fontSize = 16.sp
+                            )
+                        }
+                    } else {
+                        TextButton(onClick = onLogoutClick) {
+                            Text(
+                                text = "Log Out",
+                                color = Color.Black,
+                                fontSize = 16.sp
+                            )
+                        }
+                    }
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Button(
+                        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF007BFF)),
+                        onClick = { /* TODO Handle List Your Service */ }) {
+                        Text(
+                            text = if (isSmallScreen) "Add" else "List your Services",
+                            color = Color.White,
+                            fontSize = 16.sp
+                        )
+                    }
                 }
             }
         }
@@ -615,156 +620,6 @@ fun CenteredButton() {
                 color = Color.White,
                 fontSize = 16.sp
             )
-        }
-    }
-}
-
-@OptIn(ExperimentalComposeUiApi::class)
-@Composable
-fun LoginDialog(onDismiss: () -> Unit, viewModel: AuthViewModel) {
-    val uiState by viewModel.uiState.collectAsState()
-
-    // Crea los FocusRequester
-    val (emailFocusRequester, passwordFocusRequester) = FocusRequester.createRefs()
-
-    Dialog(
-        onDismissRequest = onDismiss,
-        properties = DialogProperties(dismissOnClickOutside = true)
-    ) {
-        Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .widthIn(min = 200.dp, max = 280.dp)
-                .shadow(16.dp, shape = RoundedCornerShape(16.dp)),
-            shape = RoundedCornerShape(16.dp),
-            color = MaterialTheme.colors.surface,
-            elevation = 8.dp
-        ) {
-            Column(
-                modifier = Modifier
-                    .padding(24.dp)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "Hello again.",
-                    style = MaterialTheme.typography.h6,
-                    color = MaterialTheme.colors.primary
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                var email by remember { mutableStateOf("") }
-                var password by remember { mutableStateOf("") }
-                var forgotPasswordEmail by remember { mutableStateOf("") }
-                var showForgotPasswordField by remember { mutableStateOf(false) }
-
-                OutlinedTextField(
-                    value = email,
-                    onValueChange = { email = it },
-                    label = { Text("Email") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .focusRequester(emailFocusRequester)
-                        .onKeyEvent {
-                            if (it.key == Key.Tab) {
-                                passwordFocusRequester.requestFocus()
-                                true
-                            } else {
-                                false
-                            }
-                        },
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = MaterialTheme.colors.primary,
-                        unfocusedBorderColor = MaterialTheme.colors.onSurface.copy(alpha = 0.5f)
-                    ),
-                    keyboardOptions = KeyboardOptions.Default.copy(
-                        imeAction = ImeAction.Next
-                    ),
-                    keyboardActions = KeyboardActions(
-                        onNext = { passwordFocusRequester.requestFocus() }
-                    )
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                OutlinedTextField(
-                    value = password,
-                    onValueChange = { password = it },
-                    label = { Text("Password") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .focusRequester(passwordFocusRequester),
-                    visualTransformation = PasswordVisualTransformation(),
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Password,
-                        imeAction = ImeAction.Done
-                    ),
-                    keyboardActions = KeyboardActions(
-                        onDone = {
-                            viewModel.login(email.trim(), password.trim())
-                        }
-                    ),
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = MaterialTheme.colors.primary,
-                        unfocusedBorderColor = MaterialTheme.colors.onSurface.copy(alpha = 0.5f)
-                    )
-                )
-
-                Spacer(modifier = Modifier.height(24.dp))
-
-                if (uiState is LoginState.Loading) {
-                    CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
-                } else if (uiState is LoginState.Success) {
-                    LaunchedEffect(Unit) {
-                        onDismiss() // Cierra el diálogo si el login es exitoso
-                    }
-                } else {
-                    Button(
-                        onClick = {
-                            viewModel.login(email.trim(), password.trim())
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF007BFF))
-                    ) {
-                        Text("Log In", color = Color.White)
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                TextButton(onClick = { showForgotPasswordField = !showForgotPasswordField }) {
-                    Text("Forgot your password?", color = Color(0xFF007BFF))
-                }
-
-                if (showForgotPasswordField) {
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    OutlinedTextField(
-                        value = forgotPasswordEmail,
-                        onValueChange = { forgotPasswordEmail = it },
-                        label = { Text("Type your email address below to reset your password") },
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
-                            focusedBorderColor = MaterialTheme.colors.primary,
-                            unfocusedBorderColor = MaterialTheme.colors.onSurface.copy(alpha = 0.5f)
-                        )
-                    )
-
-                    Button(
-                        onClick = { /* Handle password reset */ },
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF007BFF))
-                    ) {
-                        Text("Reset Password", color = Color.White)
-                    }
-                }
-
-                TextButton(onClick = { /* Handle trouble logging in */ }) {
-                    Text("Trouble logging in?", color = Color(0xFF007BFF))
-                }
-            }
         }
     }
 }
