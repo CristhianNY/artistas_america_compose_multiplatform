@@ -56,6 +56,8 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
+            implementation("com.russhwolf:multiplatform-settings:1.1.1")
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -71,6 +73,7 @@ kotlin {
             implementation(libs.coil.mp)
             implementation(libs.coil.network.ktor)
             implementation(libs.multiplatform.settings)
+            implementation(libs.multiplatform.settings.no.arg)
             implementation(libs.lifecycle.viewmodel.compose)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.ktor.client.content.negotiation)
@@ -78,7 +81,7 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.ktor.client.logging)
-            api("co.touchlab:kermit:2.0.4")
+            api(libs.kermit)
         }
 
         iosMain.dependencies {
