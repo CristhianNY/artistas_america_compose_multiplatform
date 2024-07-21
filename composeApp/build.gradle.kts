@@ -86,6 +86,7 @@ kotlin {
 
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
+            implementation(libs.ktor.serialization.kotlinx.json.web)
         }
         wasmJsMain.dependencies {
             implementation(libs.koin.core.v333)
