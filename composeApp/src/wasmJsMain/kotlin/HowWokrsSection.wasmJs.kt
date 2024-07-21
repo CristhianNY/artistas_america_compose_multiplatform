@@ -1,15 +1,5 @@
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
@@ -24,54 +14,97 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 
-
 @Composable
 actual fun HowWorksSection() {
-    Row(
+    BoxWithConstraints(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(150.dp)
+            .padding(16.dp)
     ) {
-        Column(
-            modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            Text(
-                text = "How it works.",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.align(Alignment.Start)
-            )
-            HowItWorksStep(
-                imageUrl = "https://picsum.photos/100",
-                title = "Browse and compare.",
-                description = "Compare rates and availability of local entertainers and vendors."
-            )
-            HowItWorksStep(
-                imageUrl = "https://picsum.photos/100",
-                title = "Book securely.",
-                description = "Booking through our platform ensures payment protection, amazing service, and no-hassle refunds with our Worry-Free Guarantee."
-            )
-            HowItWorksStep(
-                imageUrl = "https://picsum.photos/100",
-                title = "Enjoy your event.",
-                description = "Sit back, relax, and watch your party come to life."
-            )
-        }
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxHeight(),
-            contentAlignment = Alignment.Center
-        ) {
-            AsyncImage(
-                model = "https://picsum.photos/600/300",
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(400.dp)
-                    .clip(RoundedCornerShape(8.dp))
-            )
+        val isSmallScreen = maxWidth < 600.dp
+        if (isSmallScreen) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "How it works.",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.align(Alignment.Start)
+                )
+                HowItWorksStep(
+                    imageUrl = "https://picsum.photos/100",
+                    title = "Browse and compare.",
+                    description = "Compare rates and availability of local entertainers and vendors."
+                )
+                HowItWorksStep(
+                    imageUrl = "https://picsum.photos/100",
+                    title = "Book securely.",
+                    description = "Booking through our platform ensures payment protection, amazing service, and no-hassle refunds with our Worry-Free Guarantee."
+                )
+                HowItWorksStep(
+                    imageUrl = "https://picsum.photos/100",
+                    title = "Enjoy your event.",
+                    description = "Sit back, relax, and watch your party come to life."
+                )
+                AsyncImage(
+                    model = "https://picsum.photos/600/300",
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(200.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                )
+            }
+        } else {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    Text(
+                        text = "How it works.",
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.align(Alignment.Start)
+                    )
+                    HowItWorksStep(
+                        imageUrl = "https://picsum.photos/100",
+                        title = "Browse and compare.",
+                        description = "Compare rates and availability of local entertainers and vendors."
+                    )
+                    HowItWorksStep(
+                        imageUrl = "https://picsum.photos/100",
+                        title = "Book securely.",
+                        description = "Booking through our platform ensures payment protection, amazing service, and no-hassle refunds with our Worry-Free Guarantee."
+                    )
+                    HowItWorksStep(
+                        imageUrl = "https://picsum.photos/100",
+                        title = "Enjoy your event.",
+                        description = "Sit back, relax, and watch your party come to life."
+                    )
+                }
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    AsyncImage(
+                        model = "https://picsum.photos/600/300",
+                        contentDescription = null,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(400.dp)
+                            .clip(RoundedCornerShape(8.dp))
+                    )
+                }
+            }
         }
     }
 }

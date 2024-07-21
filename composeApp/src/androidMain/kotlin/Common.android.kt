@@ -25,8 +25,7 @@ actual fun PlatformSpecificMainContent() {
         )
         Spacer(modifier = Modifier.height(16.dp))
         MainTextContent(
-            modifier = Modifier.fillMaxWidth(),
-            fontSize = 24
+            modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
         SearchTextField()

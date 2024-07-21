@@ -77,6 +77,8 @@ kotlin {
             api(libs.koin.core.v333)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
+            implementation(libs.ktor.client.logging)
+            api("co.touchlab:kermit:2.0.4")
         }
 
         iosMain.dependencies {
