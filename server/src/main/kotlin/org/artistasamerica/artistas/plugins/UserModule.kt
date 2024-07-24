@@ -4,11 +4,16 @@ import com.typesafe.config.ConfigFactory
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
 import io.ktor.server.application.call
+import io.ktor.server.auth.authenticate
+import io.ktor.server.auth.jwt.JWTPrincipal
+import io.ktor.server.auth.principal
 import io.ktor.server.config.HoconApplicationConfig
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
+import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.routing
+import org.artistasamerica.artistas.bff.FullUserInfoModel
 import org.artistasamerica.artistas.bff.UserModel
 import org.artistasamerica.artistas.data.db.DatabaseConnection
 import org.artistasamerica.artistas.data.user.UserEntity
@@ -21,6 +26,7 @@ import org.ktorm.dsl.eq
 import org.ktorm.dsl.from
 import org.ktorm.dsl.insert
 import org.ktorm.dsl.map
+import org.ktorm.dsl.mapNotNull
 import org.ktorm.dsl.select
 import org.ktorm.dsl.where
 import org.mindrot.jbcrypt.BCrypt
@@ -40,7 +46,6 @@ fun Application.userModule() {
             val user = db.from(UserEntity).select().where { UserEntity.email eq email }
                 .map { it[UserEntity.email] }
                 .firstOrNull()
-
 
             if (user != null) {
                 call.respond(
@@ -63,7 +68,6 @@ fun Application.userModule() {
             }
 
             if (result == SUCCESS_INSERT) {
-                // sen successfully response to the client
                 call.respond(
                     HttpStatusCode.OK,
                     UserResponse(success = true, data = "values has been successfully inserted")
@@ -111,6 +115,52 @@ fun Application.userModule() {
 
             val token = tokenManager.generateJWTToken(user)
             call.respond(HttpStatusCode.OK, UserResponse(success = true, data = token))
+        }
+
+        authenticate("auth-jwt") {
+            get("/me") {
+                val principal = call.principal<JWTPrincipal>()
+
+                // Log para depuración
+                if (principal == null) {
+                    call.respond(
+                        HttpStatusCode.Unauthorized,
+                        UserResponse(success = false, data = "Missing principal")
+                    )
+                    return@get
+                }
+
+                val email = principal.payload.getClaim("email").asString()
+
+                // Log para depuración
+                if (email.isNullOrEmpty()) {
+                    call.respond(
+                        HttpStatusCode.BadRequest,
+                        UserResponse(success = false, data = "Invalid email claim")
+                    )
+                    return@get
+                }
+
+                val user =
+                    db.from(UserEntity).select().where { UserEntity.email eq email }.mapNotNull {
+                        FullUserInfoModel(
+                            id = it[UserEntity.id],
+                            name = it[UserEntity.name],
+                            lastName = it[UserEntity.lastName],
+                            email = it[UserEntity.email],
+                            idToken = it[UserEntity.idToken],
+                            userStatus = it[UserEntity.userStatus],
+                            userType = it[UserEntity.userType]
+                        )
+                    }.firstOrNull()
+
+                user?.let {
+                    call.respond(it)
+                } ?: call.respond(
+                    HttpStatusCode.InternalServerError,
+                    UserResponse(success = false, data = "Error Getting Data")
+                )
+            }
         }
     }
 }

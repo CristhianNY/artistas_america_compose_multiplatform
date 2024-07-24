@@ -11,6 +11,8 @@ androidx-espresso-core = "3.6.0"
 androidx-material = "1.12.0"
 androidx-test-junit = "1.2.0"
 compose-plugin = "1.6.11"
+decompose = "3.1.0"
+extensionsCompose = "3.1.0"
 jbcrypt = "0.3m"
 junit = "4.13.2"
 kermit = "2.0.4"
@@ -29,8 +31,11 @@ kotlinxSerializationJson = "1.6.2"
 koin = "3.6.0-Beta4"
 koinComposeMultiplatform = "1.2.0-Beta4"
 
+
 [libraries]
 
+decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
+decompose-extensions-compose = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "extensionsCompose" }
 jbcrypt = { module = "org.mindrot:jbcrypt", version.ref = "jbcrypt" }
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 koin-core-v333 = { module = "io.insert-koin:koin-core", version.ref = "koinCore" }
@@ -44,7 +49,6 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 androidx-material = { group = "com.google.android.material", name = "material", version.ref = "androidx-material" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
-
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 
 ktor-client-json = { module = "io.ktor:ktor-client-json", version.ref = "ktor" }
@@ -69,8 +73,8 @@ coil-compose-core = { module = "io.coil-kt.coil3:coil-compose-core", version.ref
 coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coil3" }
 coil-mp = { module = "io.coil-kt.coil3:coil", version.ref = "coil3" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor_wasm2" }
-ktor-client-okhttp = {group ="io.ktor", name = "ktor-client-okhttp", version.ref ="ktor_wasm2"}
-ktor-client-darwin = {group ="io.ktor", name = "ktor-client-ios", version.ref ="ktor_wasm2"}
+ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor_wasm2" }
+ktor-client-darwin = { group = "io.ktor", name = "ktor-client-ios", version.ref = "ktor_wasm2" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor_wasm2" }
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
 multiplatform-settings-no-arg = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatformSettings" }
