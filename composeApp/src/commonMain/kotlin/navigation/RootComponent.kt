@@ -11,7 +11,7 @@ class RootComponent(componentContext: ComponentContext) : ComponentContext by co
     val childStack = childStack(
         source = navigation,
         serializer = Configuration.serializer(),
-        initialConfiguration = Configuration.DashboardScreen,
+        initialConfiguration = Configuration.HomeScreen,
         handleBackButton = true,
         childFactory = ::createChild
     )
