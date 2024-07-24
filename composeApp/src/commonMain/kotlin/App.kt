@@ -86,6 +86,11 @@ fun App() {
 }
 
 @Composable
+fun HomeScreen(){
+
+}
+
+@Composable
 fun TopNavigationBar(isLoggedIn: Boolean, onLoginClick: () -> Unit, onLogoutClick: () -> Unit) {
     TopAppBar(
         backgroundColor = Color.White,

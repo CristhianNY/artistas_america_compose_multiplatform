@@ -82,6 +82,8 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.ktor.client.logging)
             api(libs.kermit)
+            implementation(libs.decompose)
+            implementation(libs.decompose.extensions.compose)
         }
 
         iosMain.dependencies {
