@@ -15,8 +15,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -24,70 +22,77 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.key
-import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.*
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 import artistas.composeapp.generated.resources.Res
 import artistas.composeapp.generated.resources.compose_multiplatform
 import auth.presentation.AuthViewModel
 import auth.presentation.LoginDialog
-import auth.presentation.LoginState
 import coil3.compose.AsyncImage
+import com.arkivanov.decompose.extensions.compose.stack.Children
+import com.arkivanov.decompose.extensions.compose.stack.animation.slide
+import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
+import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import kotlinx.coroutines.delay
+import navigation.Child
+import navigation.DashboardComponent
+import navigation.HomeComponent
+import navigation.RootComponent
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.koinInject
 
 @Composable
 @Preview
-fun App() {
+fun App(rootComponent: RootComponent) {
     MaterialTheme {
+        val childStack by rootComponent.childStack.subscribeAsState()
+        Children(
+            stack = childStack,
+            animation = stackAnimation(slide())
+        ) { child ->
 
-        val authViewModel: AuthViewModel = koinInject<AuthViewModel>()
-        val isLoggedIn by authViewModel.isLoggedIn.collectAsState()
-        var showLoginDialog by remember { mutableStateOf(false) }
+            when (val instance = child.instance) {
+                is Child.DashBoardScreen -> {
+                    /**HomeScreen(instance.component)**/
+                }
 
-        Column(
-            Modifier
-                .fillMaxWidth()
-                .verticalScroll(rememberScrollState())
-        ) {
-            TopNavigationBar(isLoggedIn, { showLoginDialog = true }, { authViewModel.logout() })
-            PlatformSpecificMainContent()
-            Spacer(modifier = Modifier.height(40.dp))
-            CategoriesSection()
-            Spacer(modifier = Modifier.height(10.dp))
-            HowWorksSection()
-            CenteredButton()
-            Spacer(modifier = Modifier.height(10.dp))
-        }
-
-        if (showLoginDialog) {
-            LoginDialog(onDismiss = { showLoginDialog = false }, authViewModel)
+                is Child.HomeScreen -> HomeScreen(instance.component)
+            }
         }
     }
 }
 
 @Composable
-fun HomeScreen(){
+fun HomeScreen(component: HomeComponent) {
+    val authViewModel: AuthViewModel = koinInject<AuthViewModel>()
+    val isLoggedIn by authViewModel.isLoggedIn.collectAsState()
+    var showLoginDialog by remember { mutableStateOf(false) }
 
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState())
+    ) {
+        TopNavigationBar(isLoggedIn, { showLoginDialog = true }, { authViewModel.logout() })
+        PlatformSpecificMainContent()
+        Spacer(modifier = Modifier.height(40.dp))
+        CategoriesSection()
+        Spacer(modifier = Modifier.height(10.dp))
+        HowWorksSection()
+        CenteredButton()
+        Spacer(modifier = Modifier.height(10.dp))
+    }
+
+    if (showLoginDialog) {
+        LoginDialog(onDismiss = { showLoginDialog = false }, authViewModel)
+    }
 }
 
 @Composable
