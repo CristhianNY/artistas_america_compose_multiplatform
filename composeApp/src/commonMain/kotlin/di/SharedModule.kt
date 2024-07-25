@@ -7,6 +7,7 @@ import auth.data.data_source.AuthDataSourceImpl
 import auth.data.repository.AuthRepositoryImpl
 import auth.domain.repository.AuthRepository
 import auth.presentation.AuthViewModel
+import navigation.UrlHandler
 import org.koin.dsl.module
 import support.createHttpClient
 
@@ -30,4 +31,6 @@ val sharedModule = module {
     single {
         AuthViewModel(get())
     }
+
+    single { UrlHandler() }
 }
