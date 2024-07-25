@@ -4,11 +4,12 @@ import com.arkivanov.decompose.ComponentContext
 
 class HomeComponent(
     component: ComponentContext,
-    private val onBack: () -> Unit
+    private val onNavigationToDashBoard: () -> Unit
 ) : ComponentContext by component {
-
-    fun goBack() {
-        onBack.invoke()
+    fun onEvent(event: HomeEvent) {
+        when (event) {
+            HomeEvent.GoToDashboard -> onNavigationToDashBoard()
+        }
     }
 
 }

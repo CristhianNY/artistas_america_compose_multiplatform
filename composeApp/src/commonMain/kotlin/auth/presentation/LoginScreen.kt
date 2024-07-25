@@ -42,10 +42,12 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import navigation.HomeComponent
+import navigation.HomeEvent
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun LoginDialog(onDismiss: () -> Unit, viewModel: AuthViewModel) {
+fun LoginDialog(onDismiss: () -> Unit, viewModel: AuthViewModel, component: HomeComponent) {
     val uiState by viewModel.uiState.collectAsState()
 
     val (emailFocusRequester, passwordFocusRequester) = FocusRequester.createRefs()
@@ -151,7 +153,8 @@ fun LoginDialog(onDismiss: () -> Unit, viewModel: AuthViewModel) {
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
                 } else if (uiState is LoginState.Success) {
                     LaunchedEffect(Unit) {
-                        onDismiss() // Cierra el diálogo si el login es exitoso
+                        onDismiss()
+                        component.onEvent(HomeEvent.GoToDashboard)
                     }
                 } else {
                     Button(
