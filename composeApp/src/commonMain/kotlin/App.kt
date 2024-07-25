@@ -1,4 +1,4 @@
-import admin_dashboard.DashboardScreen
+import admin_dashboard.DashboardLayout
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,7 +22,7 @@ fun App(rootComponent: RootComponent) {
         ) { child ->
 
             when (val instance = child.instance) {
-                is Child.DashBoardScreen -> DashboardScreen(instance.component)
+                is Child.DashBoardScreen -> DashboardLayout(instance.component)
 
                 is Child.HomeScreen -> HomeScreen(instance.component)
             }

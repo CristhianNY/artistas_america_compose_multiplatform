@@ -30,7 +30,7 @@ import navigation.DashboardComponent
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun DashboardScreen(component: DashboardComponent) {
+actual fun DashboardLayout(component: DashboardComponent) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -55,7 +55,6 @@ fun DashboardTopAppBar() {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             LogoAndMenu()
-
             IconsAndUserMenu()
         }
     }
