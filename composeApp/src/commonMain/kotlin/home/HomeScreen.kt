@@ -72,6 +72,7 @@ import auth.presentation.LoginDialog
 import coil3.compose.AsyncImage
 import kotlinx.coroutines.delay
 import navigation.HomeComponent
+import navigation.HomeEvent
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
 
@@ -86,7 +87,12 @@ fun HomeScreen(component: HomeComponent) {
             .fillMaxWidth()
             .verticalScroll(rememberScrollState())
     ) {
-        TopNavigationBar(isLoggedIn, { showLoginDialog = true }, { authViewModel.logout() })
+        TopNavigationBar(
+            isLoggedIn,
+            { showLoginDialog = true },
+            { authViewModel.logout() },
+            component
+        )
         PlatformSpecificMainContent()
         Spacer(modifier = Modifier.height(40.dp))
         CategoriesSection()
@@ -102,7 +108,12 @@ fun HomeScreen(component: HomeComponent) {
 }
 
 @Composable
-fun TopNavigationBar(isLoggedIn: Boolean, onLoginClick: () -> Unit, onLogoutClick: () -> Unit) {
+fun TopNavigationBar(
+    isLoggedIn: Boolean,
+    onLoginClick: () -> Unit,
+    onLogoutClick: () -> Unit,
+    component: HomeComponent
+) {
     TopAppBar(
         backgroundColor = Color.White,
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
@@ -149,6 +160,16 @@ fun TopNavigationBar(isLoggedIn: Boolean, onLoginClick: () -> Unit, onLogoutClic
                             )
                         }
                     } else {
+                        TextButton(onClick = {
+                            component.onEvent(HomeEvent.GoToDashboard)
+                        }) {
+                            Text(
+                                text = "Dashboard",
+                                color = Color.Black,
+                                fontSize = 16.sp
+                            )
+                        }
+
                         TextButton(onClick = onLogoutClick) {
                             Text(
                                 text = "Log Out",
