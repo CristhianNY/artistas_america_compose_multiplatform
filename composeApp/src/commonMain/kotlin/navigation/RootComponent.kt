@@ -4,6 +4,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.pop
+import com.arkivanov.decompose.router.stack.pushNew
 
 class RootComponent(componentContext: ComponentContext) : ComponentContext by componentContext {
     private val navigation = StackNavigation<Configuration>()
@@ -24,8 +25,8 @@ class RootComponent(componentContext: ComponentContext) : ComponentContext by co
             Configuration.HomeScreen -> Child.HomeScreen(
                 HomeComponent(
                     context,
-                    onBack = {
-                        navigation.pop()
+                    onNavigationToDashBoard = {
+                        navigation.pushNew(Configuration.DashboardScreen)
                     })
             )
 
