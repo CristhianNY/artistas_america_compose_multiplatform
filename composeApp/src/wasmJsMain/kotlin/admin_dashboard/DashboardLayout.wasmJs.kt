@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
@@ -37,50 +38,49 @@ actual fun DashboardLayout(component: DashboardComponent) {
             .background(Color.White)
             .padding(16.dp)
     ) {
-        DashboardTopAppBar()
+        DashboardTopAppBar(component)
         Spacer(modifier = Modifier.height(16.dp))
         DashboardTabs()
     }
 }
 
 @Composable
-fun DashboardTopAppBar() {
+fun DashboardTopAppBar(component: DashboardComponent) {
     TopAppBar(
         backgroundColor = Color.White,
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            LogoAndMenu()
+            IconButton(onClick = { component.goBack() }) {
+                Icon(
+                    painter = painterResource(Res.drawable.compose_multiplatform), // Replace with back arrow icon resource
+                    contentDescription = "Back",
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(Res.drawable.compose_multiplatform), // Replace with your logo resource
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(30.dp)
+                        .clip(CircleShape)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = "Dashboard",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
             IconsAndUserMenu()
         }
-    }
-}
-
-@Composable
-fun LogoAndMenu() {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Image(
-            painter = painterResource(Res.drawable.compose_multiplatform), // Replace with your logo resource
-            contentDescription = null,
-            modifier = Modifier
-                .size(40.dp)
-                .clip(CircleShape)
-        )
-        Spacer(modifier = Modifier.width(8.dp))
-        Text(
-            text = "Menu",
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Icon(
-            painter = painterResource(Res.drawable.compose_multiplatform), // Replace with arrow down resource
-            contentDescription = "Arrow Down",
-            modifier = Modifier.size(16.dp)
-        )
     }
 }
 

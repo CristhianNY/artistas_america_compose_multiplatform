@@ -4,10 +4,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed class Configuration {
+    @Serializable
+    object HomeScreen : Configuration()
 
     @Serializable
-    data object DashboardScreen : Configuration()
-
-    @Serializable
-    data object HomeScreen : Configuration()
+    object DashboardScreen : Configuration()
 }
