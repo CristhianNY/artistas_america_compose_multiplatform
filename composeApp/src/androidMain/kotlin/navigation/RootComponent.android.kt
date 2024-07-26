@@ -7,17 +7,18 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.pushNew
 import com.arkivanov.decompose.value.Value
+import com.arkivanov.essenty.lifecycle.Lifecycle
+import com.arkivanov.essenty.lifecycle.LifecycleOwner
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 
-@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class RootComponent actual constructor(
     componentContext: ComponentContext,
     private val urlHandler: UrlHandler?
-) :
-    ComponentContext by componentContext {
+) : ComponentContext by componentContext {
+
     private val navigation = StackNavigation<Configuration>()
 
-    actual val childStack = childStack(
+    actual val childStack: Value<ChildStack<Configuration, Child>> = childStack(
         source = navigation,
         serializer = Configuration.serializer(),
         initialConfiguration = Configuration.HomeScreen,
@@ -30,21 +31,13 @@ actual class RootComponent actual constructor(
         context: ComponentContext
     ): Child {
         return when (config) {
-            Configuration.HomeScreen -> Child.HomeScreen(
-                HomeComponent(
-                    context,
-                    onNavigationToDashBoard = {
-                        navigation.pushNew(Configuration.DashboardScreen)
-                    })
-            )
+            Configuration.HomeScreen -> Child.HomeScreen(HomeComponent(context) {
+                navigation.pushNew(Configuration.DashboardScreen)
+            })
 
-            is Configuration.DashboardScreen -> Child.DashBoardScreen(
-                DashboardComponent(
-                    context,
-                    onBack = {
-                        navigation.pop()
-                    })
-            )
+            is Configuration.DashboardScreen -> Child.DashBoardScreen(DashboardComponent(context) {
+                navigation.pop()
+            })
         }
     }
 }
