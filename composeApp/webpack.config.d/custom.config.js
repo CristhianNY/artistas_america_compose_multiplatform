@@ -1,3 +1,5 @@
+const path = require('path');
+
 (function(config) {
     console.log("Loading custom Webpack config");  // Verificación
     config.devServer = {
@@ -6,8 +8,8 @@
         open: true,
         static: [
             "kotlin",
-            "../../../../composeApp/build/processedResources/wasmJs/main",
-            "/Users/cristhianbonilla/Documents/artistas/Artistas/composeApp"
+            path.resolve(__dirname, "../../../../composeApp/build/processedResources/wasmJs/main"),
+            path.resolve(__dirname, "../../../../composeApp")
         ],
         client: {
             overlay: {
