@@ -1,4 +1,3 @@
-// shared/src/iosMain/kotlin/navigation/RootComponentIos.kt
 package navigation
 
 import com.arkivanov.decompose.ComponentContext
@@ -8,13 +7,17 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.pushNew
 import com.arkivanov.decompose.value.Value
+import com.arkivanov.essenty.lifecycle.Lifecycle
+import com.arkivanov.essenty.lifecycle.LifecycleOwner
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 
 actual class RootComponent actual constructor(
     componentContext: ComponentContext,
     private val urlHandler: UrlHandler?
-) : ComponentContext by componentContext {
+) : ComponentContext by componentContext, LifecycleOwner {
+
     private val navigation = StackNavigation<Configuration>()
+    override val lifecycle: Lifecycle = componentContext.lifecycle
 
     actual val childStack: Value<ChildStack<Configuration, Child>> = childStack(
         source = navigation,
@@ -29,7 +32,7 @@ actual class RootComponent actual constructor(
             updateUrl(stack.active.configuration)
         }
 
-        componentContext.lifecycle.doOnDestroy {
+        lifecycle.doOnDestroy {
             // Cleanup code if necessary
         }
     }

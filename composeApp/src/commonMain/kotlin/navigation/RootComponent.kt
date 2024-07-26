@@ -1,9 +1,9 @@
-// shared/src/commonMain/kotlin/navigation/RootComponent.kt
 package navigation
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
+import com.arkivanov.essenty.lifecycle.LifecycleOwner
 
 expect class RootComponent(
     componentContext: ComponentContext,
@@ -11,3 +11,4 @@ expect class RootComponent(
 ) : ComponentContext {
     val childStack: Value<ChildStack<Configuration, Child>>
 }
+

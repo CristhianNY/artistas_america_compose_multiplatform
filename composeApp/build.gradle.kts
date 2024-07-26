@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
@@ -18,24 +17,24 @@ kotlin {
         browser {
             commonWebpackConfig {
                 outputFileName = "composeApp.js"
+                configDirectory = file("webpack.config.d")
                 devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
                     static = (static ?: mutableListOf()).apply {
-                        // Serve sources to debug inside browser
                         add(project.projectDir.path)
                     }
                 }
+                outputPath = file("public") // Asegura que los archivos se coloquen en la carpeta public
             }
         }
         binaries.executable()
     }
-    
+
     androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -46,9 +45,8 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     sourceSets {
-        
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
@@ -57,7 +55,6 @@ kotlin {
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
             implementation("com.russhwolf:multiplatform-settings:1.1.1")
-
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -85,7 +82,6 @@ kotlin {
             implementation(libs.decompose)
             implementation(libs.decompose.extensions.compose)
         }
-
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
             implementation(libs.ktor.serialization.kotlinx.json.web)
@@ -97,14 +93,26 @@ kotlin {
     }
 }
 
+tasks.register("copyResources", Copy::class) {
+    from("src/wasmJsMain/resources")
+    into("public")
+}
+
+tasks.register("copyHtaccess", Copy::class) {
+    from("src/wasmJsMain/resources/.htaccess")
+    into("public")
+}
+
+tasks.named("build") {
+    dependsOn("copyResources", "copyHtaccess")
+}
+
 android {
     namespace = "org.artistasamerica.artistas"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
-
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
-
     defaultConfig {
         applicationId = "org.artistasamerica.artistas"
         minSdk = libs.versions.android.minSdk.get().toInt()
