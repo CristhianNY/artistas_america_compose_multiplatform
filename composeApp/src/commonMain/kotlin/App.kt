@@ -2,6 +2,7 @@ import admin_dashboard.DashboardLayout
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.Color
 import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.arkivanov.decompose.extensions.compose.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
@@ -10,11 +11,12 @@ import home.HomeScreen
 import navigation.Child
 import navigation.RootComponent
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import support.ArtistasTheme
 
 @Composable
 @Preview
 fun App(rootComponent: RootComponent) {
-    MaterialTheme {
+    ArtistasTheme(primaryColor = Color(0xFF007BFF)) {
         val childStack by rootComponent.childStack.subscribeAsState()
         Children(
             stack = childStack,
