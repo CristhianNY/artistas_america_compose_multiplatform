@@ -1,12 +1,9 @@
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -90,10 +87,8 @@ fun SmallScreenContent(talent: String, onTalentChange: (String) -> Unit, locatio
         Box(
             modifier = Modifier
                 .padding(16.dp)
-                .background(Color.White.copy(alpha = 0.8f))
-                .padding(16.dp)
         ) {
-            FormContent(
+            FormCard(
                 talent = talent,
                 onTalentChange = onTalentChange,
                 location = location,
@@ -123,12 +118,10 @@ fun LargeScreenContent(talent: String, onTalentChange: (String) -> Unit, locatio
                 .fillMaxHeight()
                 .align(Alignment.CenterEnd)
                 .width(0.4f * maxWidth.value.dp)
-                .padding(16.dp)
-                .background(Color.White.copy(alpha = 0.8f))
                 .padding(16.dp),
             contentAlignment = Alignment.Center // Center the form vertically
         ) {
-            FormContent(
+            FormCard(
                 talent = talent,
                 onTalentChange = onTalentChange,
                 location = location,
@@ -139,10 +132,30 @@ fun LargeScreenContent(talent: String, onTalentChange: (String) -> Unit, locatio
 }
 
 @Composable
+fun FormCard(talent: String, onTalentChange: (String) -> Unit, location: String, onLocationChange: (String) -> Unit) {
+    Card(
+        shape = RoundedCornerShape(16.dp),
+        backgroundColor = Color.White,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+    ) {
+        FormContent(
+            talent = talent,
+            onTalentChange = onTalentChange,
+            location = location,
+            onLocationChange = onLocationChange
+        )
+    }
+}
+
+@Composable
 fun FormContent(talent: String, onTalentChange: (String) -> Unit, location: String, onLocationChange: (String) -> Unit) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
     ) {
         Text(
             text = "Get more gigs on GigSalad!",
@@ -151,39 +164,22 @@ fun FormContent(talent: String, onTalentChange: (String) -> Unit, location: Stri
             color = Color.Black
         )
         Spacer(modifier = Modifier.height(16.dp))
-        BasicTextField(
+        OutlinedTextField(
             value = talent,
             onValueChange = onTalentChange,
+            label = { Text("What's your talent?") },
+            placeholder = { Text("Guitarist, Caterer, Santa...") },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
-            decorationBox = { innerTextField ->
-                Box(
-                    modifier = Modifier
-                        .background(Color.LightGray, shape = RoundedCornerShape(4.dp))
-                        .padding(8.dp)
-                ) {
-                    if (talent.isEmpty()) Text("What's your talent?")
-                    innerTextField()
-                }
-            }
+                .padding(8.dp)
         )
-        BasicTextField(
+        OutlinedTextField(
             value = location,
             onValueChange = onLocationChange,
+            label = { Text("Where do you gig?") },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
-            decorationBox = { innerTextField ->
-                Box(
-                    modifier = Modifier
-                        .background(Color.LightGray, shape = RoundedCornerShape(4.dp))
-                        .padding(8.dp)
-                ) {
-                    if (location.isEmpty()) Text("Where do you gig?")
-                    innerTextField()
-                }
-            }
+                .padding(8.dp)
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(text = "8,500+ leads sent each day")
