@@ -6,6 +6,7 @@ import android.content.Intent
 import androidx.core.net.toUri
 import org.artistasamerica.artistas.ArtistaApplication
 
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class UrlHandler {
     private val context: Context = ArtistaApplication.context
 

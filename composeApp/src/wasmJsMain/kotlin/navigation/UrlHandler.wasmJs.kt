@@ -6,6 +6,12 @@ import kotlinx.browser.window
 actual class UrlHandler {
     private val baseUrl: String = window.location.origin
 
+    init {
+        window.onpopstate = {
+            handlePopState()
+        }
+    }
+
     actual fun pushUrl(path: String) {
         window.history.pushState(null, "", "$baseUrl/$path")
     }
@@ -17,5 +23,14 @@ actual class UrlHandler {
     actual fun getPath(): String {
         return window.location.pathname.removePrefix("/")
     }
-}
 
+    private fun handlePopState() {
+        val path = getPath()
+        // Aquí debes manejar la navegación de Decompose basada en el path
+        // Por ejemplo, puedes llamar a un callback que actualice la navegación
+        onPathChanged?.invoke(path)
+    }
+
+    // Callback que debe ser asignado para manejar los cambios de ruta
+    var onPathChanged: ((String) -> Unit)? = null
+}

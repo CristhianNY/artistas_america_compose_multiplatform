@@ -1,4 +1,4 @@
-package navigation
+package navigation.dashboard
 
 import com.arkivanov.decompose.ComponentContext
 

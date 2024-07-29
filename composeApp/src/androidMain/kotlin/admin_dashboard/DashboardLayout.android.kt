@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import navigation.DashboardComponent
+import navigation.dashboard.DashboardComponent
 import org.artistasamerica.artistas.R
 
 @Composable
