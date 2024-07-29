@@ -5,11 +5,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed class Configuration {
     @Serializable
-    data object HomeScreen : Configuration()
+    data class HomeScreen(val uniqueId: Int) : Configuration()
 
     @Serializable
-    data object DashboardScreen : Configuration()
+    data class DashboardScreen(val uniqueId: Int) : Configuration()
 
     @Serializable
-    data object LandingListScreen : Configuration()
+    data class LandingListScreen(val uniqueId: Int) : Configuration()
 }

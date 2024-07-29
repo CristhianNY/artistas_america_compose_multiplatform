@@ -2,6 +2,7 @@ package navigation
 
 import kotlinx.browser.window
 
+
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class UrlHandler {
     private val baseUrl: String = window.location.origin
@@ -26,11 +27,8 @@ actual class UrlHandler {
 
     private fun handlePopState() {
         val path = getPath()
-        // Aquí debes manejar la navegación de Decompose basada en el path
-        // Por ejemplo, puedes llamar a un callback que actualice la navegación
         onPathChanged?.invoke(path)
     }
 
-    // Callback que debe ser asignado para manejar los cambios de ruta
     var onPathChanged: ((String) -> Unit)? = null
 }
