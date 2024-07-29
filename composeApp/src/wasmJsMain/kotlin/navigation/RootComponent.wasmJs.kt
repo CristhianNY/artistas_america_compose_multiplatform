@@ -5,12 +5,16 @@ import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.pop
-import com.arkivanov.decompose.router.stack.pushNew
+import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.Lifecycle
 import com.arkivanov.essenty.lifecycle.LifecycleOwner
 import com.arkivanov.essenty.lifecycle.doOnDestroy
+import navigation.dashboard.DashboardComponent
+import navigation.home.HomeComponent
+import navigation.lading.LandingComponent
 
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class RootComponent actual constructor(
     componentContext: ComponentContext,
     private val urlHandler: UrlHandler?
@@ -32,8 +36,12 @@ actual class RootComponent actual constructor(
             updateUrl(stack.active.configuration)
         }
 
+        urlHandler?.onPathChanged = { path ->
+            handleUrlChange(path)
+        }
+
         lifecycle.doOnDestroy {
-            // Cleanup code if necessary
+            urlHandler?.onPathChanged = null
         }
     }
 
@@ -42,11 +50,23 @@ actual class RootComponent actual constructor(
         context: ComponentContext
     ): Child {
         return when (config) {
-            Configuration.HomeScreen -> Child.HomeScreen(HomeComponent(context) {
-                navigation.pushNew(Configuration.DashboardScreen)
-            })
+            Configuration.HomeScreen -> Child.HomeScreen(
+                HomeComponent(
+                    context,
+                    onNavigationToJoin = {
+                        navigateTo(Configuration.LandingListScreen)
+                    },
+                    onNavigationToDashBoard = {
+                        navigateTo(Configuration.DashboardScreen)
+                    })
+            )
+
             is Configuration.DashboardScreen -> Child.DashBoardScreen(DashboardComponent(context) {
                 navigation.pop()
+            })
+
+            is Configuration.LandingListScreen -> Child.LandingListScreen(LandingComponent(context) {
+                navigateTo(Configuration.DashboardScreen)
             })
         }
     }
@@ -55,6 +75,7 @@ actual class RootComponent actual constructor(
         val path = when (configuration) {
             Configuration.HomeScreen -> "home"
             Configuration.DashboardScreen -> "dashboard"
+            Configuration.LandingListScreen -> "unirte"
         }
         urlHandler?.pushUrl(path)
     }
@@ -62,7 +83,27 @@ actual class RootComponent actual constructor(
     private fun getInitialConfiguration(): Configuration {
         return when (urlHandler?.getPath()) {
             "dashboard" -> Configuration.DashboardScreen
+            "unirte" -> Configuration.LandingListScreen
             else -> Configuration.HomeScreen
+        }
+    }
+
+    private fun handleUrlChange(path: String) {
+        val newConfiguration = when (path) {
+            "dashboard" -> Configuration.DashboardScreen
+            "unirte" -> Configuration.LandingListScreen
+            else -> Configuration.HomeScreen
+        }
+        val currentConfiguration = childStack.value.active.configuration
+        if (currentConfiguration != newConfiguration) {
+            navigation.push(newConfiguration)
+        }
+    }
+
+    private fun navigateTo(newConfiguration: Configuration) {
+        val currentConfiguration = childStack.value.active.configuration
+        if (currentConfiguration != newConfiguration) {
+            navigation.push(newConfiguration)
         }
     }
 }

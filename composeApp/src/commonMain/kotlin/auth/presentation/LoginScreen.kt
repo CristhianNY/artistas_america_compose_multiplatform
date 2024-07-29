@@ -42,12 +42,15 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import navigation.HomeComponent
-import navigation.HomeEvent
+import com.arkivanov.decompose.ComponentContext
+import navigation.home.HomeComponent
+import navigation.home.HomeEvent
+import navigation.lading.LandingComponent
+import navigation.lading.LandingEvent
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun LoginDialog(onDismiss: () -> Unit, viewModel: AuthViewModel, component: HomeComponent) {
+fun LoginDialog(onDismiss: () -> Unit, viewModel: AuthViewModel, component: ComponentContext) {
     val uiState by viewModel.uiState.collectAsState()
 
     val (emailFocusRequester, passwordFocusRequester) = FocusRequester.createRefs()
@@ -154,7 +157,12 @@ fun LoginDialog(onDismiss: () -> Unit, viewModel: AuthViewModel, component: Home
                 } else if (uiState is LoginState.Success) {
                     LaunchedEffect(Unit) {
                         onDismiss()
-                        component.onEvent(HomeEvent.GoToDashboard)
+
+                        when( component){
+                            is LandingComponent ->  component.onEvent(LandingEvent.GoToDashboard)
+                            is HomeComponent -> component.onEvent(HomeEvent.GoToDashboard)
+                        }
+
                     }
                 } else {
                     Button(

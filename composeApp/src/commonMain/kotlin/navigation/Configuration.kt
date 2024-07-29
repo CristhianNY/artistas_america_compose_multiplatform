@@ -5,8 +5,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed class Configuration {
     @Serializable
-    object HomeScreen : Configuration()
+    data object HomeScreen : Configuration()
 
     @Serializable
-    object DashboardScreen : Configuration()
+    data object DashboardScreen : Configuration()
+
+    @Serializable
+    data object LandingListScreen : Configuration()
 }

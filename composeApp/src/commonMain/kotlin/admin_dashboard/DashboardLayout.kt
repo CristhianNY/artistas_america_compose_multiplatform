@@ -19,7 +19,7 @@ import artistas.composeapp.generated.resources.Res
 import artistas.composeapp.generated.resources.compose_multiplatform
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import navigation.DashboardComponent
+import navigation.dashboard.DashboardComponent
 import org.jetbrains.compose.resources.painterResource
 
 @Composable

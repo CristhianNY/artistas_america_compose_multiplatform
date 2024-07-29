@@ -1,3 +1,4 @@
+import add_listing.LandingListScreen
 import admin_dashboard.DashboardLayout
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -23,6 +24,7 @@ fun App(rootComponent: RootComponent) {
             when (val instance = child.instance) {
                 is Child.DashBoardScreen -> DashboardLayout(instance.component)
                 is Child.HomeScreen -> HomeScreen(instance.component)
+                is Child.LandingListScreen -> LandingListScreen(instance.component)
             }
         }
     }
