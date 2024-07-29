@@ -14,6 +14,8 @@ import navigation.dashboard.DashboardComponent
 import navigation.home.HomeComponent
 import navigation.lading.LandingComponent
 
+private var uniqueIdCounter = 0
+
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class RootComponent actual constructor(
     componentContext: ComponentContext,
@@ -50,14 +52,14 @@ actual class RootComponent actual constructor(
         context: ComponentContext
     ): Child {
         return when (config) {
-            Configuration.HomeScreen -> Child.HomeScreen(
+            is Configuration.HomeScreen -> Child.HomeScreen(
                 HomeComponent(
                     context,
                     onNavigationToJoin = {
-                        navigateTo(Configuration.LandingListScreen)
+                        navigateTo(Configuration.LandingListScreen(uniqueId = generateUniqueId()))
                     },
                     onNavigationToDashBoard = {
-                        navigateTo(Configuration.DashboardScreen)
+                        navigateTo(Configuration.DashboardScreen(uniqueId = generateUniqueId()))
                     })
             )
 
@@ -66,33 +68,33 @@ actual class RootComponent actual constructor(
             })
 
             is Configuration.LandingListScreen -> Child.LandingListScreen(LandingComponent(context) {
-                navigateTo(Configuration.DashboardScreen)
+                navigateTo(Configuration.DashboardScreen(uniqueId = generateUniqueId()))
             })
         }
     }
 
     private fun updateUrl(configuration: Configuration) {
         val path = when (configuration) {
-            Configuration.HomeScreen -> "home"
-            Configuration.DashboardScreen -> "dashboard"
-            Configuration.LandingListScreen -> "unirte"
+            is Configuration.HomeScreen -> "home"
+            is Configuration.DashboardScreen -> "dashboard"
+            is Configuration.LandingListScreen -> "unirte"
         }
         urlHandler?.pushUrl(path)
     }
 
     private fun getInitialConfiguration(): Configuration {
         return when (urlHandler?.getPath()) {
-            "dashboard" -> Configuration.DashboardScreen
-            "unirte" -> Configuration.LandingListScreen
-            else -> Configuration.HomeScreen
+            "dashboard" -> Configuration.DashboardScreen(uniqueId = generateUniqueId())
+            "unirte" -> Configuration.LandingListScreen(uniqueId = generateUniqueId())
+            else -> Configuration.HomeScreen(uniqueId = generateUniqueId())
         }
     }
 
     private fun handleUrlChange(path: String) {
         val newConfiguration = when (path) {
-            "dashboard" -> Configuration.DashboardScreen
-            "unirte" -> Configuration.LandingListScreen
-            else -> Configuration.HomeScreen
+            "dashboard" -> Configuration.DashboardScreen(uniqueId = generateUniqueId())
+            "unirte" -> Configuration.LandingListScreen(uniqueId = generateUniqueId())
+            else -> Configuration.HomeScreen(uniqueId = generateUniqueId())
         }
         val currentConfiguration = childStack.value.active.configuration
         if (currentConfiguration != newConfiguration) {
@@ -102,8 +104,15 @@ actual class RootComponent actual constructor(
 
     private fun navigateTo(newConfiguration: Configuration) {
         val currentConfiguration = childStack.value.active.configuration
-        if (currentConfiguration != newConfiguration) {
+        if (currentConfiguration::class != newConfiguration::class) {
+            navigation.push(newConfiguration)
+        } else if (currentConfiguration != newConfiguration) {
+            navigation.pop()
             navigation.push(newConfiguration)
         }
+    }
+
+    private fun generateUniqueId(): Int {
+        return uniqueIdCounter++
     }
 }
