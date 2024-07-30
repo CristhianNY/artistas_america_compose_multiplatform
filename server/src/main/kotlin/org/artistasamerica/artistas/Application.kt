@@ -15,6 +15,7 @@ import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.plugins.cors.routing.CORS
+import org.artistasamerica.artistas.plugins.categoriesModule
 import org.artistasamerica.artistas.plugins.configureRouting
 import org.artistasamerica.artistas.plugins.userModule
 import org.artistasamerica.artistas.util.TokenManager
@@ -59,4 +60,5 @@ fun Application.module() {
 
     configureRouting()
     userModule()
+    categoriesModule()
 }
