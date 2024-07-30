@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import add_listing.domain.LandingRepository
 import add_listing.domain.model.CategoryRequestModel
+import add_listing.domain.model.CityRequestModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -17,12 +18,26 @@ class LandingViewModel(private val repository: LandingRepository) : ViewModel(),
     val uiState = _uiState.asStateFlow()
 
     fun getCategoryRecommendationsAutoCompleted(query: String) {
-        _uiState.value = LandingState.Loading
         viewModelScope.launch {
             when (val result = repository.getSuggestionCategories(CategoryRequestModel(query))) {
                 is ResultDomain.Success -> {
                     val suggestions = result.data?.map { it.name }
                     _uiState.value = LandingState.SuggestionCategory(suggestions)
+                }
+
+                is ResultDomain.Error -> {
+                    _uiState.value = LandingState.Error(result.error)
+                }
+            }
+        }
+    }
+
+    fun getCitiesAutoCompleted(query: String) {
+        _uiState.value = LandingState.Loading
+        viewModelScope.launch {
+            when (val result = repository.getSuggestionCities(CityRequestModel(query))) {
+                is ResultDomain.Success -> {
+                    _uiState.value = LandingState.SuggestionCity(result.data?.map { it.name })
                 }
 
                 is ResultDomain.Error -> {

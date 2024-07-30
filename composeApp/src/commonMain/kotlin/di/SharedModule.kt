@@ -7,8 +7,8 @@ import auth.data.data_source.AuthDataSourceImpl
 import auth.data.repository.AuthRepositoryImpl
 import auth.domain.repository.AuthRepository
 import auth.presentation.AuthViewModel
-import add_listing.data.api.CategoryApi
-import add_listing.data.api.CategoryApiImpl
+import add_listing.data.api.LandingApi
+import add_listing.data.api.LandingApiImpl
 import add_listing.data.data_source.LandingDataSource
 import add_listing.data.data_source.LandingDataSourceImp
 import add_listing.data.repository.LandingRepositoryImpl
@@ -48,7 +48,7 @@ val sharedModule = module {
     single { UrlHandler() }
 
     // Define CategoryApi singleton
-    single<CategoryApi> { CategoryApiImpl(get()) }
+    single<LandingApi> { LandingApiImpl(get()) }
 
     // Define LandingDataSource singleton
     single<LandingDataSource> { LandingDataSourceImp(get()) }

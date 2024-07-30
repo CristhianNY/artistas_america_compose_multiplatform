@@ -41,7 +41,7 @@ fun LandingListScreen(component: LandingComponent) {
     val isLoggedIn by authViewModel.isLoggedIn.collectAsState()
     var showLoginDialog by remember { mutableStateOf(false) }
     var talent by remember { mutableStateOf(TextFieldValue("")) }
-    var location by remember { mutableStateOf("") }
+    var location by remember { mutableStateOf(TextFieldValue("")) }
 
     BoxWithConstraints {
         val isSmallScreen = maxWidth < 600.dp
@@ -63,16 +63,19 @@ fun LandingListScreen(component: LandingComponent) {
                     talent = talent,
                     onTalentChange = {
                         talent = it
-                        if (talent.text.isNotEmpty()) landingViewModel.getCategoryRecommendationsAutoCompleted(
-                            it.text
-                        )
-
+                        if (talent.text.isNotEmpty()) landingViewModel.getCategoryRecommendationsAutoCompleted(it.text)
                     },
                     onTalentClicked = {
                         talent = TextFieldValue(it, TextRange(it.length))
                     },
                     location = location,
-                    onLocationChange = { location = it },
+                    onLocationChange = {
+                        location = it
+                        if (location.text.isNotEmpty()) landingViewModel.getCitiesAutoCompleted(it.text)
+                    },
+                    onLocationClicked = {
+                        location = TextFieldValue(it, TextRange(it.length))
+                    },
                     viewModel = landingViewModel
                 )
             } else {
@@ -80,17 +83,21 @@ fun LandingListScreen(component: LandingComponent) {
                     talent = talent,
                     onTalentChange = {
                         talent = it
-                        if (talent.text.isNotEmpty()) landingViewModel.getCategoryRecommendationsAutoCompleted(
-                            it.text
-                        )
+                        if (talent.text.isNotEmpty()) landingViewModel.getCategoryRecommendationsAutoCompleted(it.text)
                     },
-                    location = location,
-                    onLocationChange = { location = it },
-                    maxWidth = this@BoxWithConstraints.maxWidth,
-                    viewModel = landingViewModel,
                     onTalentClicked = {
                         talent = TextFieldValue(it, TextRange(it.length))
-                    }
+                    },
+                    location = location,
+                    onLocationChange = {
+                        location = it
+                        if (location.text.isNotEmpty()) landingViewModel.getCitiesAutoCompleted(it.text)
+                    },
+                    onLocationClicked = {
+                        location = TextFieldValue(it, TextRange(it.length))
+                    },
+                    maxWidth = this@BoxWithConstraints.maxWidth,
+                    viewModel = landingViewModel
                 )
             }
         }
@@ -106,12 +113,11 @@ fun SmallScreenContent(
     talent: TextFieldValue,
     onTalentChange: (TextFieldValue) -> Unit,
     onTalentClicked: (String) -> Unit,
-    location: String,
-    onLocationChange: (String) -> Unit,
+    location: TextFieldValue,
+    onLocationChange: (TextFieldValue) -> Unit,
+    onLocationClicked: (String) -> Unit,
     viewModel: LandingViewModel
 ) {
-    val uiState by viewModel.uiState.collectAsState()
-
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -128,19 +134,15 @@ fun SmallScreenContent(
             modifier = Modifier
                 .padding(16.dp)
         ) {
-            when (uiState) {
-                is LandingState.SuggestionCategory -> (uiState as LandingState.SuggestionCategory).suggestions
-                else -> emptyList()
-            }?.let {
-                FormCard(
-                    talent = talent,
-                    onTalentChange = onTalentChange,
-                    onTalentClicked = onTalentClicked,
-                    location = location,
-                    onLocationChange = onLocationChange,
-                    suggestions = it,
-                )
-            }
+            FormCard(
+                talent = talent,
+                onTalentChange = onTalentChange,
+                onTalentClicked = onTalentClicked,
+                location = location,
+                onLocationChange = onLocationChange,
+                onLocationClicked = onLocationClicked,
+                viewModel = viewModel
+            )
         }
     }
 }
@@ -150,13 +152,12 @@ fun LargeScreenContent(
     talent: TextFieldValue,
     onTalentChange: (TextFieldValue) -> Unit,
     onTalentClicked: (String) -> Unit,
-    location: String,
-    onLocationChange: (String) -> Unit,
+    location: TextFieldValue,
+    onLocationChange: (TextFieldValue) -> Unit,
+    onLocationClicked: (String) -> Unit,
     maxWidth: Dp,
     viewModel: LandingViewModel
 ) {
-    val uiState by viewModel.uiState.collectAsState()
-
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -178,19 +179,15 @@ fun LargeScreenContent(
                 .padding(16.dp),
             contentAlignment = Alignment.Center
         ) {
-            when (uiState) {
-                is LandingState.SuggestionCategory -> (uiState as LandingState.SuggestionCategory).suggestions
-                else -> emptyList()
-            }?.let {
-                FormCard(
-                    talent = talent,
-                    onTalentChange = onTalentChange,
-                    location = location,
-                    onLocationChange = onLocationChange,
-                    suggestions = it,
-                    onTalentClicked = onTalentClicked
-                )
-            }
+            FormCard(
+                talent = talent,
+                onTalentChange = onTalentChange,
+                onTalentClicked = onTalentClicked,
+                location = location,
+                onLocationChange = onLocationChange,
+                onLocationClicked = onLocationClicked,
+                viewModel = viewModel
+            )
         }
     }
 }
@@ -200,9 +197,10 @@ fun FormCard(
     talent: TextFieldValue,
     onTalentChange: (TextFieldValue) -> Unit,
     onTalentClicked: (String) -> Unit,
-    location: String,
-    onLocationChange: (String) -> Unit,
-    suggestions: List<String>
+    location: TextFieldValue,
+    onLocationChange: (TextFieldValue) -> Unit,
+    onLocationClicked: (String) -> Unit,
+    viewModel: LandingViewModel
 ) {
     Card(
         shape = RoundedCornerShape(16.dp),
@@ -217,7 +215,8 @@ fun FormCard(
             onTalentClicked = onTalentClicked,
             location = location,
             onLocationChange = onLocationChange,
-            suggestions = suggestions
+            onLocationClicked = onLocationClicked,
+            viewModel = viewModel
         )
     }
 }
@@ -227,13 +226,20 @@ fun FormContent(
     talent: TextFieldValue,
     onTalentChange: (TextFieldValue) -> Unit,
     onTalentClicked: (String) -> Unit,
-    location: String,
-    onLocationChange: (String) -> Unit,
-    suggestions: List<String>
+    location: TextFieldValue,
+    onLocationChange: (TextFieldValue) -> Unit,
+    onLocationClicked: (String) -> Unit,
+    viewModel: LandingViewModel
 ) {
-    var showSuggestions by remember { mutableStateOf(false) }
-    var filteredSuggestions by remember { mutableStateOf(suggestions) }
+    var showCategorySuggestions by remember { mutableStateOf(false) }
+    var filteredCategorySuggestions by remember { mutableStateOf(emptyList<String>()) }
+
+    var showCitySuggestions by remember { mutableStateOf(false) }
+    var filteredCitySuggestions by remember { mutableStateOf(emptyList<String>()) }
+
     val focusRequester = remember { FocusRequester() }
+
+    val uiState by viewModel.uiState.collectAsState()
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -252,10 +258,13 @@ fun FormContent(
             value = talent,
             onValueChange = {
                 onTalentChange(it)
-                filteredSuggestions = suggestions.filter { suggestion ->
-                    suggestion.contains(it.text, ignoreCase = true)
+                filteredCategorySuggestions = when (val state = uiState) {
+                    is LandingState.SuggestionCategory -> state.suggestions?.filter { suggestion ->
+                        suggestion.contains(it.text, ignoreCase = true)
+                    }!!
+                    else -> emptyList()
                 }
-                showSuggestions = filteredSuggestions.isNotEmpty()
+                showCategorySuggestions = filteredCategorySuggestions.isNotEmpty()
             },
             label = { Text("What's your talent?") },
             placeholder = { Text("Guitarist, Caterer, Santa...") },
@@ -263,7 +272,7 @@ fun FormContent(
                 .fillMaxWidth()
                 .padding(8.dp)
         )
-        if (showSuggestions) {
+        if (showCategorySuggestions) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -271,15 +280,15 @@ fun FormContent(
                     .background(Color.White, RoundedCornerShape(8.dp))
                     .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
             ) {
-                items(filteredSuggestions.size) { index ->
-                    val suggestion = filteredSuggestions[index]
+                items(filteredCategorySuggestions.size) { index ->
+                    val suggestion = filteredCategorySuggestions[index]
                     Text(
                         text = suggestion,
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
                                 onTalentClicked(suggestion)
-                                showSuggestions = false
+                                showCategorySuggestions = false
                             }
                             .padding(16.dp)
                     )
@@ -288,7 +297,16 @@ fun FormContent(
         }
         OutlinedTextField(
             value = location,
-            onValueChange = onLocationChange,
+            onValueChange = {
+                onLocationChange(it)
+                filteredCitySuggestions = when (val state = uiState) {
+                    is LandingState.SuggestionCity -> state.citySuggestions?.filter { suggestion ->
+                        suggestion.contains(it.text, ignoreCase = true)
+                    }!!
+                    else -> emptyList()
+                }
+                showCitySuggestions = filteredCitySuggestions.isNotEmpty()
+            },
             label = { Text("Where do you gig?") },
             modifier = Modifier
                 .fillMaxWidth()
@@ -296,10 +314,33 @@ fun FormContent(
                 .focusRequester(focusRequester)
                 .onFocusChanged {
                     if (it.isFocused) {
-                        showSuggestions = false
+                        showCategorySuggestions = false
                     }
                 }
         )
+        if (showCitySuggestions) {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+                    .background(Color.White, RoundedCornerShape(8.dp))
+                    .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
+            ) {
+                items(filteredCitySuggestions.size) { index ->
+                    val suggestion = filteredCitySuggestions[index]
+                    Text(
+                        text = suggestion,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                onLocationClicked(suggestion)
+                                showCitySuggestions = false
+                            }
+                            .padding(16.dp)
+                    )
+                }
+            }
+        }
         Spacer(modifier = Modifier.height(16.dp))
         Text(text = "8,500+ leads sent each day")
         Spacer(modifier = Modifier.height(16.dp))

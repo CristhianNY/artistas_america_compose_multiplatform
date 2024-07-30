@@ -8,4 +8,5 @@ sealed class LandingState {
     data class Success(val token: String) : LandingState()
     data class Error(val error: ErrorDomain) : LandingState()
     data class SuggestionCategory(val suggestions: List<String>?) : LandingState()
+    data class SuggestionCity(val citySuggestions: List<String>?) : LandingState()
 }
