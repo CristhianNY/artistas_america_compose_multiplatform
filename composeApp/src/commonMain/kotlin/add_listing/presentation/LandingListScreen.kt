@@ -36,6 +36,7 @@ import artistas.composeapp.generated.resources.compose_multiplatform
 import auth.presentation.AuthViewModel
 import auth.presentation.LoginDialog
 import navigation.lading.LandingComponent
+import navigation.lading.LandingEvent
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
 import support.HoverableButton
@@ -85,7 +86,10 @@ fun LandingListScreen(component: LandingComponent) {
                     onLocationClicked = {
                         location = TextFieldValue(it, TextRange(it.length))
                     },
-                    viewModel = landingViewModel
+                    viewModel = landingViewModel,
+                    isLoggedIn,
+                    authViewModel,
+                    component = component
                 )
             } else {
                 LargeScreenContent(
@@ -108,7 +112,10 @@ fun LandingListScreen(component: LandingComponent) {
                         location = TextFieldValue(it, TextRange(it.length))
                     },
                     maxWidth = this@BoxWithConstraints.maxWidth,
-                    viewModel = landingViewModel
+                    viewModel = landingViewModel,
+                    isLoggedIn,
+                    authViewModel,
+                    component = component
                 )
             }
         }
@@ -127,7 +134,10 @@ fun SmallScreenContent(
     location: TextFieldValue,
     onLocationChange: (TextFieldValue) -> Unit,
     onLocationClicked: (String) -> Unit,
-    viewModel: LandingViewModel
+    viewModel: LandingViewModel,
+    isLoggedIn: Boolean,
+    authViewModel: AuthViewModel,
+    component: LandingComponent
 ) {
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -152,7 +162,10 @@ fun SmallScreenContent(
                 location = location,
                 onLocationChange = onLocationChange,
                 onLocationClicked = onLocationClicked,
-                viewModel = viewModel
+                viewModel = viewModel,
+                isLoggedIn,
+                authViewModel = authViewModel,
+                component = component
             )
         }
 
@@ -170,7 +183,10 @@ fun LargeScreenContent(
     onLocationChange: (TextFieldValue) -> Unit,
     onLocationClicked: (String) -> Unit,
     maxWidth: Dp,
-    viewModel: LandingViewModel
+    viewModel: LandingViewModel,
+    isLoggedIn: Boolean,
+    authViewModel: AuthViewModel,
+    component: LandingComponent
 ) {
     Column {
         Box(
@@ -201,7 +217,10 @@ fun LargeScreenContent(
                     location = location,
                     onLocationChange = onLocationChange,
                     onLocationClicked = onLocationClicked,
-                    viewModel = viewModel
+                    viewModel = viewModel,
+                    isLoggedIn,
+                    authViewModel,
+                    component
                 )
             }
         }
@@ -219,7 +238,10 @@ fun FormCard(
     location: TextFieldValue,
     onLocationChange: (TextFieldValue) -> Unit,
     onLocationClicked: (String) -> Unit,
-    viewModel: LandingViewModel
+    viewModel: LandingViewModel,
+    isLoggedIn: Boolean,
+    authViewModel: AuthViewModel,
+    component: LandingComponent
 ) {
     Card(
         shape = RoundedCornerShape(16.dp),
@@ -235,7 +257,10 @@ fun FormCard(
             location = location,
             onLocationChange = onLocationChange,
             onLocationClicked = onLocationClicked,
-            viewModel = viewModel
+            viewModel = viewModel,
+            isLoggedIn,
+            authViewModel,
+            component
         )
     }
 }
@@ -248,7 +273,10 @@ fun FormContent(
     location: TextFieldValue,
     onLocationChange: (TextFieldValue) -> Unit,
     onLocationClicked: (String) -> Unit,
-    viewModel: LandingViewModel
+    viewModel: LandingViewModel,
+    isloggedIn: Boolean,
+    authViewModel: AuthViewModel,
+    component: LandingComponent
 ) {
     var showCategorySuggestions by remember { mutableStateOf(false) }
     var filteredCategorySuggestions by remember { mutableStateOf(emptyList<String>()) }
@@ -259,6 +287,7 @@ fun FormContent(
     val focusRequester = remember { FocusRequester() }
 
     val uiState by viewModel.uiState.collectAsState()
+    var showLoginDialog by remember { mutableStateOf(false) }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -365,8 +394,18 @@ fun FormContent(
         Spacer(modifier = Modifier.height(16.dp))
         Text(text = "8,500+ leads sent each day")
         Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = { /* handle click */ }) {
+        Button(onClick = {
+            if (!isloggedIn) {
+                showLoginDialog = true
+            }else{
+                component.onEvent(LandingEvent.GoToDashboard)
+            }
+        }) {
             Text(text = "Start Getting Gigs")
+        }
+
+        if (showLoginDialog) {
+            LoginDialog(onDismiss = { showLoginDialog = false }, authViewModel, component)
         }
     }
 }
