@@ -26,6 +26,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -646,24 +647,50 @@ fun PricingCard(
     isButtonHoveredInitially: Boolean = false
 ) {
     Card(
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(16.dp),
         backgroundColor = Color.White,
+        elevation = 8.dp, // Añade sombra a la tarjeta
         modifier = modifier
             .fillMaxWidth()
-            .padding(8.dp)
-            .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
+            .padding(16.dp)
     ) {
         Column(
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally // Centra los elementos en el eje horizontal
         ) {
-            Text(text = title, fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.Black)
-            Text(text = price, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.Gray)
+            Text(
+                text = title,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black,
+                modifier = Modifier.align(Alignment.CenterHorizontally) // Centra el título horizontalmente
+            )
+            Text(
+                text = price,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black,
+                modifier = Modifier.align(Alignment.CenterHorizontally) // Centra el precio horizontalmente
+            )
             Spacer(modifier = Modifier.height(8.dp))
-            Text(text = description, fontSize = 16.sp, color = Color.Gray)
+            Text(
+                text = description,
+                fontSize = 12.sp,
+                color = Color.Gray,
+                textAlign = TextAlign.Center, // Centra el texto de la descripción
+                modifier = Modifier.fillMaxWidth() // Ocupa todo el ancho disponible
+            )
             Spacer(modifier = Modifier.height(16.dp))
             Column {
-                features.forEach { feature ->
-                    Text(text = "• $feature", fontSize = 14.sp, color = Color.Black)
+                features.forEachIndexed { index, feature ->
+                    Box(modifier = Modifier.padding(bottom = 8.dp)) {
+                        Text(
+                            text = if (index == 0) feature else "• $feature",
+                            fontSize = 14.sp,
+                            color = Color.Black,
+                            fontWeight = if (index == 0) FontWeight.Bold else FontWeight.Normal // El primer texto en negrita
+                        )
+                    }
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -671,10 +698,11 @@ fun PricingCard(
                 buttonText = buttonText,
                 onClick = { /* handle click */ },
                 modifier = Modifier,
-                isButtonHoveredInitially
+                isHoveredInitially = isButtonHoveredInitially
             )
         }
     }
 }
+
 
 data class StepData(val number: String, val title: String, val description: String)

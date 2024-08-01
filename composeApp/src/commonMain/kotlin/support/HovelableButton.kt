@@ -35,14 +35,14 @@ fun HoverableButton(
         ),
         modifier = modifier
             .fillMaxWidth()
-            .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
+            .border(1.dp, Color(0xFF1585FF), RoundedCornerShape(8.dp))
             .defaultMinSize(minWidth = 1.dp, minHeight = 1.dp)
             .detectHover(onEnter = { isHovered = true },
                 onExit = { isHovered = false })
     ) {
         Text(
             text = buttonText,
-            color = if (isHovered) Color.White else Color.Blue,
+            color = if (isHovered) Color.White else Color(0xFF1585FF),
             modifier = Modifier.padding(12.dp) // Ajusta el padding del texto
         )
     }
