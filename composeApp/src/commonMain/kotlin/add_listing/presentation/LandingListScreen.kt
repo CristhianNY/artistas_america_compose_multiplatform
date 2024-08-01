@@ -6,7 +6,10 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
@@ -17,6 +20,8 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerEventType
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
@@ -32,6 +37,7 @@ import auth.presentation.LoginDialog
 import navigation.lading.LandingComponent
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
+import support.HoverableButton
 import support.TopNavigationBar
 
 @Composable
@@ -44,7 +50,7 @@ fun LandingListScreen(component: LandingComponent) {
     var location by remember { mutableStateOf(TextFieldValue("")) }
 
     BoxWithConstraints {
-        val isSmallScreen = maxWidth < 600.dp
+        val isSmallScreen = maxWidth < 1200.dp
 
         Column(
             Modifier
@@ -63,7 +69,9 @@ fun LandingListScreen(component: LandingComponent) {
                     talent = talent,
                     onTalentChange = {
                         talent = it
-                        if (talent.text.isNotEmpty()) landingViewModel.getCategoryRecommendationsAutoCompleted(it.text)
+                        if (talent.text.isNotEmpty()) landingViewModel.getCategoryRecommendationsAutoCompleted(
+                            it.text
+                        )
                     },
                     onTalentClicked = {
                         talent = TextFieldValue(it, TextRange(it.length))
@@ -83,7 +91,9 @@ fun LandingListScreen(component: LandingComponent) {
                     talent = talent,
                     onTalentChange = {
                         talent = it
-                        if (talent.text.isNotEmpty()) landingViewModel.getCategoryRecommendationsAutoCompleted(it.text)
+                        if (talent.text.isNotEmpty()) landingViewModel.getCategoryRecommendationsAutoCompleted(
+                            it.text
+                        )
                     },
                     onTalentClicked = {
                         talent = TextFieldValue(it, TextRange(it.length))
@@ -144,6 +154,9 @@ fun SmallScreenContent(
                 viewModel = viewModel
             )
         }
+
+        StepsComposable(isSmallScreen = true)
+        PricingTableComposable(isSmallScreen = true)
     }
 }
 
@@ -158,37 +171,42 @@ fun LargeScreenContent(
     maxWidth: Dp,
     viewModel: LandingViewModel
 ) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(500.dp)
-    ) {
-        Image(
-            painter = painterResource(Res.drawable.compose_multiplatform),
-            contentDescription = "Promotional Image",
-            modifier = Modifier
-                .fillMaxSize(),
-            contentScale = ContentScale.Crop
-        )
-
+    Column {
         Box(
             modifier = Modifier
-                .fillMaxHeight()
-                .align(Alignment.CenterEnd)
-                .width(0.4f * maxWidth.value.dp)
-                .padding(16.dp),
-            contentAlignment = Alignment.Center
+                .fillMaxWidth()
+                .height(500.dp)
         ) {
-            FormCard(
-                talent = talent,
-                onTalentChange = onTalentChange,
-                onTalentClicked = onTalentClicked,
-                location = location,
-                onLocationChange = onLocationChange,
-                onLocationClicked = onLocationClicked,
-                viewModel = viewModel
+            Image(
+                painter = painterResource(Res.drawable.compose_multiplatform),
+                contentDescription = "Promotional Image",
+                modifier = Modifier
+                    .fillMaxSize(),
+                contentScale = ContentScale.Crop
             )
+
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .align(Alignment.CenterEnd)
+                    .width(0.4f * maxWidth.value.dp)
+                    .padding(16.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                FormCard(
+                    talent = talent,
+                    onTalentChange = onTalentChange,
+                    onTalentClicked = onTalentClicked,
+                    location = location,
+                    onLocationChange = onLocationChange,
+                    onLocationClicked = onLocationClicked,
+                    viewModel = viewModel
+                )
+            }
         }
+
+        StepsComposable(isSmallScreen = false)
+        PricingTableComposable(isSmallScreen = false)
     }
 }
 
@@ -262,6 +280,7 @@ fun FormContent(
                     is LandingState.SuggestionCategory -> state.suggestions?.filter { suggestion ->
                         suggestion.contains(it.text, ignoreCase = true)
                     }!!
+
                     else -> emptyList()
                 }
                 showCategorySuggestions = filteredCategorySuggestions.isNotEmpty()
@@ -303,6 +322,7 @@ fun FormContent(
                     is LandingState.SuggestionCity -> state.citySuggestions?.filter { suggestion ->
                         suggestion.contains(it.text, ignoreCase = true)
                     }!!
+
                     else -> emptyList()
                 }
                 showCitySuggestions = filteredCitySuggestions.isNotEmpty()
@@ -349,3 +369,312 @@ fun FormContent(
         }
     }
 }
+
+@Composable
+fun StepsComposable(isSmallScreen: Boolean) {
+    if (isSmallScreen) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 50.dp, vertical = 16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth().padding()
+            ) {
+                StepItem(
+                    number = "1",
+                    title = "Create a profile",
+                    description = "Collect reviews, upload photos, and add videos to your profile to show off your talent or service and attract new clients."
+                )
+                StepItem(
+                    number = "2",
+                    title = "Get customized leads",
+                    description = "Use lead preference settings and calendar tools to get the leads you want whether you’re a freelancer or full-time gig worker."
+                )
+                StepItem(
+                    number = "3",
+                    title = "Send quotes",
+                    description = "Our intuitive message system allows you to create templates and send custom quotes for every potential job."
+                )
+                StepItem(
+                    number = "4",
+                    title = "Get booked",
+                    description = "Book local jobs and get paid quickly. Clients pay through GigSalad which means your payment is guaranteed every time!"
+                )
+            }
+        }
+    } else {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 100.dp, vertical = 16.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    contentPadding = PaddingValues(horizontal = 16.dp)
+                ) {
+                    items(
+                        listOf(
+                            StepData(
+                                "1",
+                                "Create a profile",
+                                "Collect reviews, upload photos, and add videos to your profile to show off your talent or service and attract new clients."
+                            ),
+                            StepData(
+                                "2",
+                                "Get customized leads",
+                                "Use lead preference settings and calendar tools to get the leads you want whether you’re a freelancer or full-time gig worker."
+                            ),
+                            StepData(
+                                "3",
+                                "Send quotes",
+                                "Our intuitive message system allows you to create templates and send custom quotes for every potential job."
+                            ),
+                            StepData(
+                                "4",
+                                "Get booked",
+                                "Book local jobs and get paid quickly. Clients pay through GigSalad which means your payment is guaranteed every time!"
+                            )
+                        )
+                    ) { step ->
+                        StepItem(
+                            number = step.number,
+                            title = step.title,
+                            description = step.description
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun StepItem(number: String, title: String, description: String) {
+    Box(
+        modifier = Modifier
+            .padding(8.dp)
+            .width(300.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            horizontalAlignment = Alignment.Start,
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .size(40.dp)  // Ajusta el tamaño para asegurar que sea un círculo perfecto
+                        .background(Color(0xFFCCE4FF), shape = CircleShape)
+                ) {
+                    Text(
+                        text = number,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFF2590FF),
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                }
+                Text(
+                    text = title,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(start = 8.dp)
+                )
+            }
+            Text(
+                text = description,
+                fontSize = 14.sp,
+                color = Color.Gray,
+                modifier = Modifier.padding(start = 48.dp)  // Alinea la descripción con el título
+            )
+        }
+    }
+}
+
+@Composable
+fun PricingTableComposable(isSmallScreen: Boolean) {
+    if (isSmallScreen) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 40.dp)
+        ) {
+            PricingCard(
+                title = "Free",
+                price = "$0/mo",
+                description = "Try it for free!",
+                features = listOf(
+                    "For freelance workers or those looking for extra cash.",
+                    "Fewest leads",
+                    "5% booking fee",
+                    "Lower visibility",
+                    "No client phone numbers until booking",
+                    "Up to 2 categories",
+                    "Accept deposits up to $500",
+                    "Add video and audio samples",
+                    "Up to 10 photos"
+                ),
+                buttonText = "Choose this plan"
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            PricingCard(
+                title = "Pro",
+                price = "$139/3 mos",
+                description = "Save $197 when billed annually at $359",
+                features = listOf(
+                    "For those wanting extra income and part-time flexible work.",
+                    "Average of 16x more leads than free",
+                    "2.5% booking fee",
+                    "High visibility",
+                    "Access to client phone numbers",
+                    "Up to 15 categories",
+                    "Accept deposits up to $1000",
+                    "Add video and audio samples",
+                    "Up to 50 photos"
+                ),
+                buttonText = "Choose this plan"
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            PricingCard(
+                title = "Featured",
+                price = "$169/3 mos",
+                description = "Save $197 when billed annually at $479",
+                features = listOf(
+                    "For pros looking to hustle and get the most possible leads.",
+                    "Average of 28x more leads than free",
+                    "2.5% booking fee",
+                    "Highest visibility",
+                    "Access to client phone numbers",
+                    "Up to 20 categories",
+                    "Accept deposits up to $2000",
+                    "Add video and audio samples",
+                    "Up to 100 photos"
+                ),
+                buttonText = "Choose this plan",
+                isButtonHoveredInitially = true
+            )
+        }
+    } else {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth().background(Color(0xFFF6F9FA))
+                .padding(horizontal = 250.dp, vertical = 40.dp),
+
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+
+        ) {
+            PricingCard(
+                title = "Free",
+                price = "$0/mo",
+                description = "Try it for free!",
+                features = listOf(
+                    "For freelance workers or those looking for extra cash.",
+                    "Fewest leads",
+                    "5% booking fee",
+                    "Lower visibility",
+                    "No client phone numbers until booking",
+                    "Up to 2 categories",
+                    "Accept deposits up to $500",
+                    "Add video and audio samples",
+                    "Up to 10 photos"
+                ),
+                buttonText = "Choose this plan",
+                modifier = Modifier.weight(1f)
+            )
+            Spacer(modifier = Modifier.width(16.dp))
+            PricingCard(
+                title = "Pro",
+                price = "$139/3 mos",
+                description = "Save $197 when billed annually at $359",
+                features = listOf(
+                    "For those wanting extra income and part-time flexible work.",
+                    "Average of 16x more leads than free",
+                    "2.5% booking fee",
+                    "High visibility",
+                    "Access to client phone numbers",
+                    "Up to 15 categories",
+                    "Accept deposits up to $1000",
+                    "Add video and audio samples",
+                    "Up to 50 photos"
+                ),
+                buttonText = "Choose this plan",
+                modifier = Modifier.weight(1f)
+            )
+            Spacer(modifier = Modifier.width(16.dp))
+            PricingCard(
+                title = "Featured",
+                price = "$169/3 mos",
+                description = "Save $197 when billed annually at $479",
+                features = listOf(
+                    "For pros looking to hustle and get the most possible leads.",
+                    "Average of 28x more leads than free",
+                    "2.5% booking fee",
+                    "Highest visibility",
+                    "Access to client phone numbers",
+                    "Up to 20 categories",
+                    "Accept deposits up to $2000",
+                    "Add video and audio samples",
+                    "Up to 100 photos"
+                ),
+                buttonText = "Choose this plan",
+                modifier = Modifier.weight(1f),
+                isButtonHoveredInitially = true
+            )
+        }
+    }
+}
+
+@Composable
+fun PricingCard(
+    title: String,
+    price: String,
+    description: String,
+    features: List<String>,
+    buttonText: String,
+    modifier: Modifier = Modifier,
+    isButtonHoveredInitially: Boolean = false
+) {
+    Card(
+        shape = RoundedCornerShape(8.dp),
+        backgroundColor = Color.White,
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+            .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Text(text = title, fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+            Text(text = price, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.Gray)
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(text = description, fontSize = 16.sp, color = Color.Gray)
+            Spacer(modifier = Modifier.height(16.dp))
+            Column {
+                features.forEach { feature ->
+                    Text(text = "• $feature", fontSize = 14.sp, color = Color.Black)
+                }
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            HoverableButton(
+                buttonText = buttonText,
+                onClick = { /* handle click */ },
+                modifier = Modifier,
+                isButtonHoveredInitially
+            )
+        }
+    }
+}
+
+data class StepData(val number: String, val title: String, val description: String)
