@@ -32,13 +32,14 @@ import org.ktorm.dsl.where
 import org.mindrot.jbcrypt.BCrypt
 
 const val SUCCESS_INSERT = 1
+
 fun Application.userModule() {
     val db = DatabaseConnection.database
     val tokenManager = TokenManager(HoconApplicationConfig(ConfigFactory.load()))
 
     routing {
         post("register-user") {
-            val request: UserRequest = call.receive<UserRequest>()
+            val request: UserRequest = call.receive()
 
             val email = request.email.toString()
             val password = request.hashedPassword()
@@ -68,10 +69,28 @@ fun Application.userModule() {
             }
 
             if (result == SUCCESS_INSERT) {
-                call.respond(
-                    HttpStatusCode.OK,
-                    UserResponse(success = true, data = "values has been successfully inserted")
-                )
+                val newUser = db.from(UserEntity).select().where { UserEntity.email eq email }
+                    .map {
+                        UserModel(
+                            id = it[UserEntity.id],
+                            email = it[UserEntity.email]!!,
+                            password = it[UserEntity.password]!!,
+                            idToken = it[UserEntity.idToken].orEmpty()
+                        )
+                    }.firstOrNull()
+
+                if (newUser != null) {
+                    val token = tokenManager.generateJWTToken(newUser)
+                    call.respond(
+                        HttpStatusCode.OK,
+                        UserResponse(success = true, data = token)
+                    )
+                } else {
+                    call.respond(
+                        HttpStatusCode.InternalServerError,
+                        UserResponse(success = false, data = "Error generating token")
+                    )
+                }
             } else {
                 call.respond(
                     HttpStatusCode.BadRequest,
@@ -121,7 +140,6 @@ fun Application.userModule() {
             get("/me") {
                 val principal = call.principal<JWTPrincipal>()
 
-                // Log para depuración
                 if (principal == null) {
                     call.respond(
                         HttpStatusCode.Unauthorized,
@@ -132,7 +150,6 @@ fun Application.userModule() {
 
                 val email = principal.payload.getClaim("email").asString()
 
-                // Log para depuración
                 if (email.isNullOrEmpty()) {
                     call.respond(
                         HttpStatusCode.BadRequest,

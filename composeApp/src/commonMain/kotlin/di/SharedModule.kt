@@ -1,7 +1,7 @@
 package di
 
-import auth.data.api.LoginApi
-import auth.data.api.LoginApiImpl
+import auth.data.api.AuthApi
+import auth.data.api.AuthApiImpl
 import auth.data.data_source.AuthDataSource
 import auth.data.data_source.AuthDataSourceImpl
 import auth.data.repository.AuthRepositoryImpl
@@ -25,7 +25,7 @@ val sharedModule = module {
     }
 
     // Define LoginApi singleton
-    single<LoginApi> { LoginApiImpl(get()) }
+    single<AuthApi> { AuthApiImpl(get()) }
 
     // Define AuthDataSource singleton
     single<AuthDataSource> { AuthDataSourceImpl(get()) }
