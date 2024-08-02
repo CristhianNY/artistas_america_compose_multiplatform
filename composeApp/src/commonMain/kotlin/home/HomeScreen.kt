@@ -1,6 +1,7 @@
 package home
 
 import HowWorksSection
+import LoginDialog
 import PlatformSpecificMainContent
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -59,7 +60,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import auth.presentation.AuthViewModel
-import auth.presentation.LoginDialog
 import coil3.compose.AsyncImage
 import kotlinx.coroutines.delay
 import navigation.home.HomeComponent

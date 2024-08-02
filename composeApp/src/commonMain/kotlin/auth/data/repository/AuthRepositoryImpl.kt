@@ -5,6 +5,8 @@ import auth.data.entity.toEntity
 import auth.data.entity.toModel
 import auth.domain.model.LoginModel
 import auth.domain.model.LoginRequest
+import auth.domain.model.RegisterUserModel
+import auth.domain.model.RegisterUserRequestModel
 import auth.domain.repository.AuthRepository
 import support.GenericErrorMapper
 import support.ResultDomain
@@ -15,4 +17,10 @@ class AuthRepositoryImpl(private val dataSource: AuthDataSource) : AuthRepositor
         baseResponseErrorHandler(
             GenericErrorMapper, dataSource.login(loginRequest.toEntity())
         ) { ResultDomain.Success(it.toModel()) }
+
+    override suspend fun register(registerUserRequest: RegisterUserRequestModel): ResultDomain<RegisterUserModel> =
+        baseResponseErrorHandler(
+            GenericErrorMapper, dataSource.register(registerUserRequest.toEntity())
+        ) { ResultDomain.Success(it.toModel()) }
+
 }
