@@ -1,5 +1,19 @@
 package admin_dashboard
 
+import Strings.ACCOUNT
+import Strings.ARROW_DOWN
+import Strings.BACK
+import Strings.CALENDAR
+import Strings.DASHBOARD
+import Strings.EDIT_PROMOKIT
+import Strings.FAVORITE
+import Strings.HELP
+import Strings.INBOX
+import Strings.MENU
+import Strings.MESSAGES
+import Strings.REVIEWS
+import Strings.TOOLS
+import Strings.USERNAME
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,9 +26,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.text.font.FontWeight
 import artistas.composeapp.generated.resources.Res
 import artistas.composeapp.generated.resources.compose_multiplatform
 import kotlinx.coroutines.CoroutineScope
@@ -93,7 +107,7 @@ fun DashboardTopAppBar(scope: CoroutineScope, drawerState: DrawerState) {
             IconButton(onClick = { scope.launch { drawerState.open() } }) {
                 Icon(
                     painter = painterResource(Res.drawable.compose_multiplatform), // Replace with menu icon resource
-                    contentDescription = "Menu",
+                    contentDescription = MENU,
                     modifier = Modifier.size(24.dp)
                 )
             }
@@ -109,7 +123,7 @@ fun DashboardTopAppBar(scope: CoroutineScope, drawerState: DrawerState) {
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "Dashboard",
+                    text = DASHBOARD,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -133,7 +147,7 @@ fun DashboardTopAppBarWeb(component: DashboardComponent) {
             IconButton(onClick = { component.goBack() }) {
                 Icon(
                     painter = painterResource(Res.drawable.compose_multiplatform), // Replace with back arrow icon resource
-                    contentDescription = "Back",
+                    contentDescription = BACK,
                     modifier = Modifier.size(24.dp)
                 )
             }
@@ -149,7 +163,7 @@ fun DashboardTopAppBarWeb(component: DashboardComponent) {
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "Dashboard",
+                    text =DASHBOARD,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -164,24 +178,24 @@ fun IconsAndUserMenu() {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Icon(
             painter = painterResource(Res.drawable.compose_multiplatform), // Replace with favorite icon resource
-            contentDescription = "Favorite",
+            contentDescription = FAVORITE,
             modifier = Modifier.size(20.dp)
         )
         Spacer(modifier = Modifier.width(8.dp))
         Icon(
             painter = painterResource(Res.drawable.compose_multiplatform), // Replace with messages icon resource
-            contentDescription = "Messages",
+            contentDescription = MESSAGES,
             modifier = Modifier.size(20.dp)
         )
         Spacer(modifier = Modifier.width(8.dp))
         Text(
-            text = "Cristian",
+            text = USERNAME,
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold
         )
         Icon(
             painter = painterResource(Res.drawable.compose_multiplatform), // Replace with arrow down resource
-            contentDescription = "Arrow Down",
+            contentDescription = ARROW_DOWN,
             modifier = Modifier.size(14.dp)
         )
     }
@@ -198,56 +212,56 @@ fun DashboardDrawerContent(scope: CoroutineScope, drawerState: DrawerState) {
         horizontalAlignment = Alignment.Start
     ) {
         Text(
-            text = "Dashboard",
+            text = DASHBOARD,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Blue,
             modifier = Modifier.clickable { /* Handle navigation */ }
         )
         Text(
-            text = "Inbox (88)",
+            text =INBOX,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Gray,
             modifier = Modifier.clickable { /* Handle navigation */ }
         )
         Text(
-            text = "Reviews (26)",
+            text = REVIEWS,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Gray,
             modifier = Modifier.clickable { /* Handle navigation */ }
         )
         Text(
-            text = "Edit PromoKit",
+            text = EDIT_PROMOKIT,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Gray,
             modifier = Modifier.clickable { /* Handle navigation */ }
         )
         Text(
-            text = "Calendar",
+            text = CALENDAR,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Gray,
             modifier = Modifier.clickable { /* Handle navigation */ }
         )
         Text(
-            text = "Tools",
+            text = TOOLS,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Gray,
             modifier = Modifier.clickable { /* Handle navigation */ }
         )
         Text(
-            text = "Account",
+            text = ACCOUNT,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Gray,
             modifier = Modifier.clickable { /* Handle navigation */ }
         )
         Text(
-            text = "Help",
+            text = HELP,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Gray,
@@ -264,14 +278,14 @@ fun DashboardTabs() {
             .padding(vertical = 16.dp),
         horizontalArrangement = Arrangement.SpaceAround
     ) {
-        TabItem(text = "Dashboard", isSelected = true)
-        TabItem(text = "Inbox (88)")
-        TabItem(text = "Reviews (26)")
-        TabItem(text = "Edit PromoKit")
-        TabItem(text = "Calendar")
-        TabItem(text = "Tools")
-        TabItem(text = "Account")
-        TabItem(text = "Help")
+        TabItem(text = DASHBOARD, isSelected = true)
+        TabItem(text = INBOX)
+        TabItem(text = REVIEWS)
+        TabItem(text = EDIT_PROMOKIT)
+        TabItem(text = CALENDAR)
+        TabItem(text = TOOLS)
+        TabItem(text = ACCOUNT)
+        TabItem(text = HELP)
     }
 }
 

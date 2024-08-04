@@ -109,7 +109,7 @@ fun LoginForm(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Hello again.",
+            text = Strings.HELLO_AGAIN,
             style = MaterialTheme.typography.h6,
             color = MaterialTheme.colors.primary
         )
@@ -130,7 +130,7 @@ fun LoginForm(
                 email = it.trim()
                 emailValid = emailRegex.matches(email)
             },
-            label = { Text("Email") },
+            label = { Text(Strings.EMAIL_LABEL) },
             modifier = Modifier
                 .fillMaxWidth()
                 .focusRequester(emailFocusRequester)
@@ -159,7 +159,7 @@ fun LoginForm(
 
         if (!emailValid) {
             Text(
-                text = "Invalid email address",
+                text = Strings.INVALID_EMAIL_ADDRESS,
                 color = Color.Red,
                 modifier = Modifier.padding(top = 8.dp)
             )
@@ -170,7 +170,7 @@ fun LoginForm(
         OutlinedTextField(
             value = password,
             onValueChange = { password = it.trim() },
-            label = { Text("Password") },
+            label = { Text(Strings.PASSWORD_LABEL) },
             modifier = Modifier
                 .fillMaxWidth()
                 .focusRequester(passwordFocusRequester),
@@ -196,7 +196,7 @@ fun LoginForm(
 
         if (uiState is LoginState.Error) {
             Text(
-                text = "The username or password is incorrect. Please check and try again later.",
+                text = Strings.LOGIN_ERROR,
                 color = Color.Red,
                 modifier = Modifier.padding(vertical = 8.dp)
             )
@@ -224,14 +224,14 @@ fun LoginForm(
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF007BFF))
             ) {
-                Text("Log In", color = Color.White)
+                Text(Strings.LOG_IN, color = Color.White)
             }
         }
 
         Spacer(modifier = Modifier.height(8.dp))
 
         TextButton(onClick = { showForgotPasswordField = !showForgotPasswordField }) {
-            Text("Forgot your password?", color = Color(0xFF007BFF))
+            Text(Strings.FORGOT_PASSWORD, color = Color(0xFF007BFF))
         }
 
         if (showForgotPasswordField) {
@@ -243,7 +243,7 @@ fun LoginForm(
                     forgotPasswordEmail = it.trim()
                     emailValid = emailRegex.matches(forgotPasswordEmail)
                 },
-                label = { Text("Type your email address below to reset your password") },
+                label = { Text(Strings.RESET_PASSWORD_HINT) },
                 modifier = Modifier.fillMaxWidth(),
                 isError = !emailValid,
                 colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -256,7 +256,7 @@ fun LoginForm(
 
             if (!emailValid) {
                 Text(
-                    text = "Invalid email address",
+                    text = Strings.INVALID_EMAIL_ADDRESS,
                     color = Color.Red,
                     modifier = Modifier.padding(top = 8.dp)
                 )
@@ -267,16 +267,16 @@ fun LoginForm(
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF007BFF))
             ) {
-                Text("Reset Password", color = Color.White)
+                Text(Strings.RESET_PASSWORD, color = Color.White)
             }
         }
 
         TextButton(onClick = onRegisterClick) {
-            Text("Don't have an account? Register here", color = Color(0xFF007BFF))
+            Text(Strings.REGISTER_PROMPT, color = Color(0xFF007BFF))
         }
 
         TextButton(onClick = { /* Handle trouble logging in */ }) {
-            Text("Trouble logging in?", color = Color(0xFF007BFF))
+            Text(Strings.TROUBLE_LOGGING_IN, color = Color(0xFF007BFF))
         }
     }
 }
@@ -298,7 +298,7 @@ fun RegisterForm(onDismiss: () -> Unit, viewModel: AuthViewModel, onLoginClick: 
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Create an Account",
+                text = Strings.CREATE_AN_ACCOUNT,
                 style = MaterialTheme.typography.h6,
                 color = MaterialTheme.colors.primary
             )
@@ -318,7 +318,7 @@ fun RegisterForm(onDismiss: () -> Unit, viewModel: AuthViewModel, onLoginClick: 
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it.trim() },
-                label = { Text("First Name") },
+                label = { Text(Strings.FIRST_NAME_LABEL) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(nameFocusRequester)
@@ -347,7 +347,7 @@ fun RegisterForm(onDismiss: () -> Unit, viewModel: AuthViewModel, onLoginClick: 
             OutlinedTextField(
                 value = lastName,
                 onValueChange = { lastName = it.trim() },
-                label = { Text("Last Name") },
+                label = { Text(Strings.LAST_NAME_LABEL) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(lastNameFocusRequester)
@@ -379,7 +379,7 @@ fun RegisterForm(onDismiss: () -> Unit, viewModel: AuthViewModel, onLoginClick: 
                     email = it.trim()
                     emailValid = emailRegex.matches(email)
                 },
-                label = { Text("Email") },
+                label = { Text(Strings.EMAIL_LABEL) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(emailFocusRequester)
@@ -408,7 +408,7 @@ fun RegisterForm(onDismiss: () -> Unit, viewModel: AuthViewModel, onLoginClick: 
 
             if (!emailValid) {
                 Text(
-                    text = "Invalid email address",
+                    text = Strings.INVALID_EMAIL_ADDRESS,
                     color = Color.Red,
                     modifier = Modifier.padding(top = 8.dp)
                 )
@@ -419,7 +419,7 @@ fun RegisterForm(onDismiss: () -> Unit, viewModel: AuthViewModel, onLoginClick: 
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it.trim() },
-                label = { Text("Password") },
+                label = { Text(Strings.PASSWORD_LABEL) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(passwordFocusRequester)
@@ -453,7 +453,7 @@ fun RegisterForm(onDismiss: () -> Unit, viewModel: AuthViewModel, onLoginClick: 
                     confirmPassword = it.trim()
                     passwordsMatch = password == it
                 },
-                label = { Text("Confirm Password") },
+                label = { Text(Strings.CONFIRM_PASSWORD_LABEL) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(confirmPasswordFocusRequester)
@@ -484,7 +484,7 @@ fun RegisterForm(onDismiss: () -> Unit, viewModel: AuthViewModel, onLoginClick: 
 
             if (!passwordsMatch) {
                 Text(
-                    text = "Passwords do not match",
+                    text = Strings.PASSWORDS_DO_NOT_MATCH,
                     color = Color.Red,
                     modifier = Modifier.padding(top = 8.dp)
                 )
@@ -504,14 +504,14 @@ fun RegisterForm(onDismiss: () -> Unit, viewModel: AuthViewModel, onLoginClick: 
                     modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF007BFF))
                 ) {
-                    Text("Register", color = Color.White)
+                    Text(Strings.REGISTER, color = Color.White)
                 }
             }
 
             Spacer(modifier = Modifier.height(8.dp))
 
             TextButton(onClick = onLoginClick) {
-                Text("Already have an account? Log in here", color = Color(0xFF007BFF))
+                Text(Strings.LOGIN_PROMPT, color = Color(0xFF007BFF))
             }
         }
     }
@@ -527,11 +527,11 @@ fun SuccessMessage() {
     ) {
         Image(
             painter = painterResource(Res.drawable.compose_multiplatform),
-            contentDescription = "Success"
+            contentDescription = Strings.SUCCESS_IMAGE_DESC
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = "A confirmation email has been sent. Please confirm your email address.",
+            text = Strings.CONFIRMATION_EMAIL_SENT,
             style = MaterialTheme.typography.h6,
             color = MaterialTheme.colors.primary
         )

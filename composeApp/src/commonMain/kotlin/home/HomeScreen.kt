@@ -3,6 +3,7 @@ package home
 import HowWorksSection
 import LoginDialog
 import PlatformSpecificMainContent
+import Strings
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -150,21 +151,21 @@ fun MainTextContent(modifier: Modifier = Modifier) {
         val fontSize = if (maxWidth < 600.dp) 24.sp else 36.sp
         Column(modifier = Modifier.horizontalScroll(rememberScrollState())) {
             Text(
-                text = "Book something awesome",
+                text = Strings.BOOK_SOMETHING_AWESOME,
                 fontSize = fontSize,
                 fontWeight = FontWeight.Bold,
                 color = Color(0xFF007BFF)
             )
 
             Text(
-                text = "for your next event",
+                text = Strings.FOR_YOUR_NEXT_EVENT,
                 fontSize = fontSize,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "From birthday parties to weddings, we'll help you book the best talent for any occasion",
+                text = Strings.FROM_BIRTHDAY_PARTIES_TO_WEDDINGS,
                 fontSize = 16.sp,
                 color = Color.Gray,
                 modifier = Modifier.padding(end = 16.dp)
@@ -211,7 +212,7 @@ fun SearchTextField() {
                         decorationBox = { innerTextField ->
                             if (searchQuery.isEmpty()) {
                                 Text(
-                                    text = "What kind of talent or service can we help you find?",
+                                    text = Strings.SEARCH_HINT,
                                     color = Color.Gray,
                                     fontSize = 12.sp,
                                     maxLines = 1,
@@ -231,7 +232,7 @@ fun SearchTextField() {
                     shape = RoundedCornerShape(8.dp)
                 ) {
                     Text(
-                        "Search",
+                        Strings.SEARCH_HINT,
                         color = Color.White,
                         fontSize = 14.sp
                     )
@@ -263,7 +264,7 @@ fun SearchTextField() {
                     decorationBox = { innerTextField ->
                         if (searchQuery.isEmpty()) {
                             Text(
-                                text = "What kind of talent or service can we help you find?",
+                                text = Strings.SEARCH_HINT,
                                 color = Color.Gray,
                                 fontSize = 14.sp,
                                 maxLines = 1,
@@ -280,7 +281,7 @@ fun SearchTextField() {
                     shape = RoundedCornerShape(8.dp)
                 ) {
                     Text(
-                        "Search",
+                        Strings.SEARCH_HINT,
                         color = Color.White,
                         fontSize = 16.sp
                     )
@@ -295,14 +296,14 @@ fun CategoriesSection() {
     BoxWithConstraints {
         Column(modifier = Modifier.fillMaxWidth().background(Color(0xFFF6F9FA))) {
             Text(
-                text = "Whatever you're planning, make it extraordinary.",
+                text = Strings.WHATEVER_YOU_RE_PLANNING,
                 fontSize = if (this@BoxWithConstraints.maxWidth < 600.dp) 18.sp else 24.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.align(Alignment.CenterHorizontally).padding(16.dp)
             )
             Spacer(modifier = Modifier.height(40.dp))
             Text(
-                text = "Musical Acts",
+                text = Strings.MUSICAL_ACTS,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -311,7 +312,7 @@ fun CategoriesSection() {
             MusicalActs()
             Spacer(modifier = Modifier.height(50.dp))
             Text(
-                text = "Entertainers",
+                text = Strings.ENTERTAINERS,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -321,7 +322,7 @@ fun CategoriesSection() {
 
             Spacer(modifier = Modifier.height(50.dp))
             Text(
-                text = "Event Services",
+                text = Strings.EVENT_SERVICES,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -347,23 +348,23 @@ fun EntertainersCategories() {
             items(
                 listOf(
                     Category(
-                        "Bands & Groups",
-                        "Blues Bands, Mariachis, Wedding Bands...",
+                        Strings.BANDS_GROUPS,
+                        Strings.BANDS_GROUPS_DESC,
                         "https://picsum.photos/200/300.jpg"
                     ),
                     Category(
-                        "Ensembles",
-                        "Chamber Orchestras, Classical Ensembles, String Trios...",
+                        Strings.ENSEMBLES,
+                        Strings.ENSEMBLES_DESC,
                         "https://picsum.photos/200/300.jpg"
                     ),
                     Category(
-                        "Singers",
-                        "Country Singers, Singing Guitarists, Rappers...",
+                        Strings.SINGERS,
+                        Strings.SINGERS_DESC,
                         "https://picsum.photos/200/300.jpg"
                     ),
                     Category(
-                        "Solo Musicians",
-                        "Bagpipers, Guitarists, Pianists, Violinists...",
+                        Strings.SOLO_MUSICIANS,
+                        Strings.SOLO_MUSICIANS_DESC,
                         "https://picsum.photos/200/300.jpg"
                     )
                 )
@@ -391,23 +392,23 @@ fun MusicalActs() {
             items(
                 listOf(
                     Category(
-                        "Bands & Groups",
-                        "Blues Bands, Mariachis, Wedding Bands...",
+                        Strings.BANDS_GROUPS,
+                        Strings.BANDS_GROUPS_DESC,
                         "https://picsum.photos/200/300.jpg"
                     ),
                     Category(
-                        "Ensembles",
-                        "Chamber Orchestras, Classical Ensembles, String Trios...",
+                        Strings.ENSEMBLES,
+                        Strings.ENSEMBLES_DESC,
                         "https://picsum.photos/200/300.jpg"
                     ),
                     Category(
-                        "Singers",
-                        "Country Singers, Singing Guitarists, Rappers...",
+                        Strings.SINGERS,
+                        Strings.SINGERS_DESC,
                         "https://picsum.photos/200/300.jpg"
                     ),
                     Category(
-                        "Solo Musicians",
-                        "Bagpipers, Guitarists, Pianists, Violinists...",
+                        Strings.SOLO_MUSICIANS,
+                        Strings.SOLO_MUSICIANS_DESC,
                         "https://picsum.photos/200/300.jpg"
                     )
                 )
@@ -435,23 +436,23 @@ fun EventsServices() {
             items(
                 listOf(
                     Category(
-                        "Bands & Groups",
-                        "Blues Bands, Mariachis, Wedding Bands...",
+                        Strings.BANDS_GROUPS,
+                        Strings.BANDS_GROUPS_DESC,
                         "https://picsum.photos/200/300.jpg"
                     ),
                     Category(
-                        "Ensembles",
-                        "Chamber Orchestras, Classical Ensembles, String Trios...",
+                        Strings.ENSEMBLES,
+                        Strings.ENSEMBLES_DESC,
                         "https://picsum.photos/200/300.jpg"
                     ),
                     Category(
-                        "Singers",
-                        "Country Singers, Singing Guitarists, Rappers...",
+                        Strings.SINGERS,
+                        Strings.SINGERS_DESC,
                         "https://picsum.photos/200/300.jpg"
                     ),
                     Category(
-                        "Solo Musicians",
-                        "Bagpipers, Guitarists, Pianists, Violinists...",
+                        Strings.SOLO_MUSICIANS,
+                        Strings.SOLO_MUSICIANS_DESC,
                         "https://picsum.photos/200/300.jpg"
                     )
                 )
@@ -535,7 +536,7 @@ fun CategoryCard(title: String, description: String, imageUrl: String) {
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "Additional Info",
+                    text = Strings.ADDITIONAL_INFO,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Gray
@@ -556,7 +557,7 @@ fun CenteredButton() {
             colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF007BFF))
         ) {
             Text(
-                text = "Get Started",
+                text = Strings.GET_STARTED,
                 color = Color.White,
                 fontSize = 16.sp
             )
