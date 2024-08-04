@@ -163,7 +163,7 @@ fun SmallScreenContent(
     ) {
         Image(
             painter = painterResource(Res.drawable.compose_multiplatform),
-            contentDescription = "Promotional Image",
+            contentDescription = Strings.PROMOTIONAL_IMAGE_DESC,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(300.dp),
@@ -215,7 +215,7 @@ fun LargeScreenContent(
         ) {
             Image(
                 painter = painterResource(Res.drawable.compose_multiplatform),
-                contentDescription = "Promotional Image",
+                contentDescription = Strings.PROMOTIONAL_IMAGE_DESC,
                 modifier = Modifier
                     .fillMaxSize(),
                 contentScale = ContentScale.Crop
@@ -315,7 +315,7 @@ fun FormContent(
             .padding(16.dp)
     ) {
         Text(
-            text = "Get more gigs on GigSalad!",
+            text = Strings.GET_MORE_GIGS,
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Black
@@ -334,8 +334,8 @@ fun FormContent(
                 }
                 showCategorySuggestions = filteredCategorySuggestions.isNotEmpty()
             },
-            label = { Text("What's your talent?") },
-            placeholder = { Text("Guitarist, Caterer, Santa...") },
+            label = { Text(Strings.TALENT_LABEL) },
+            placeholder = { Text(Strings.TALENT_PLACEHOLDER) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
@@ -376,7 +376,7 @@ fun FormContent(
                 }
                 showCitySuggestions = filteredCitySuggestions.isNotEmpty()
             },
-            label = { Text("Where do you gig?") },
+            label = { Text(Strings.LOCATION_LABEL) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
@@ -411,7 +411,7 @@ fun FormContent(
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Text(text = "8,500+ leads sent each day")
+        Text(text = Strings.LEADS_SENT_EACH_DAY)
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = {
             if (!isloggedIn) {
@@ -420,7 +420,7 @@ fun FormContent(
                 component.onEvent(LandingEvent.GoToDashboard)
             }
         }) {
-            Text(text = "Start Getting Gigs")
+            Text(text = Strings.START_GETTING_GIGS)
         }
 
         if (showLoginDialog) {
@@ -444,23 +444,23 @@ fun StepsComposable(isSmallScreen: Boolean) {
             ) {
                 StepItem(
                     number = "1",
-                    title = "Create a profile",
-                    description = "Collect reviews, upload photos, and add videos to your profile to show off your talent or service and attract new clients."
+                    title = Strings.STEP_1_TITLE,
+                    description = Strings.STEP_1_DESC
                 )
                 StepItem(
                     number = "2",
-                    title = "Get customized leads",
-                    description = "Use lead preference settings and calendar tools to get the leads you want whether you’re a freelancer or full-time gig worker."
+                    title = Strings.STEP_2_TITLE,
+                    description = Strings.STEP_2_DESC
                 )
                 StepItem(
                     number = "3",
-                    title = "Send quotes",
-                    description = "Our intuitive message system allows you to create templates and send custom quotes for every potential job."
+                    title = Strings.STEP_3_TITLE,
+                    description = Strings.STEP_3_DESC
                 )
                 StepItem(
                     number = "4",
-                    title = "Get booked",
-                    description = "Book local jobs and get paid quickly. Clients pay through GigSalad which means your payment is guaranteed every time!"
+                    title = Strings.STEP_4_TITLE,
+                    description = Strings.STEP_4_DESC
                 )
             }
         }
@@ -485,23 +485,23 @@ fun StepsComposable(isSmallScreen: Boolean) {
                         listOf(
                             StepData(
                                 "1",
-                                "Create a profile",
-                                "Collect reviews, upload photos, and add videos to your profile to show off your talent or service and attract new clients."
+                                Strings.STEP_1_TITLE,
+                                Strings.STEP_1_DESC
                             ),
                             StepData(
                                 "2",
-                                "Get customized leads",
-                                "Use lead preference settings and calendar tools to get the leads you want whether you’re a freelancer or full-time gig worker."
+                                Strings.STEP_2_TITLE,
+                                Strings.STEP_2_DESC
                             ),
                             StepData(
                                 "3",
-                                "Send quotes",
-                                "Our intuitive message system allows you to create templates and send custom quotes for every potential job."
+                                Strings.STEP_3_TITLE,
+                                Strings.STEP_3_DESC
                             ),
                             StepData(
                                 "4",
-                                "Get booked",
-                                "Book local jobs and get paid quickly. Clients pay through GigSalad which means your payment is guaranteed every time!"
+                                Strings.STEP_4_TITLE,
+                                Strings.STEP_4_DESC
                             )
                         )
                     ) { step ->
@@ -569,57 +569,27 @@ fun PricingTableComposable(isSmallScreen: Boolean) {
                 .padding(horizontal = 40.dp)
         ) {
             PricingCard(
-                title = "Free",
-                price = "$0/mo",
-                description = "Try it for free!",
-                features = listOf(
-                    "For freelance workers or those looking for extra cash.",
-                    "Fewest leads",
-                    "5% booking fee",
-                    "Lower visibility",
-                    "No client phone numbers until booking",
-                    "Up to 2 categories",
-                    "Accept deposits up to $500",
-                    "Add video and audio samples",
-                    "Up to 10 photos"
-                ),
-                buttonText = "Choose this plan"
+                title = Strings.PLAN_FREE,
+                price = Strings.PLAN_FREE_PRICE,
+                description = Strings.PLAN_FREE_DESC,
+                features = Strings.PLAN_FREE_FEATURES.split("\n"),
+                buttonText = Strings.CHOOSE_THIS_PLAN
             )
             Spacer(modifier = Modifier.height(16.dp))
             PricingCard(
-                title = "Pro",
-                price = "$139/3 mos",
-                description = "Save $197 when billed annually at $359",
-                features = listOf(
-                    "For those wanting extra income and part-time flexible work.",
-                    "Average of 16x more leads than free",
-                    "2.5% booking fee",
-                    "High visibility",
-                    "Access to client phone numbers",
-                    "Up to 15 categories",
-                    "Accept deposits up to $1000",
-                    "Add video and audio samples",
-                    "Up to 50 photos"
-                ),
-                buttonText = "Choose this plan"
+                title = Strings.PLAN_PRO,
+                price = Strings.PLAN_PRO_PRICE,
+                description = Strings.PLAN_PRO_DESC,
+                features = Strings.PLAN_PRO_FEATURES.split("\n"),
+                buttonText = Strings.CHOOSE_THIS_PLAN
             )
             Spacer(modifier = Modifier.height(16.dp))
             PricingCard(
-                title = "Featured",
-                price = "$169/3 mos",
-                description = "Save $197 when billed annually at $479",
-                features = listOf(
-                    "For pros looking to hustle and get the most possible leads.",
-                    "Average of 28x more leads than free",
-                    "2.5% booking fee",
-                    "Highest visibility",
-                    "Access to client phone numbers",
-                    "Up to 20 categories",
-                    "Accept deposits up to $2000",
-                    "Add video and audio samples",
-                    "Up to 100 photos"
-                ),
-                buttonText = "Choose this plan",
+                title = Strings.PLAN_FEATURED,
+                price = Strings.PLAN_FEATURED_PRICE,
+                description = Strings.PLAN_FEATURED_DESC,
+                features = Strings.PLAN_FEATURED_FEATURES.split("\n"),
+                buttonText = Strings.CHOOSE_THIS_PLAN,
                 isButtonHoveredInitially = true
             )
         }
@@ -634,59 +604,29 @@ fun PricingTableComposable(isSmallScreen: Boolean) {
 
         ) {
             PricingCard(
-                title = "Free",
-                price = "$0/mo",
-                description = "Try it for free!",
-                features = listOf(
-                    "For freelance workers or those looking for extra cash.",
-                    "Fewest leads",
-                    "5% booking fee",
-                    "Lower visibility",
-                    "No client phone numbers until booking",
-                    "Up to 2 categories",
-                    "Accept deposits up to $500",
-                    "Add video and audio samples",
-                    "Up to 10 photos"
-                ),
-                buttonText = "Choose this plan",
+                title = Strings.PLAN_FREE,
+                price = Strings.PLAN_FREE_PRICE,
+                description = Strings.PLAN_FREE_DESC,
+                features = Strings.PLAN_FREE_FEATURES.split("\n"),
+                buttonText = Strings.CHOOSE_THIS_PLAN,
                 modifier = Modifier.weight(1f)
             )
             Spacer(modifier = Modifier.width(16.dp))
             PricingCard(
-                title = "Pro",
-                price = "$139/3 mos",
-                description = "Save $197 when billed annually at $359",
-                features = listOf(
-                    "For those wanting extra income and part-time flexible work.",
-                    "Average of 16x more leads than free",
-                    "2.5% booking fee",
-                    "High visibility",
-                    "Access to client phone numbers",
-                    "Up to 15 categories",
-                    "Accept deposits up to $1000",
-                    "Add video and audio samples",
-                    "Up to 50 photos"
-                ),
-                buttonText = "Choose this plan",
+                title = Strings.PLAN_PRO,
+                price = Strings.PLAN_PRO_PRICE,
+                description = Strings.PLAN_PRO_DESC,
+                features = Strings.PLAN_PRO_FEATURES.split("\n"),
+                buttonText = Strings.CHOOSE_THIS_PLAN,
                 modifier = Modifier.weight(1f)
             )
             Spacer(modifier = Modifier.width(16.dp))
             PricingCard(
-                title = "Featured",
-                price = "$169/3 mos",
-                description = "Save $197 when billed annually at $479",
-                features = listOf(
-                    "For pros looking to hustle and get the most possible leads.",
-                    "Average of 28x more leads than free",
-                    "2.5% booking fee",
-                    "Highest visibility",
-                    "Access to client phone numbers",
-                    "Up to 20 categories",
-                    "Accept deposits up to $2000",
-                    "Add video and audio samples",
-                    "Up to 100 photos"
-                ),
-                buttonText = "Choose this plan",
+                title = Strings.PLAN_FEATURED,
+                price = Strings.PLAN_FEATURED_PRICE,
+                description = Strings.PLAN_FEATURED_DESC,
+                features = Strings.PLAN_FEATURED_FEATURES.split("\n"),
+                buttonText = Strings.CHOOSE_THIS_PLAN,
                 modifier = Modifier.weight(1f),
                 isButtonHoveredInitially = true
             )
@@ -761,6 +701,5 @@ fun PricingCard(
         }
     }
 }
-
 
 data class StepData(val number: String, val title: String, val description: String)
