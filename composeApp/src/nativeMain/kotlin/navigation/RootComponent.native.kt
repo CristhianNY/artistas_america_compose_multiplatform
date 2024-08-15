@@ -7,6 +7,14 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.pushNew
 import com.arkivanov.decompose.value.Value
+import navigation.add_listing.AddAddressComponent
+import navigation.add_listing.AddChoosePlanComponent
+import navigation.add_listing.AddDescriptionServiceComponent
+import navigation.add_listing.AddFinalDetailsComponent
+import navigation.add_listing.AddImageComponent
+import navigation.add_listing.AddListingComponent
+import navigation.add_listing.AddRequestReviewComponent
+import navigation.add_listing.AddServiceNameComponent
 import navigation.dashboard.DashboardComponent
 import navigation.home.HomeComponent
 import navigation.lading.LandingComponent
@@ -15,8 +23,7 @@ private var uniqueIdCounter = 0
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class RootComponent actual constructor(
-    componentContext: ComponentContext,
-    private val urlHandler: UrlHandler?
+    componentContext: ComponentContext, private val urlHandler: UrlHandler?
 ) : ComponentContext by componentContext {
 
     private val navigation = StackNavigation<Configuration>()
@@ -34,13 +41,17 @@ actual class RootComponent actual constructor(
         context: ComponentContext
     ): Child {
         return when (config) {
-            is Configuration.DashboardScreen -> Child.DashBoardScreen(DashboardComponent(context) {
-                navigation.pop()
-            })
+            is Configuration.DashboardScreen -> Child.DashBoardScreen(
+                DashboardComponent(context) {
+                    navigation.pop()
+                }
+            )
 
-            is Configuration.LandingListScreen -> Child.LandingListScreen(LandingComponent(context) {
-                navigation.pushNew(Configuration.LandingListScreen(generateUniqueId()))
-            })
+            is Configuration.LandingListScreen -> Child.LandingListScreen(
+                LandingComponent(context, onBack = { navigation.pop() }) {
+                    navigation.pushNew(Configuration.ServiceActorNameScreen(generateUniqueId()))
+                }
+            )
 
             is Configuration.HomeScreen -> Child.HomeScreen(
                 HomeComponent(
@@ -52,10 +63,88 @@ actual class RootComponent actual constructor(
                         navigation.pushNew(Configuration.DashboardScreen(generateUniqueId()))
                     })
             )
+
+            is Configuration.AddListingScreen -> Child.ServiceActorNameScreen(
+                AddServiceNameComponent(
+                    context,
+                    onBack = { navigation.pop() },
+                    onNavigationToAddressScreen = {
+                        navigation.pushNew(Configuration.AddressScreen(generateUniqueId()))
+                    }
+                )
+            )
+
+            is Configuration.AddressScreen -> Child.AddressScreen(
+                AddAddressComponent(
+                    context,
+                    onBack = { navigation.pop() },
+                    onNavigationToUploadImagesScreen = {
+                        navigation.pushNew(Configuration.AddImagesScreen(generateUniqueId()))
+                    }
+                )
+            )
+
+            is Configuration.AddImagesScreen -> Child.AddImagesScreen(
+                AddImageComponent(
+                    context,
+                    onBack = { navigation.pop() },
+                    onNavigationToDescriptionScreen = {
+                        navigation.pushNew(Configuration.DescribeServiceScreen(generateUniqueId()))
+                    }
+                )
+            )
+
+            is Configuration.DescribeServiceScreen -> Child.DescribeServiceScreen(
+                AddDescriptionServiceComponent(
+                    context,
+                    onBack = { navigation.pop() },
+                    onNavigationToFinalDetailsScreen = {
+                        navigation.pushNew(Configuration.FinalDetailsScreen(generateUniqueId()))
+                    }
+                )
+            )
+
+            is Configuration.FinalDetailsScreen -> Child.FinalDetailsScreen(
+                AddFinalDetailsComponent(
+                    context,
+                    onBack = { navigation.pop() },
+                    onNavigationToRequestReviewsScreen = {
+                        navigation.pushNew(Configuration.RequestReviewsScreen(generateUniqueId()))
+                    }
+                )
+            )
+
+            is Configuration.RequestReviewsScreen -> Child.RequestReviewsScreen(
+                AddRequestReviewComponent(
+                    context,
+                    onBack = { navigation.pop() },
+                    onNavigationToAllDoneScreen = {
+                        navigation.pushNew(Configuration.RequestReviewsScreen(generateUniqueId()))
+                    }
+                )
+            )
+
+            is Configuration.PriceTableScreen -> Child.PriceTableScreen(
+                AddChoosePlanComponent(
+                    context,
+                    onBack = { navigation.pop() },
+                    onNavigationToDashBoardScreen = {
+                        navigation.pushNew(Configuration.RequestReviewsScreen(generateUniqueId()))
+                    }
+                ))
+
+            is Configuration.ServiceActorNameScreen -> Child.ServiceActorNameScreen(
+                AddServiceNameComponent(
+                    context,
+                    onBack = { navigation.pop() },
+                    onNavigationToAddressScreen = {
+                        navigation.pushNew(Configuration.AddressScreen(generateUniqueId()))
+                    })
+            )
         }
     }
-}
 
-private fun generateUniqueId(): Int {
-    return uniqueIdCounter++
+    private fun generateUniqueId(): Int {
+        return uniqueIdCounter++
+    }
 }

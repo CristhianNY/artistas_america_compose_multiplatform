@@ -114,6 +114,7 @@ fun TopNavigationBar(
                         onClick = {
                             when (component) {
                                 is HomeComponent -> component.onEvent(HomeEvent.GoToJoin)
+                                is LandingComponent -> component.onEvent(LandingEvent.GoToServiceActorNameScreen)
                             }
                         }) {
                         Text(

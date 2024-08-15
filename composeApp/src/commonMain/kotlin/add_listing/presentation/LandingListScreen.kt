@@ -1,6 +1,7 @@
 package add_listing.presentation
 
 import LoginDialog
+import Strings
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -52,6 +53,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.times
 import artistas.composeapp.generated.resources.Res
+import artistas.composeapp.generated.resources.check_success
 import artistas.composeapp.generated.resources.compose_multiplatform
 import auth.presentation.AuthViewModel
 import navigation.lading.LandingComponent
@@ -416,8 +418,8 @@ fun FormContent(
         Button(onClick = {
             if (!isloggedIn) {
                 showLoginDialog = true
-            }else{
-                component.onEvent(LandingEvent.GoToDashboard)
+            } else {
+                component.onEvent(LandingEvent.GoToServiceActorNameScreen)
             }
         }) {
             Text(text = Strings.START_GETTING_GIGS)
@@ -573,7 +575,8 @@ fun PricingTableComposable(isSmallScreen: Boolean) {
                 price = Strings.PLAN_FREE_PRICE,
                 description = Strings.PLAN_FREE_DESC,
                 features = Strings.PLAN_FREE_FEATURES.split("\n"),
-                buttonText = Strings.CHOOSE_THIS_PLAN
+                buttonText = Strings.CHOOSE_THIS_PLAN,
+                isCheckIconVisible = false
             )
             Spacer(modifier = Modifier.height(16.dp))
             PricingCard(
@@ -581,7 +584,8 @@ fun PricingTableComposable(isSmallScreen: Boolean) {
                 price = Strings.PLAN_PRO_PRICE,
                 description = Strings.PLAN_PRO_DESC,
                 features = Strings.PLAN_PRO_FEATURES.split("\n"),
-                buttonText = Strings.CHOOSE_THIS_PLAN
+                buttonText = Strings.CHOOSE_THIS_PLAN,
+                isCheckIconVisible = false
             )
             Spacer(modifier = Modifier.height(16.dp))
             PricingCard(
@@ -590,7 +594,8 @@ fun PricingTableComposable(isSmallScreen: Boolean) {
                 description = Strings.PLAN_FEATURED_DESC,
                 features = Strings.PLAN_FEATURED_FEATURES.split("\n"),
                 buttonText = Strings.CHOOSE_THIS_PLAN,
-                isButtonHoveredInitially = true
+                isButtonHoveredInitially = true,
+                isCheckIconVisible = true
             )
         }
     } else {
@@ -609,7 +614,8 @@ fun PricingTableComposable(isSmallScreen: Boolean) {
                 description = Strings.PLAN_FREE_DESC,
                 features = Strings.PLAN_FREE_FEATURES.split("\n"),
                 buttonText = Strings.CHOOSE_THIS_PLAN,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                isCheckIconVisible = false
             )
             Spacer(modifier = Modifier.width(16.dp))
             PricingCard(
@@ -618,7 +624,8 @@ fun PricingTableComposable(isSmallScreen: Boolean) {
                 description = Strings.PLAN_PRO_DESC,
                 features = Strings.PLAN_PRO_FEATURES.split("\n"),
                 buttonText = Strings.CHOOSE_THIS_PLAN,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                isCheckIconVisible = false
             )
             Spacer(modifier = Modifier.width(16.dp))
             PricingCard(
@@ -628,7 +635,8 @@ fun PricingTableComposable(isSmallScreen: Boolean) {
                 features = Strings.PLAN_FEATURED_FEATURES.split("\n"),
                 buttonText = Strings.CHOOSE_THIS_PLAN,
                 modifier = Modifier.weight(1f),
-                isButtonHoveredInitially = true
+                isButtonHoveredInitially = true,
+                isCheckIconVisible = true
             )
         }
     }
@@ -642,7 +650,8 @@ fun PricingCard(
     features: List<String>,
     buttonText: String,
     modifier: Modifier = Modifier,
-    isButtonHoveredInitially: Boolean = false
+    isButtonHoveredInitially: Boolean = false,
+    isCheckIconVisible: Boolean
 ) {
     Card(
         shape = RoundedCornerShape(16.dp),
@@ -681,7 +690,19 @@ fun PricingCard(
             Spacer(modifier = Modifier.height(16.dp))
             Column {
                 features.forEachIndexed { index, feature ->
-                    Box(modifier = Modifier.padding(bottom = 8.dp)) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically, // Alinea verticalmente el texto y la imagen
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    ) {
+                        if (isCheckIconVisible) {
+
+                            Image(
+                                painter = painterResource(Res.drawable.check_success),
+                                contentDescription = "Check Icon",
+                                modifier = Modifier.size(24.dp)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp)) // Espacio entre la imagen y el texto
+                        }
                         Text(
                             text = if (index == 0) feature else "• $feature",
                             fontSize = 14.sp,
@@ -701,5 +722,6 @@ fun PricingCard(
         }
     }
 }
+
 
 data class StepData(val number: String, val title: String, val description: String)
