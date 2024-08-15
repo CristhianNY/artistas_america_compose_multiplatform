@@ -1,5 +1,6 @@
 package add_listing.presentation.add_listing_steps
 
+import add_listing.presentation.LandingViewModel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -23,6 +24,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,9 +43,16 @@ import navigation.add_listing.AddListingEvent
 import navigation.add_listing.AddServiceNameComponent
 import navigation.add_listing.AddServiceNameEvent
 import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.koinInject
 
 @Composable
 fun ServiceNameScreen(component: AddServiceNameComponent) {
+    val landingViewModel: LandingViewModel = koinInject()
+
+    val formState by landingViewModel.formState.collectAsState()
+
+    var serviceName by remember { mutableStateOf(formState.serviceName ?: "") }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -81,7 +90,7 @@ fun ServiceNameScreen(component: AddServiceNameComponent) {
                     )
 
                     Text(
-                        text = "Marching Band – got it! So...",
+                        text = " ${formState.category} – got it! So...",
                         style = MaterialTheme.typography.h6,
                         color = Color.Gray,
                         textAlign = TextAlign.Center
@@ -102,10 +111,13 @@ fun ServiceNameScreen(component: AddServiceNameComponent) {
                         modifier = Modifier.padding(horizontal = horizontalPadding)
                     )
                     Spacer(modifier = Modifier.height(32.dp))
-                    var serviceName by remember { mutableStateOf("") }
+
                     OutlinedTextField(
                         value = serviceName,
-                        onValueChange = { serviceName = it },
+                        onValueChange = {
+                            serviceName = it
+                            landingViewModel.updateServiceName(serviceName)
+                        },
                         label = { Text("Act or service name") },
                         modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding)
                     )

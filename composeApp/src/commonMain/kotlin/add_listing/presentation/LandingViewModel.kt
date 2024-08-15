@@ -17,6 +17,43 @@ class LandingViewModel(private val repository: LandingRepository) : ViewModel(),
     private val _uiState = MutableStateFlow<LandingState>(LandingState.Idle)
     val uiState = _uiState.asStateFlow()
 
+    private val _formState = MutableStateFlow(ListingFormState())
+    val formState = _formState.asStateFlow()
+
+
+    private val _isCategorySelected = MutableStateFlow(false)
+    val isCategorySelected = _isCategorySelected.asStateFlow()
+
+    private val _isCitySelected = MutableStateFlow(false)
+    val isCitySelected = _isCitySelected.asStateFlow()
+
+    fun updateCategory(category: String, isSelected: Boolean = false) {
+        _formState.value = _formState.value.copy(category = category)
+        _isCategorySelected.value = isSelected
+    }
+
+    fun updateCity(city: String, isSelected: Boolean = false) {
+        _formState.value = _formState.value.copy(city = city)
+        _isCitySelected.value = isSelected
+    }
+
+    fun updateServiceName(serviceName: String) {
+        _formState.value = _formState.value.copy(serviceName = serviceName)
+    }
+
+    fun updateAddress(address: String) {
+        _formState.value = _formState.value.copy(address = address)
+    }
+
+    fun updateDescription(description: String) {
+        _formState.value = _formState.value.copy(description = description)
+    }
+
+    fun updateImageUri(imageUri: String) {
+        _formState.value = _formState.value.copy(imageUri = imageUri)
+    }
+
+    // Métodos para autocompletado y otros servicios
     fun getCategoryRecommendationsAutoCompleted(query: String) {
         viewModelScope.launch {
             when (val result = repository.getSuggestionCategories(CategoryRequestModel(query))) {

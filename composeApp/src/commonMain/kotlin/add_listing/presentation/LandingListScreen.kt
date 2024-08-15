@@ -72,6 +72,11 @@ fun LandingListScreen(component: LandingComponent) {
     var talent by remember { mutableStateOf(TextFieldValue("")) }
     var location by remember { mutableStateOf(TextFieldValue("")) }
 
+    val isCategorySelected by landingViewModel.isCategorySelected.collectAsState()
+    val isCitySelected by landingViewModel.isCitySelected.collectAsState()
+
+    val isFormValid = isCategorySelected && isCitySelected
+
     BoxWithConstraints {
         val isSmallScreen = maxWidth < 1200.dp
 
@@ -92,30 +97,36 @@ fun LandingListScreen(component: LandingComponent) {
                     talent = talent,
                     onTalentChange = {
                         talent = it
+                        landingViewModel.updateCategory(it.text)
                         if (talent.text.isNotEmpty()) landingViewModel.getCategoryRecommendationsAutoCompleted(
                             it.text
                         )
                     },
                     onTalentClicked = {
                         talent = TextFieldValue(it, TextRange(it.length))
+                        landingViewModel.updateCategory(it, isSelected = true)
                     },
                     location = location,
                     onLocationChange = {
+                        landingViewModel.updateCity(it.text)
                         location = it
                         if (location.text.isNotEmpty()) landingViewModel.getCitiesAutoCompleted(it.text)
                     },
                     onLocationClicked = {
                         location = TextFieldValue(it, TextRange(it.length))
+                        landingViewModel.updateCity(it, isSelected = true)
                     },
                     viewModel = landingViewModel,
                     isLoggedIn,
                     authViewModel,
-                    component = component
+                    component = component,
+                    isFormValid
                 )
             } else {
                 LargeScreenContent(
                     talent = talent,
                     onTalentChange = {
+                        landingViewModel.updateCategory(it.text)
                         talent = it
                         if (talent.text.isNotEmpty()) landingViewModel.getCategoryRecommendationsAutoCompleted(
                             it.text
@@ -123,6 +134,7 @@ fun LandingListScreen(component: LandingComponent) {
                     },
                     onTalentClicked = {
                         talent = TextFieldValue(it, TextRange(it.length))
+                        landingViewModel.updateCategory(it, isSelected = true)
                     },
                     location = location,
                     onLocationChange = {
@@ -131,12 +143,14 @@ fun LandingListScreen(component: LandingComponent) {
                     },
                     onLocationClicked = {
                         location = TextFieldValue(it, TextRange(it.length))
+                        landingViewModel.updateCity(it, isSelected = true)
                     },
                     maxWidth = this@BoxWithConstraints.maxWidth,
                     viewModel = landingViewModel,
                     isLoggedIn,
                     authViewModel,
-                    component = component
+                    component = component,
+                    isFormValid
                 )
             }
         }
@@ -158,7 +172,8 @@ fun SmallScreenContent(
     viewModel: LandingViewModel,
     isLoggedIn: Boolean,
     authViewModel: AuthViewModel,
-    component: LandingComponent
+    component: LandingComponent,
+    isFormValid: Boolean
 ) {
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -186,7 +201,8 @@ fun SmallScreenContent(
                 viewModel = viewModel,
                 isLoggedIn,
                 authViewModel = authViewModel,
-                component = component
+                component = component,
+                isFormValid
             )
         }
 
@@ -207,7 +223,8 @@ fun LargeScreenContent(
     viewModel: LandingViewModel,
     isLoggedIn: Boolean,
     authViewModel: AuthViewModel,
-    component: LandingComponent
+    component: LandingComponent,
+    isFormValid: Boolean
 ) {
     Column {
         Box(
@@ -241,7 +258,8 @@ fun LargeScreenContent(
                     viewModel = viewModel,
                     isLoggedIn,
                     authViewModel,
-                    component
+                    component,
+                    isFormValid
                 )
             }
         }
@@ -262,7 +280,8 @@ fun FormCard(
     viewModel: LandingViewModel,
     isLoggedIn: Boolean,
     authViewModel: AuthViewModel,
-    component: LandingComponent
+    component: LandingComponent,
+    isFormValid: Boolean
 ) {
     Card(
         shape = RoundedCornerShape(16.dp),
@@ -281,7 +300,8 @@ fun FormCard(
             viewModel = viewModel,
             isLoggedIn,
             authViewModel,
-            component
+            component,
+            isFormValid = isFormValid
         )
     }
 }
@@ -297,7 +317,8 @@ fun FormContent(
     viewModel: LandingViewModel,
     isloggedIn: Boolean,
     authViewModel: AuthViewModel,
-    component: LandingComponent
+    component: LandingComponent,
+    isFormValid: Boolean
 ) {
     var showCategorySuggestions by remember { mutableStateOf(false) }
     var filteredCategorySuggestions by remember { mutableStateOf(emptyList<String>()) }
@@ -415,15 +436,19 @@ fun FormContent(
         Spacer(modifier = Modifier.height(16.dp))
         Text(text = Strings.LEADS_SENT_EACH_DAY)
         Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = {
-            if (!isloggedIn) {
-                showLoginDialog = true
-            } else {
-                component.onEvent(LandingEvent.GoToServiceActorNameScreen)
-            }
-        }) {
+        Button(
+            onClick = {
+                if (!isloggedIn) {
+                    showLoginDialog = true
+                } else {
+                    component.onEvent(LandingEvent.GoToServiceActorNameScreen)
+                }
+            },
+            enabled = isFormValid
+        ) {
             Text(text = Strings.START_GETTING_GIGS)
         }
+
 
         if (showLoginDialog) {
             LoginDialog(onDismiss = { showLoginDialog = false }, authViewModel, component)
