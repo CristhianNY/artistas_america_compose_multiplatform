@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -62,13 +64,14 @@ fun DescribeServiceScreen(component: AddDescriptionServiceComponent) {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(horizontal = 16.dp),
+                        .padding(horizontal = 16.dp)
+                        .verticalScroll(rememberScrollState()),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
 
                     Image(
-                        painter = painterResource(Res.drawable.compose_multiplatform), // Usa la imagen que corresponda
+                        painter = painterResource(Res.drawable.compose_multiplatform),
                         contentDescription = Strings.PROMOTIONAL_IMAGE_DESC,
                         modifier = Modifier
                             .width(150.dp)
@@ -115,13 +118,13 @@ fun DescribeServiceScreen(component: AddDescriptionServiceComponent) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = horizontalPadding)
-                            .height(150.dp), // Ajusta la altura según lo necesites
+                            .height(150.dp),
                         placeholder = { Text("How would you describe your act or service?") }
                     )
 
                     Spacer(modifier = Modifier.height(32.dp))
                     Button(
-                        onClick = { component.onEvent(AddDescriptionServiceEvent.GoToFinalDetailsScreen) }, // Asume un evento para continuar
+                        onClick = { component.onEvent(AddDescriptionServiceEvent.GoToFinalDetailsScreen) },
                         modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding)
                     ) {
                         Text(text = "Continue")

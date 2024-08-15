@@ -1,6 +1,5 @@
 package add_listing.presentation.add_listing_steps
 
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -12,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -63,13 +64,14 @@ fun FinalDetailsScreen(component: AddFinalDetailsComponent) {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(horizontal = 16.dp),
+                        .padding(horizontal = 16.dp)
+                        .verticalScroll(rememberScrollState()),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
 
                     Image(
-                        painter = painterResource(Res.drawable.compose_multiplatform), // Usa la imagen que corresponda
+                        painter = painterResource(Res.drawable.compose_multiplatform),
                         contentDescription = Strings.PROMOTIONAL_IMAGE_DESC,
                         modifier = Modifier
                             .width(150.dp)
@@ -127,14 +129,13 @@ fun FinalDetailsScreen(component: AddFinalDetailsComponent) {
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Aquí va el componente para las opciones de notificaciones (radio buttons)
                     Column {
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier.padding(vertical = 4.dp)
                         ) {
                             RadioButton(
-                                selected = true, // Selección inicial o lógica
+                                selected = true,
                                 onClick = { /* Lógica para manejar la selección */ }
                             )
                             Text(text = "Yes, text me at the number above.")
@@ -145,7 +146,7 @@ fun FinalDetailsScreen(component: AddFinalDetailsComponent) {
                             modifier = Modifier.padding(vertical = 4.dp)
                         ) {
                             RadioButton(
-                                selected = false, // Selección inicial o lógica
+                                selected = false,
                                 onClick = { /* Lógica para manejar la selección */ }
                             )
                             Text(text = "Yes, but I want to use a different number for texts.")
@@ -156,7 +157,7 @@ fun FinalDetailsScreen(component: AddFinalDetailsComponent) {
                             modifier = Modifier.padding(vertical = 4.dp)
                         ) {
                             RadioButton(
-                                selected = false, // Selección inicial o lógica
+                                selected = false,
                                 onClick = { /* Lógica para manejar la selección */ }
                             )
                             Text(text = "No, I only want email notifications.")
@@ -166,7 +167,7 @@ fun FinalDetailsScreen(component: AddFinalDetailsComponent) {
                     Spacer(modifier = Modifier.height(32.dp))
 
                     Button(
-                        onClick = { component.onEvent(AddFinalDetailsEvent.GoToRequestReviewsScreen) }, // Asume un evento para continuar
+                        onClick = { component.onEvent(AddFinalDetailsEvent.GoToRequestReviewsScreen) },
                         modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding)
                     ) {
                         Text(text = "Continue")

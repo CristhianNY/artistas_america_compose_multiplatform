@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -37,8 +39,6 @@ import artistas.composeapp.generated.resources.Res
 import artistas.composeapp.generated.resources.compose_multiplatform
 import navigation.add_listing.AddAddressComponent
 import navigation.add_listing.AddAddressEvent
-import navigation.add_listing.AddImageComponent
-import navigation.add_listing.AddImageEvent
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -64,13 +64,14 @@ fun AddressScreen(component: AddAddressComponent) {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(horizontal = 16.dp),
+                        .padding(horizontal = 16.dp)
+                        .verticalScroll(rememberScrollState()), // Añadir scroll vertical
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
 
                     Image(
-                        painter = painterResource(Res.drawable.compose_multiplatform), // Usa la imagen que corresponda
+                        painter = painterResource(Res.drawable.compose_multiplatform),
                         contentDescription = Strings.PROMOTIONAL_IMAGE_DESC,
                         modifier = Modifier
                             .width(150.dp)
@@ -109,7 +110,7 @@ fun AddressScreen(component: AddAddressComponent) {
                     )
                     Spacer(modifier = Modifier.height(32.dp))
                     Button(
-                        onClick = { component.onEvent(AddAddressEvent.GoToUploadImagesScreen) }, // Asume un evento para continuar
+                        onClick = { component.onEvent(AddAddressEvent.GoToUploadImagesScreen) },
                         modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding)
                     ) {
                         Text(text = "Continue")

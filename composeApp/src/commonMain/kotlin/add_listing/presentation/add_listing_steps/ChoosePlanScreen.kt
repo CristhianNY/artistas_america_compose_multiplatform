@@ -13,7 +13,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -37,8 +39,6 @@ import artistas.composeapp.generated.resources.check_success
 import artistas.composeapp.generated.resources.compose_multiplatform
 import navigation.add_listing.AddChoosePlanComponent
 import navigation.add_listing.AddChoosePlanEvent
-import navigation.add_listing.AddListingComponent
-import navigation.add_listing.AddListingEvent
 import org.jetbrains.compose.resources.painterResource
 import support.HoverableButton
 
@@ -65,13 +65,14 @@ fun ChoosePlanScreen(component: AddChoosePlanComponent) {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(horizontal = 16.dp),
+                        .padding(horizontal = 16.dp)
+                        .verticalScroll(rememberScrollState()), // Añadir scroll vertical
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
 
                     Image(
-                        painter = painterResource(Res.drawable.compose_multiplatform), // Usa la imagen que corresponda
+                        painter = painterResource(Res.drawable.compose_multiplatform),
                         contentDescription = Strings.PROMOTIONAL_IMAGE_DESC,
                         modifier = Modifier
                             .width(150.dp)
