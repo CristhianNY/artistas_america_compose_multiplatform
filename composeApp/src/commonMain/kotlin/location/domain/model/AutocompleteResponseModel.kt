@@ -1,4 +1,4 @@
-package location.domain
+package location.domain.model
 
 data class AutocompleteResponseModel(
     val predictions: List<PredictionModel>,

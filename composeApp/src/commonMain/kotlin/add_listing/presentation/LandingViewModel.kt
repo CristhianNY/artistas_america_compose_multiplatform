@@ -8,11 +8,16 @@ import add_listing.domain.model.CityRequestModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import location.domain.LocationRepository
+import location.domain.model.AddressRequestModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import support.ResultDomain
 
-class LandingViewModel(private val repository: LandingRepository) : ViewModel(), KoinComponent {
+class LandingViewModel(
+    private val repository: LandingRepository,
+    private val locationRepository: LocationRepository
+) : ViewModel(), KoinComponent {
 
     private val _uiState = MutableStateFlow<LandingState>(LandingState.Idle)
     val uiState = _uiState.asStateFlow()
@@ -20,6 +25,8 @@ class LandingViewModel(private val repository: LandingRepository) : ViewModel(),
     private val _formState = MutableStateFlow(ListingFormState())
     val formState = _formState.asStateFlow()
 
+    private val _addressSuggestions = MutableStateFlow<List<String>>(emptyList())
+    val addressSuggestions = _addressSuggestions.asStateFlow()
 
     private val _isCategorySelected = MutableStateFlow(false)
     val isCategorySelected = _isCategorySelected.asStateFlow()
@@ -79,6 +86,22 @@ class LandingViewModel(private val repository: LandingRepository) : ViewModel(),
 
                 is ResultDomain.Error -> {
                     _uiState.value = LandingState.Error(result.error)
+                }
+            }
+        }
+    }
+
+    fun getAddressSuggestions(query: String) {
+        viewModelScope.launch {
+            when (val result =
+                locationRepository.getAddressSuggestion(AddressRequestModel(query))) {
+                is ResultDomain.Success -> {
+                    val suggestions = result.data?.predictions?.map { it.description }
+                    _addressSuggestions.value = suggestions.orEmpty()
+                }
+
+                is ResultDomain.Error -> {
+                    // Handle the error as needed, possibly update the UI state to show an error message
                 }
             }
         }

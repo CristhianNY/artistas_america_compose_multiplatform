@@ -14,6 +14,12 @@ import add_listing.data.data_source.LandingDataSourceImp
 import add_listing.data.repository.LandingRepositoryImpl
 import add_listing.domain.LandingRepository
 import add_listing.presentation.LandingViewModel
+import location.data.api.LocationApi
+import location.data.api.LocationApiImpl
+import location.data.data_source.LocationDataSource
+import location.data.data_source.LocationDataSourceImpl
+import location.data.repository.LocationRepositoryImpl
+import location.domain.LocationRepository
 import navigation.UrlHandler
 import org.koin.dsl.module
 import support.createHttpClient
@@ -24,7 +30,7 @@ val sharedModule = module {
         createHttpClient()
     }
 
-    // Define LoginApi singleton
+    // Define AuthApi singleton
     single<AuthApi> { AuthApiImpl(get()) }
 
     // Define AuthDataSource singleton
@@ -40,14 +46,15 @@ val sharedModule = module {
         AuthViewModel(get())
     }
 
+    // Define LandingViewModel singleton
     single {
-        LandingViewModel(get())
+        LandingViewModel(get(), get())
     }
 
     // Define UrlHandler singleton
     single { UrlHandler() }
 
-    // Define CategoryApi singleton
+    // Define LandingApi singleton
     single<LandingApi> { LandingApiImpl(get()) }
 
     // Define LandingDataSource singleton
@@ -55,4 +62,13 @@ val sharedModule = module {
 
     // Define LandingRepository singleton
     single<LandingRepository> { LandingRepositoryImpl(get()) }
+
+    // Define LocationApi singleton
+    single<LocationApi> { LocationApiImpl(get()) }
+
+    // Define LocationDataSource singleton
+    single<LocationDataSource> { LocationDataSourceImpl(get()) }
+
+    // Define LocationRepository singleton
+    single<LocationRepository> { LocationRepositoryImpl(get()) }
 }

@@ -1,4 +1,4 @@
-package location.domain
+package location.domain.model
 
 data class StructuredFormattingModel(
     val main_text: String,

@@ -53,6 +53,7 @@ fun ServiceNameScreen(component: AddServiceNameComponent) {
 
     var serviceName by remember { mutableStateOf(formState.serviceName ?: "") }
 
+    val isFormValid = serviceName.isNotBlank()
     Scaffold(
         topBar = {
             TopAppBar(
@@ -124,6 +125,7 @@ fun ServiceNameScreen(component: AddServiceNameComponent) {
                     Spacer(modifier = Modifier.height(32.dp))
                     Button(
                         onClick = { component.onEvent(AddServiceNameEvent.GoToAddressScreen) },
+                        enabled =  isFormValid,
                         modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding)
                     ) {
                         Text(text = "Continue")

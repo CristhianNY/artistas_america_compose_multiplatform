@@ -1,10 +1,10 @@
-package location.domain
+package location.domain.model
 
 data class PredictionModel(
     val description: String,
     val place_id: String,
     val reference: String,
-    val structured_formatting: StructuredFormattingModel,
+    val structured_formatting: StructuredFormattingModel?,
     val terms: List<TermModel>,
     val types: List<String>
 )
