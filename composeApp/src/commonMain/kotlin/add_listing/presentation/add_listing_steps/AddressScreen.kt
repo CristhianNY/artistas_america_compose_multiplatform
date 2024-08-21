@@ -54,6 +54,7 @@ fun AddressScreen(component: AddAddressComponent) {
     var isAddressSelected by remember { mutableStateOf(formState.address != null) }
     var showSuggestions by remember { mutableStateOf(true) }
 
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -128,7 +129,8 @@ fun AddressScreen(component: AddAddressComponent) {
                             onValueChange = {
                                 address = it
                                 showSuggestions = true // Mostrar sugerencias mientras se escribe
-                                isAddressSelected = false // No permitir continuar hasta que se seleccione una dirección
+                                isAddressSelected =
+                                    false // No permitir continuar hasta que se seleccione una dirección
                                 landingViewModel.getAddressSuggestions(it)
                             },
                             label = { Text("Address or postal code") },

@@ -23,6 +23,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,12 +33,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import artistas.composeapp.generated.resources.Res
 import artistas.composeapp.generated.resources.compose_multiplatform
+import kotlinx.coroutines.launch
 import navigation.add_listing.AddImageComponent
 import navigation.add_listing.AddImageEvent
 import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.koinInject
+import support.ImagePicker
 
 @Composable
 fun AddImagesScreen(component: AddImageComponent) {
+
+    val imagePicker: ImagePicker = koinInject()
+    val coroutineScope = rememberCoroutineScope()
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -99,7 +107,17 @@ fun AddImagesScreen(component: AddImageComponent) {
 
                     // Aquí va el componente para subir la imagen
                     Button(
-                        onClick = { /* Lógica para subir la imagen */ },
+                        onClick = {
+                            coroutineScope.launch {
+                                val imageBytes = imagePicker.pickImage()
+                                if (imageBytes != null) {
+                                    // Lógica para subir la imagen al servidor
+                                    // Aquí podrías llamar a una función de tu ViewModel o similar
+                                } else {
+                                    // Manejar el caso en que el usuario no seleccionó ninguna imagen
+                                }
+                            }
+                        },
                         modifier = Modifier
                             .padding(horizontal = horizontalPadding)
                             .fillMaxWidth()

@@ -2,6 +2,7 @@ package org.artistasamerica.artistas
 
 import android.app.Application
 import android.content.Context
+import di.androidModule
 import di.sharedModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -19,7 +20,7 @@ class ArtistaApplication : Application() {
         startKoin {
             androidContext(this@ArtistaApplication)
             androidLogger()
-            modules(sharedModule)
+            modules(sharedModule, androidModule)
 
         }
         AndroidSettingsManager.init(this)

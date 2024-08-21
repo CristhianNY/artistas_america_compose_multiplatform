@@ -3,6 +3,7 @@ import androidx.compose.ui.window.ComposeViewport
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import di.sharedModule
+import di.wasModule
 import kotlinx.browser.document
 import kotlinx.browser.window
 import navigation.RootComponent
@@ -14,7 +15,7 @@ import org.koin.core.component.inject
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
     startKoin {
-        modules(sharedModule)
+        modules(sharedModule, wasModule)
     }
 
     val lifecycle = LifecycleRegistry()
