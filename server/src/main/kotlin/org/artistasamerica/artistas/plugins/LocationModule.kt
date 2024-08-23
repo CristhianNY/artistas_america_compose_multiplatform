@@ -49,7 +49,7 @@ fun Application.locationModule() {
         post("/location/autocomplete") {
             val input = call.receive<AddressRequest>()
             val address = input.query
-            val googleApiKey = "AIzaSyC0qob9DXt8CrlmvwrvBtmKJDV0fP9qu4A"
+            val googleApiKey = "ddsf"
 
             if (address.isBlank()) {
                 call.respond(mapOf("error" to "Input parameter is missing"))

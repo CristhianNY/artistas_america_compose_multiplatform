@@ -34,6 +34,10 @@ class LandingViewModel(
     private val _isCitySelected = MutableStateFlow(false)
     val isCitySelected = _isCitySelected.asStateFlow()
 
+    // Nueva variable de estado para manejar la imagen seleccionada
+    private val _selectedImage = MutableStateFlow<ByteArray?>(null)
+    val selectedImage = _selectedImage.asStateFlow()
+
     fun updateCategory(category: String, isSelected: Boolean = false) {
         _formState.value = _formState.value.copy(category = category)
         _isCategorySelected.value = isSelected
@@ -58,6 +62,16 @@ class LandingViewModel(
 
     fun updateImageUri(imageUri: String) {
         _formState.value = _formState.value.copy(imageUri = imageUri)
+    }
+
+    // Función para actualizar la imagen seleccionada
+    fun updateSelectedImage(imageBytes: ByteArray) {
+        _selectedImage.value = imageBytes
+    }
+
+    // Función para eliminar la imagen seleccionada
+    fun removeSelectedImage() {
+        _selectedImage.value = null
     }
 
     // Métodos para autocompletado y otros servicios

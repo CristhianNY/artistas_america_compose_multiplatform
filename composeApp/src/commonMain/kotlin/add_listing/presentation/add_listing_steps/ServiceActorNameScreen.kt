@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -44,7 +45,6 @@ import navigation.add_listing.AddServiceNameComponent
 import navigation.add_listing.AddServiceNameEvent
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
-
 @Composable
 fun ServiceNameScreen(component: AddServiceNameComponent) {
     val landingViewModel: LandingViewModel = koinInject()
@@ -76,7 +76,8 @@ fun ServiceNameScreen(component: AddServiceNameComponent) {
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(horizontal = 16.dp)
-                        .verticalScroll(rememberScrollState()),
+                        .verticalScroll(rememberScrollState())
+                        .imePadding(),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
@@ -120,13 +121,17 @@ fun ServiceNameScreen(component: AddServiceNameComponent) {
                             landingViewModel.updateServiceName(serviceName)
                         },
                         label = { Text("Act or service name") },
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = horizontalPadding)
                     )
                     Spacer(modifier = Modifier.height(32.dp))
                     Button(
                         onClick = { component.onEvent(AddServiceNameEvent.GoToAddressScreen) },
                         enabled =  isFormValid,
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = horizontalPadding)
                     ) {
                         Text(text = "Continue")
                     }

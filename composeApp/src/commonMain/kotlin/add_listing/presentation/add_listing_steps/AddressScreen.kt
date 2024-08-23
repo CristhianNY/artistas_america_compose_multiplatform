@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -43,7 +44,6 @@ import navigation.add_listing.AddAddressComponent
 import navigation.add_listing.AddAddressEvent
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
-
 @Composable
 fun AddressScreen(component: AddAddressComponent) {
 
@@ -53,7 +53,6 @@ fun AddressScreen(component: AddAddressComponent) {
     var address by remember { mutableStateOf(formState.address ?: "") }
     var isAddressSelected by remember { mutableStateOf(formState.address != null) }
     var showSuggestions by remember { mutableStateOf(true) }
-
 
     Scaffold(
         topBar = {
@@ -76,7 +75,8 @@ fun AddressScreen(component: AddAddressComponent) {
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(horizontal = 16.dp),
+                        .padding(horizontal = 16.dp)
+                        .imePadding(), // Asegura que el teclado no oculte contenido
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
@@ -175,5 +175,3 @@ fun AddressScreen(component: AddAddressComponent) {
         }
     )
 }
-
-

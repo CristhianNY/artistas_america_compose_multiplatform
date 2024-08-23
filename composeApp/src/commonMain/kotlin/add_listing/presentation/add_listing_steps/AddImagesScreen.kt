@@ -1,29 +1,16 @@
 package add_listing.presentation.add_listing_steps
 
 import Strings
+import add_listing.presentation.LandingViewModel
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,13 +25,33 @@ import navigation.add_listing.AddImageComponent
 import navigation.add_listing.AddImageEvent
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
-import support.ImagePicker
+import support.*
 
 @Composable
 fun AddImagesScreen(component: AddImageComponent) {
 
-    val imagePicker: ImagePicker = koinInject()
-    val coroutineScope = rememberCoroutineScope()
+    val permissionsManager = createPermissionsManager(object : PermissionCallback {
+        override fun onPermissionStatus(permissionType: PermissionType, status: PermissionStatus) {
+            // Aquí puedes manejar el estado de los permisos si es necesario
+        }
+    })
+
+    val viewModel: LandingViewModel = koinInject()
+
+    val selectedImage = viewModel.selectedImage.collectAsState().value
+
+    var galleryPermissionRequested by remember { mutableStateOf(false) }
+
+    val galleryPermissionGranted = permissionsManager.isPermissionGranted(PermissionType.GALLERY)
+
+
+
+    // Si también deseas manejar la galería con un GalleryManager, puedes hacer algo similar
+    val galleryManager = rememberGalleryManager { imageBytes ->
+        if (imageBytes != null) {
+            viewModel.updateSelectedImage(imageBytes)
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -68,7 +75,7 @@ fun AddImagesScreen(component: AddImageComponent) {
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(horizontal = 16.dp)
-                        .verticalScroll(rememberScrollState()), // Añadir scroll vertical
+                        .verticalScroll(rememberScrollState()),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
@@ -105,31 +112,56 @@ fun AddImagesScreen(component: AddImageComponent) {
                     )
                     Spacer(modifier = Modifier.height(32.dp))
 
-                    // Aquí va el componente para subir la imagen
-                    Button(
-                        onClick = {
-                            coroutineScope.launch {
-                                val imageBytes = imagePicker.pickImage()
-                                if (imageBytes != null) {
-                                    // Lógica para subir la imagen al servidor
-                                    // Aquí podrías llamar a una función de tu ViewModel o similar
-                                } else {
-                                    // Manejar el caso en que el usuario no seleccionó ninguna imagen
+                    if (selectedImage != null) {
+                        val bitmap = selectedImage.toImageBitmap()
+                        if (bitmap != null) {
+                            Image(
+                                bitmap = bitmap,
+                                contentDescription = "Selected Image",
+                                modifier = Modifier
+                                    .padding(horizontal = horizontalPadding)
+                                    .fillMaxWidth()
+                                    .height(200.dp),
+                                contentScale = ContentScale.Crop
+                            )
+                        }
+                        IconButton(onClick = { viewModel.removeSelectedImage() }) {
+                            Icon(Icons.Default.Delete, contentDescription = "Delete Image", tint = Color.Red)
+                        }
+                    } else {
+                        // Lógica para la solicitud de permisos
+                        when {
+                            galleryPermissionRequested && !galleryPermissionGranted -> {
+                                permissionsManager.askPermission(PermissionType.GALLERY)
+                            }
+                            else -> {
+
+                                // Botón para seleccionar imagen de la galería
+                                Button(
+                                    onClick = {
+                                        if (galleryPermissionGranted) {
+                                            galleryManager.launch()  // Llamar a launch() en la instancia de GalleryManager
+                                        } else {
+                                            galleryPermissionRequested = true
+                                        }
+                                    },
+                                    modifier = Modifier
+                                        .padding(horizontal = horizontalPadding)
+                                        .fillMaxWidth()
+                                        .height(200.dp)
+                                ) {
+                                    Text(text = "Select Image from Gallery")
                                 }
                             }
-                        },
-                        modifier = Modifier
-                            .padding(horizontal = horizontalPadding)
-                            .fillMaxWidth()
-                            .height(200.dp)
-                    ) {
-                        Text(text = "Click to upload an image")
+                        }
                     }
 
                     Spacer(modifier = Modifier.height(32.dp))
                     Button(
                         onClick = { component.onEvent(AddImageEvent.GotoDescriptionScreen) },
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = horizontalPadding)
                     ) {
                         Text(text = "Continue")
                     }

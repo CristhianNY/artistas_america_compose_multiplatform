@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
 
         // Inicializar el ActivityResultLauncher
         pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-            mainComponent.imagePicker.handleImageResult(uri)
+            mainComponent.imagePicker.handleImageResult(this, uri)
         }
 
         // Inicializar ImagePicker con el ActivityResultLauncher

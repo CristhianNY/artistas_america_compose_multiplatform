@@ -54,7 +54,9 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
-            implementation("com.russhwolf:multiplatform-settings:1.1.1")
+            implementation(libs.multiplatform.settings)
+            implementation(libs.accompanist.permissions)
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)

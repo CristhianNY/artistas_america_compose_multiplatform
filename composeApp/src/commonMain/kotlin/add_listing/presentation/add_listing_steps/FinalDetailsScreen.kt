@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -40,7 +41,6 @@ import artistas.composeapp.generated.resources.compose_multiplatform
 import navigation.add_listing.AddFinalDetailsComponent
 import navigation.add_listing.AddFinalDetailsEvent
 import org.jetbrains.compose.resources.painterResource
-
 @Composable
 fun FinalDetailsScreen(component: AddFinalDetailsComponent) {
     Scaffold(
@@ -65,7 +65,8 @@ fun FinalDetailsScreen(component: AddFinalDetailsComponent) {
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(horizontal = 16.dp)
-                        .verticalScroll(rememberScrollState()),
+                        .verticalScroll(rememberScrollState())
+                        .imePadding(), // Asegura que el teclado no oculte el contenido
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {

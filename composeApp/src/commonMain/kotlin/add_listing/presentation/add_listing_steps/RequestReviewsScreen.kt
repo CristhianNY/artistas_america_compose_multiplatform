@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -41,7 +42,6 @@ import artistas.composeapp.generated.resources.compose_multiplatform
 import navigation.add_listing.AddRequestReviewComponent
 import navigation.add_listing.AddRequestReviewEvent
 import org.jetbrains.compose.resources.painterResource
-
 @Composable
 fun RequestReviewsScreen(component: AddRequestReviewComponent) {
     Scaffold(
@@ -66,7 +66,8 @@ fun RequestReviewsScreen(component: AddRequestReviewComponent) {
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(horizontal = 16.dp)
-                        .verticalScroll(rememberScrollState()), // Añadir scroll vertical
+                        .verticalScroll(rememberScrollState())
+                        .imePadding(), // Asegura que el teclado no oculte el contenido
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {

@@ -11,6 +11,132 @@
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
+		F362F0172C76CD0B0095F7C6 /* IosModule.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF722C76CD0B0095F7C6 /* IosModule.kt */; };
+		F362F0182C76CD0B0095F7C6 /* ByteArrayExtensions.ios.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF742C76CD0B0095F7C6 /* ByteArrayExtensions.ios.kt */; };
+		F362F0192C76CD0B0095F7C6 /* CreateHttpClient.ios.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF752C76CD0B0095F7C6 /* CreateHttpClient.ios.kt */; };
+		F362F01A2C76CD0B0095F7C6 /* SettingsManager.ios.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF762C76CD0B0095F7C6 /* SettingsManager.ios.kt */; };
+		F362F01B2C76CD0B0095F7C6 /* MainViewController.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF782C76CD0B0095F7C6 /* MainViewController.kt */; };
+		F362F01C2C76CD0B0095F7C6 /* band.webp in Resources */ = {isa = PBXBuildFile; fileRef = F362EF7B2C76CD0B0095F7C6 /* band.webp */; };
+		F362F01D2C76CD0B0095F7C6 /* check_success.png in Resources */ = {isa = PBXBuildFile; fileRef = F362EF7C2C76CD0B0095F7C6 /* check_success.png */; };
+		F362F01E2C76CD0B0095F7C6 /* compose-multiplatform.xml in Resources */ = {isa = PBXBuildFile; fileRef = F362EF7D2C76CD0B0095F7C6 /* compose-multiplatform.xml */; };
+		F362F01F2C76CD0B0095F7C6 /* LandingApi.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF802C76CD0B0095F7C6 /* LandingApi.kt */; };
+		F362F0202C76CD0B0095F7C6 /* LandingApiImpl.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF812C76CD0B0095F7C6 /* LandingApiImpl.kt */; };
+		F362F0212C76CD0B0095F7C6 /* LandingDataSource.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF832C76CD0B0095F7C6 /* LandingDataSource.kt */; };
+		F362F0222C76CD0B0095F7C6 /* LandingDataSourceImpl.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF842C76CD0B0095F7C6 /* LandingDataSourceImpl.kt */; };
+		F362F0232C76CD0B0095F7C6 /* CategoryEntity.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF862C76CD0B0095F7C6 /* CategoryEntity.kt */; };
+		F362F0242C76CD0B0095F7C6 /* CategoryQueryRequest.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF872C76CD0B0095F7C6 /* CategoryQueryRequest.kt */; };
+		F362F0252C76CD0B0095F7C6 /* CityEntity.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF882C76CD0B0095F7C6 /* CityEntity.kt */; };
+		F362F0262C76CD0B0095F7C6 /* CityQueryRequest.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF892C76CD0B0095F7C6 /* CityQueryRequest.kt */; };
+		F362F0272C76CD0B0095F7C6 /* LandingRepositoryImpl.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF8B2C76CD0B0095F7C6 /* LandingRepositoryImpl.kt */; };
+		F362F0282C76CD0B0095F7C6 /* CategoryModel.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF8E2C76CD0B0095F7C6 /* CategoryModel.kt */; };
+		F362F0292C76CD0B0095F7C6 /* CategoryRequestModel.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF8F2C76CD0B0095F7C6 /* CategoryRequestModel.kt */; };
+		F362F02A2C76CD0B0095F7C6 /* CityModel.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF902C76CD0B0095F7C6 /* CityModel.kt */; };
+		F362F02B2C76CD0B0095F7C6 /* CityRequestModel.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF912C76CD0B0095F7C6 /* CityRequestModel.kt */; };
+		F362F02C2C76CD0B0095F7C6 /* LandingRepository.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF932C76CD0B0095F7C6 /* LandingRepository.kt */; };
+		F362F02D2C76CD0B0095F7C6 /* AddImagesScreen.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF952C76CD0B0095F7C6 /* AddImagesScreen.kt */; };
+		F362F02E2C76CD0B0095F7C6 /* AddressScreen.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF962C76CD0B0095F7C6 /* AddressScreen.kt */; };
+		F362F02F2C76CD0B0095F7C6 /* ChoosePlanScreen.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF972C76CD0B0095F7C6 /* ChoosePlanScreen.kt */; };
+		F362F0302C76CD0B0095F7C6 /* DescribeServiceScreen.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF982C76CD0B0095F7C6 /* DescribeServiceScreen.kt */; };
+		F362F0312C76CD0B0095F7C6 /* FinalDetailsScreen.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF992C76CD0B0095F7C6 /* FinalDetailsScreen.kt */; };
+		F362F0322C76CD0B0095F7C6 /* RequestReviewsScreen.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF9A2C76CD0B0095F7C6 /* RequestReviewsScreen.kt */; };
+		F362F0332C76CD0B0095F7C6 /* ServiceActorNameScreen.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF9B2C76CD0B0095F7C6 /* ServiceActorNameScreen.kt */; };
+		F362F0342C76CD0B0095F7C6 /* LandingListScreen.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF9D2C76CD0B0095F7C6 /* LandingListScreen.kt */; };
+		F362F0352C76CD0B0095F7C6 /* LandingState.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF9E2C76CD0B0095F7C6 /* LandingState.kt */; };
+		F362F0362C76CD0B0095F7C6 /* LandingViewModel.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EF9F2C76CD0B0095F7C6 /* LandingViewModel.kt */; };
+		F362F0372C76CD0B0095F7C6 /* ListingFormState.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFA02C76CD0B0095F7C6 /* ListingFormState.kt */; };
+		F362F0382C76CD0B0095F7C6 /* DashboardLayout.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFA32C76CD0B0095F7C6 /* DashboardLayout.kt */; };
+		F362F0392C76CD0B0095F7C6 /* AuthApi.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFA52C76CD0B0095F7C6 /* AuthApi.kt */; };
+		F362F03A2C76CD0B0095F7C6 /* AuthApiImpl.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFA62C76CD0B0095F7C6 /* AuthApiImpl.kt */; };
+		F362F03B2C76CD0B0095F7C6 /* AuthDataSource.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFA82C76CD0B0095F7C6 /* AuthDataSource.kt */; };
+		F362F03C2C76CD0B0095F7C6 /* AuthDataSourceImpl.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFA92C76CD0B0095F7C6 /* AuthDataSourceImpl.kt */; };
+		F362F03D2C76CD0B0095F7C6 /* LoginEntity.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFAB2C76CD0B0095F7C6 /* LoginEntity.kt */; };
+		F362F03E2C76CD0B0095F7C6 /* LoginRequestEntity.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFAC2C76CD0B0095F7C6 /* LoginRequestEntity.kt */; };
+		F362F03F2C76CD0B0095F7C6 /* RegisterUserEntity.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFAD2C76CD0B0095F7C6 /* RegisterUserEntity.kt */; };
+		F362F0402C76CD0B0095F7C6 /* RegisterUserRequestEntity.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFAE2C76CD0B0095F7C6 /* RegisterUserRequestEntity.kt */; };
+		F362F0412C76CD0B0095F7C6 /* AuthRepositoryImpl.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFB02C76CD0B0095F7C6 /* AuthRepositoryImpl.kt */; };
+		F362F0422C76CD0B0095F7C6 /* LoginModel.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFB32C76CD0B0095F7C6 /* LoginModel.kt */; };
+		F362F0432C76CD0B0095F7C6 /* LoginRequest.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFB42C76CD0B0095F7C6 /* LoginRequest.kt */; };
+		F362F0442C76CD0B0095F7C6 /* RegisterUserModel.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFB52C76CD0B0095F7C6 /* RegisterUserModel.kt */; };
+		F362F0452C76CD0B0095F7C6 /* RegisterUserRequestModel.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFB62C76CD0B0095F7C6 /* RegisterUserRequestModel.kt */; };
+		F362F0462C76CD0B0095F7C6 /* AuthRepository.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFB82C76CD0B0095F7C6 /* AuthRepository.kt */; };
+		F362F0472C76CD0B0095F7C6 /* AuthViewModel.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFBB2C76CD0B0095F7C6 /* AuthViewModel.kt */; };
+		F362F0482C76CD0B0095F7C6 /* LoginDialog.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFBC2C76CD0B0095F7C6 /* LoginDialog.kt */; };
+		F362F0492C76CD0B0095F7C6 /* LoginState.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFBD2C76CD0B0095F7C6 /* LoginState.kt */; };
+		F362F04A2C76CD0B0095F7C6 /* RegisterState.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFBE2C76CD0B0095F7C6 /* RegisterState.kt */; };
+		F362F04B2C76CD0B0095F7C6 /* SharedModule.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFC12C76CD0B0095F7C6 /* SharedModule.kt */; };
+		F362F04C2C76CD0B0095F7C6 /* HomeScreen.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFC32C76CD0B0095F7C6 /* HomeScreen.kt */; };
+		F362F04D2C76CD0B0095F7C6 /* LocationApi.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFC52C76CD0B0095F7C6 /* LocationApi.kt */; };
+		F362F04E2C76CD0B0095F7C6 /* LocationApiImpl.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFC62C76CD0B0095F7C6 /* LocationApiImpl.kt */; };
+		F362F04F2C76CD0B0095F7C6 /* LocationDataSource.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFC82C76CD0B0095F7C6 /* LocationDataSource.kt */; };
+		F362F0502C76CD0B0095F7C6 /* LocationDataSourceImpl.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFC92C76CD0B0095F7C6 /* LocationDataSourceImpl.kt */; };
+		F362F0512C76CD0B0095F7C6 /* AddressRequestEntity.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFCB2C76CD0B0095F7C6 /* AddressRequestEntity.kt */; };
+		F362F0522C76CD0B0095F7C6 /* AutocompleteResponseEntity.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFCC2C76CD0B0095F7C6 /* AutocompleteResponseEntity.kt */; };
+		F362F0532C76CD0B0095F7C6 /* MatchedSubstringEntity.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFCD2C76CD0B0095F7C6 /* MatchedSubstringEntity.kt */; };
+		F362F0542C76CD0B0095F7C6 /* PredictionEntity.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFCE2C76CD0B0095F7C6 /* PredictionEntity.kt */; };
+		F362F0552C76CD0B0095F7C6 /* StructuredFormattingEntity.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFCF2C76CD0B0095F7C6 /* StructuredFormattingEntity.kt */; };
+		F362F0562C76CD0B0095F7C6 /* TermEntity.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFD02C76CD0B0095F7C6 /* TermEntity.kt */; };
+		F362F0572C76CD0B0095F7C6 /* LocationRepositoryImpl.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFD22C76CD0B0095F7C6 /* LocationRepositoryImpl.kt */; };
+		F362F0582C76CD0B0095F7C6 /* AddressRequestModel.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFD52C76CD0B0095F7C6 /* AddressRequestModel.kt */; };
+		F362F0592C76CD0B0095F7C6 /* AutocompleteResponseModel.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFD62C76CD0B0095F7C6 /* AutocompleteResponseModel.kt */; };
+		F362F05A2C76CD0B0095F7C6 /* MatchedSubstringModel.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFD72C76CD0B0095F7C6 /* MatchedSubstringModel.kt */; };
+		F362F05B2C76CD0B0095F7C6 /* PredictionModel.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFD82C76CD0B0095F7C6 /* PredictionModel.kt */; };
+		F362F05C2C76CD0B0095F7C6 /* StructuredFormattingModel.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFD92C76CD0B0095F7C6 /* StructuredFormattingModel.kt */; };
+		F362F05D2C76CD0B0095F7C6 /* TermModel.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFDA2C76CD0B0095F7C6 /* TermModel.kt */; };
+		F362F05E2C76CD0B0095F7C6 /* LocationRepository.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFDC2C76CD0B0095F7C6 /* LocationRepository.kt */; };
+		F362F05F2C76CD0B0095F7C6 /* AddAddressComponent.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFDF2C76CD0B0095F7C6 /* AddAddressComponent.kt */; };
+		F362F0602C76CD0B0095F7C6 /* AddAddressEvent.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFE02C76CD0B0095F7C6 /* AddAddressEvent.kt */; };
+		F362F0612C76CD0B0095F7C6 /* AddChoosePlanComponent.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFE12C76CD0B0095F7C6 /* AddChoosePlanComponent.kt */; };
+		F362F0622C76CD0B0095F7C6 /* AddChoosePlanEvent.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFE22C76CD0B0095F7C6 /* AddChoosePlanEvent.kt */; };
+		F362F0632C76CD0B0095F7C6 /* AddDescriptionServiceComponent.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFE32C76CD0B0095F7C6 /* AddDescriptionServiceComponent.kt */; };
+		F362F0642C76CD0B0095F7C6 /* AddDescriptionServiceEvent.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFE42C76CD0B0095F7C6 /* AddDescriptionServiceEvent.kt */; };
+		F362F0652C76CD0B0095F7C6 /* AddFinalDetailsComponent.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFE52C76CD0B0095F7C6 /* AddFinalDetailsComponent.kt */; };
+		F362F0662C76CD0B0095F7C6 /* AddFinalDetailsEvent.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFE62C76CD0B0095F7C6 /* AddFinalDetailsEvent.kt */; };
+		F362F0672C76CD0B0095F7C6 /* AddImageComponent.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFE72C76CD0B0095F7C6 /* AddImageComponent.kt */; };
+		F362F0682C76CD0B0095F7C6 /* AddImageEvent.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFE82C76CD0B0095F7C6 /* AddImageEvent.kt */; };
+		F362F0692C76CD0B0095F7C6 /* AddListingComponent.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFE92C76CD0B0095F7C6 /* AddListingComponent.kt */; };
+		F362F06A2C76CD0B0095F7C6 /* AddListingEvent.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFEA2C76CD0B0095F7C6 /* AddListingEvent.kt */; };
+		F362F06B2C76CD0B0095F7C6 /* AddRequestReviewComponent.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFEB2C76CD0B0095F7C6 /* AddRequestReviewComponent.kt */; };
+		F362F06C2C76CD0B0095F7C6 /* AddRequestReviewEvent.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFEC2C76CD0B0095F7C6 /* AddRequestReviewEvent.kt */; };
+		F362F06D2C76CD0B0095F7C6 /* AddServiceNameComponent.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFED2C76CD0B0095F7C6 /* AddServiceNameComponent.kt */; };
+		F362F06E2C76CD0B0095F7C6 /* AddServiceNameEvent.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFEE2C76CD0B0095F7C6 /* AddServiceNameEvent.kt */; };
+		F362F06F2C76CD0B0095F7C6 /* DashboardComponent.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFF02C76CD0B0095F7C6 /* DashboardComponent.kt */; };
+		F362F0702C76CD0B0095F7C6 /* HomeComponent.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFF22C76CD0B0095F7C6 /* HomeComponent.kt */; };
+		F362F0712C76CD0B0095F7C6 /* HomeEvent.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFF32C76CD0B0095F7C6 /* HomeEvent.kt */; };
+		F362F0722C76CD0B0095F7C6 /* LandingComponent.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFF52C76CD0B0095F7C6 /* LandingComponent.kt */; };
+		F362F0732C76CD0B0095F7C6 /* LandingEvent.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFF62C76CD0B0095F7C6 /* LandingEvent.kt */; };
+		F362F0742C76CD0B0095F7C6 /* Child.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFF82C76CD0B0095F7C6 /* Child.kt */; };
+		F362F0752C76CD0B0095F7C6 /* Configuration.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFF92C76CD0B0095F7C6 /* Configuration.kt */; };
+		F362F0762C76CD0B0095F7C6 /* RootComponent.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFFA2C76CD0B0095F7C6 /* RootComponent.kt */; };
+		F362F0772C76CD0B0095F7C6 /* UrlHandler.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFFB2C76CD0B0095F7C6 /* UrlHandler.kt */; };
+		F362F0782C76CD0B0095F7C6 /* ArtistasTheme.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFFD2C76CD0B0095F7C6 /* ArtistasTheme.kt */; };
+		F362F0792C76CD0B0095F7C6 /* BaseDataSource.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFFE2C76CD0B0095F7C6 /* BaseDataSource.kt */; };
+		F362F07A2C76CD0B0095F7C6 /* ByteArrayExtensions.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362EFFF2C76CD0B0095F7C6 /* ByteArrayExtensions.kt */; };
+		F362F07B2C76CD0B0095F7C6 /* CreateHttpClient.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F0002C76CD0B0095F7C6 /* CreateHttpClient.kt */; };
+		F362F07C2C76CD0B0095F7C6 /* DispatcherProvider.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F0012C76CD0B0095F7C6 /* DispatcherProvider.kt */; };
+		F362F07D2C76CD0B0095F7C6 /* ErrorDomain.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F0022C76CD0B0095F7C6 /* ErrorDomain.kt */; };
+		F362F07E2C76CD0B0095F7C6 /* ErrorHandler.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F0032C76CD0B0095F7C6 /* ErrorHandler.kt */; };
+		F362F07F2C76CD0B0095F7C6 /* ErrorMapper.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F0042C76CD0B0095F7C6 /* ErrorMapper.kt */; };
+		F362F0802C76CD0B0095F7C6 /* GenericErrorMapper.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F0052C76CD0B0095F7C6 /* GenericErrorMapper.kt */; };
+		F362F0812C76CD0B0095F7C6 /* HovelableButton.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F0062C76CD0B0095F7C6 /* HovelableButton.kt */; };
+		F362F0822C76CD0B0095F7C6 /* ImagePicker.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F0072C76CD0B0095F7C6 /* ImagePicker.kt */; };
+		F362F0832C76CD0B0095F7C6 /* NetworkException.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F0082C76CD0B0095F7C6 /* NetworkException.kt */; };
+		F362F0842C76CD0B0095F7C6 /* NetworkStatus.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F0092C76CD0B0095F7C6 /* NetworkStatus.kt */; };
+		F362F0852C76CD0B0095F7C6 /* PrivateInterceptor.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F00A2C76CD0B0095F7C6 /* PrivateInterceptor.kt */; };
+		F362F0862C76CD0B0095F7C6 /* Result.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F00B2C76CD0B0095F7C6 /* Result.kt */; };
+		F362F0872C76CD0B0095F7C6 /* ResultDomain.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F00C2C76CD0B0095F7C6 /* ResultDomain.kt */; };
+		F362F0882C76CD0B0095F7C6 /* Session.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F00D2C76CD0B0095F7C6 /* Session.kt */; };
+		F362F0892C76CD0B0095F7C6 /* SettingsManager.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F00E2C76CD0B0095F7C6 /* SettingsManager.kt */; };
+		F362F08A2C76CD0B0095F7C6 /* TopNavigationBar.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F00F2C76CD0B0095F7C6 /* TopNavigationBar.kt */; };
+		F362F08B2C76CD0B0095F7C6 /* App.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F0112C76CD0B0095F7C6 /* App.kt */; };
+		F362F08C2C76CD0B0095F7C6 /* Common.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F0122C76CD0B0095F7C6 /* Common.kt */; };
+		F362F08D2C76CD0B0095F7C6 /* HowWokrsSection.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F0132C76CD0B0095F7C6 /* HowWokrsSection.kt */; };
+		F362F08E2C76CD0B0095F7C6 /* Navigation.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F0142C76CD0B0095F7C6 /* Navigation.kt */; };
+		F362F09A2C76CD870095F7C6 /* RootComponent.native.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F0902C76CD870095F7C6 /* RootComponent.native.kt */; };
+		F362F09B2C76CD870095F7C6 /* UrlHandler.native.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F0912C76CD870095F7C6 /* UrlHandler.native.kt */; };
+		F362F09C2C76CD870095F7C6 /* DispatcherProvider.native.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F0932C76CD870095F7C6 /* DispatcherProvider.native.kt */; };
+		F362F09D2C76CD870095F7C6 /* ImagePicker.native.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F0942C76CD870095F7C6 /* ImagePicker.native.kt */; };
+		F362F09E2C76CD870095F7C6 /* Common.native.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F0962C76CD870095F7C6 /* Common.native.kt */; };
+		F362F09F2C76CD870095F7C6 /* HowWokrsSection.native.kt in Resources */ = {isa = PBXBuildFile; fileRef = F362F0972C76CD870095F7C6 /* HowWokrsSection.native.kt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +147,132 @@
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB3632DC29227652001CCB65 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		F362EF722C76CD0B0095F7C6 /* IosModule.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = IosModule.kt; sourceTree = "<group>"; };
+		F362EF742C76CD0B0095F7C6 /* ByteArrayExtensions.ios.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ByteArrayExtensions.ios.kt; sourceTree = "<group>"; };
+		F362EF752C76CD0B0095F7C6 /* CreateHttpClient.ios.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CreateHttpClient.ios.kt; sourceTree = "<group>"; };
+		F362EF762C76CD0B0095F7C6 /* SettingsManager.ios.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SettingsManager.ios.kt; sourceTree = "<group>"; };
+		F362EF782C76CD0B0095F7C6 /* MainViewController.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MainViewController.kt; sourceTree = "<group>"; };
+		F362EF7B2C76CD0B0095F7C6 /* band.webp */ = {isa = PBXFileReference; lastKnownFileType = file; path = band.webp; sourceTree = "<group>"; };
+		F362EF7C2C76CD0B0095F7C6 /* check_success.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check_success.png; sourceTree = "<group>"; };
+		F362EF7D2C76CD0B0095F7C6 /* compose-multiplatform.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "compose-multiplatform.xml"; sourceTree = "<group>"; };
+		F362EF802C76CD0B0095F7C6 /* LandingApi.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LandingApi.kt; sourceTree = "<group>"; };
+		F362EF812C76CD0B0095F7C6 /* LandingApiImpl.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LandingApiImpl.kt; sourceTree = "<group>"; };
+		F362EF832C76CD0B0095F7C6 /* LandingDataSource.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LandingDataSource.kt; sourceTree = "<group>"; };
+		F362EF842C76CD0B0095F7C6 /* LandingDataSourceImpl.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LandingDataSourceImpl.kt; sourceTree = "<group>"; };
+		F362EF862C76CD0B0095F7C6 /* CategoryEntity.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CategoryEntity.kt; sourceTree = "<group>"; };
+		F362EF872C76CD0B0095F7C6 /* CategoryQueryRequest.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CategoryQueryRequest.kt; sourceTree = "<group>"; };
+		F362EF882C76CD0B0095F7C6 /* CityEntity.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CityEntity.kt; sourceTree = "<group>"; };
+		F362EF892C76CD0B0095F7C6 /* CityQueryRequest.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CityQueryRequest.kt; sourceTree = "<group>"; };
+		F362EF8B2C76CD0B0095F7C6 /* LandingRepositoryImpl.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LandingRepositoryImpl.kt; sourceTree = "<group>"; };
+		F362EF8E2C76CD0B0095F7C6 /* CategoryModel.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CategoryModel.kt; sourceTree = "<group>"; };
+		F362EF8F2C76CD0B0095F7C6 /* CategoryRequestModel.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CategoryRequestModel.kt; sourceTree = "<group>"; };
+		F362EF902C76CD0B0095F7C6 /* CityModel.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CityModel.kt; sourceTree = "<group>"; };
+		F362EF912C76CD0B0095F7C6 /* CityRequestModel.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CityRequestModel.kt; sourceTree = "<group>"; };
+		F362EF932C76CD0B0095F7C6 /* LandingRepository.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LandingRepository.kt; sourceTree = "<group>"; };
+		F362EF952C76CD0B0095F7C6 /* AddImagesScreen.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddImagesScreen.kt; sourceTree = "<group>"; };
+		F362EF962C76CD0B0095F7C6 /* AddressScreen.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddressScreen.kt; sourceTree = "<group>"; };
+		F362EF972C76CD0B0095F7C6 /* ChoosePlanScreen.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ChoosePlanScreen.kt; sourceTree = "<group>"; };
+		F362EF982C76CD0B0095F7C6 /* DescribeServiceScreen.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DescribeServiceScreen.kt; sourceTree = "<group>"; };
+		F362EF992C76CD0B0095F7C6 /* FinalDetailsScreen.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FinalDetailsScreen.kt; sourceTree = "<group>"; };
+		F362EF9A2C76CD0B0095F7C6 /* RequestReviewsScreen.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RequestReviewsScreen.kt; sourceTree = "<group>"; };
+		F362EF9B2C76CD0B0095F7C6 /* ServiceActorNameScreen.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ServiceActorNameScreen.kt; sourceTree = "<group>"; };
+		F362EF9D2C76CD0B0095F7C6 /* LandingListScreen.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LandingListScreen.kt; sourceTree = "<group>"; };
+		F362EF9E2C76CD0B0095F7C6 /* LandingState.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LandingState.kt; sourceTree = "<group>"; };
+		F362EF9F2C76CD0B0095F7C6 /* LandingViewModel.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LandingViewModel.kt; sourceTree = "<group>"; };
+		F362EFA02C76CD0B0095F7C6 /* ListingFormState.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ListingFormState.kt; sourceTree = "<group>"; };
+		F362EFA32C76CD0B0095F7C6 /* DashboardLayout.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DashboardLayout.kt; sourceTree = "<group>"; };
+		F362EFA52C76CD0B0095F7C6 /* AuthApi.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthApi.kt; sourceTree = "<group>"; };
+		F362EFA62C76CD0B0095F7C6 /* AuthApiImpl.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthApiImpl.kt; sourceTree = "<group>"; };
+		F362EFA82C76CD0B0095F7C6 /* AuthDataSource.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthDataSource.kt; sourceTree = "<group>"; };
+		F362EFA92C76CD0B0095F7C6 /* AuthDataSourceImpl.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthDataSourceImpl.kt; sourceTree = "<group>"; };
+		F362EFAB2C76CD0B0095F7C6 /* LoginEntity.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LoginEntity.kt; sourceTree = "<group>"; };
+		F362EFAC2C76CD0B0095F7C6 /* LoginRequestEntity.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LoginRequestEntity.kt; sourceTree = "<group>"; };
+		F362EFAD2C76CD0B0095F7C6 /* RegisterUserEntity.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RegisterUserEntity.kt; sourceTree = "<group>"; };
+		F362EFAE2C76CD0B0095F7C6 /* RegisterUserRequestEntity.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RegisterUserRequestEntity.kt; sourceTree = "<group>"; };
+		F362EFB02C76CD0B0095F7C6 /* AuthRepositoryImpl.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthRepositoryImpl.kt; sourceTree = "<group>"; };
+		F362EFB32C76CD0B0095F7C6 /* LoginModel.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LoginModel.kt; sourceTree = "<group>"; };
+		F362EFB42C76CD0B0095F7C6 /* LoginRequest.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LoginRequest.kt; sourceTree = "<group>"; };
+		F362EFB52C76CD0B0095F7C6 /* RegisterUserModel.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RegisterUserModel.kt; sourceTree = "<group>"; };
+		F362EFB62C76CD0B0095F7C6 /* RegisterUserRequestModel.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RegisterUserRequestModel.kt; sourceTree = "<group>"; };
+		F362EFB82C76CD0B0095F7C6 /* AuthRepository.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthRepository.kt; sourceTree = "<group>"; };
+		F362EFBB2C76CD0B0095F7C6 /* AuthViewModel.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthViewModel.kt; sourceTree = "<group>"; };
+		F362EFBC2C76CD0B0095F7C6 /* LoginDialog.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LoginDialog.kt; sourceTree = "<group>"; };
+		F362EFBD2C76CD0B0095F7C6 /* LoginState.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LoginState.kt; sourceTree = "<group>"; };
+		F362EFBE2C76CD0B0095F7C6 /* RegisterState.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RegisterState.kt; sourceTree = "<group>"; };
+		F362EFC12C76CD0B0095F7C6 /* SharedModule.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SharedModule.kt; sourceTree = "<group>"; };
+		F362EFC32C76CD0B0095F7C6 /* HomeScreen.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HomeScreen.kt; sourceTree = "<group>"; };
+		F362EFC52C76CD0B0095F7C6 /* LocationApi.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LocationApi.kt; sourceTree = "<group>"; };
+		F362EFC62C76CD0B0095F7C6 /* LocationApiImpl.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LocationApiImpl.kt; sourceTree = "<group>"; };
+		F362EFC82C76CD0B0095F7C6 /* LocationDataSource.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LocationDataSource.kt; sourceTree = "<group>"; };
+		F362EFC92C76CD0B0095F7C6 /* LocationDataSourceImpl.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LocationDataSourceImpl.kt; sourceTree = "<group>"; };
+		F362EFCB2C76CD0B0095F7C6 /* AddressRequestEntity.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddressRequestEntity.kt; sourceTree = "<group>"; };
+		F362EFCC2C76CD0B0095F7C6 /* AutocompleteResponseEntity.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AutocompleteResponseEntity.kt; sourceTree = "<group>"; };
+		F362EFCD2C76CD0B0095F7C6 /* MatchedSubstringEntity.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MatchedSubstringEntity.kt; sourceTree = "<group>"; };
+		F362EFCE2C76CD0B0095F7C6 /* PredictionEntity.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PredictionEntity.kt; sourceTree = "<group>"; };
+		F362EFCF2C76CD0B0095F7C6 /* StructuredFormattingEntity.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = StructuredFormattingEntity.kt; sourceTree = "<group>"; };
+		F362EFD02C76CD0B0095F7C6 /* TermEntity.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TermEntity.kt; sourceTree = "<group>"; };
+		F362EFD22C76CD0B0095F7C6 /* LocationRepositoryImpl.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LocationRepositoryImpl.kt; sourceTree = "<group>"; };
+		F362EFD52C76CD0B0095F7C6 /* AddressRequestModel.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddressRequestModel.kt; sourceTree = "<group>"; };
+		F362EFD62C76CD0B0095F7C6 /* AutocompleteResponseModel.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AutocompleteResponseModel.kt; sourceTree = "<group>"; };
+		F362EFD72C76CD0B0095F7C6 /* MatchedSubstringModel.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MatchedSubstringModel.kt; sourceTree = "<group>"; };
+		F362EFD82C76CD0B0095F7C6 /* PredictionModel.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PredictionModel.kt; sourceTree = "<group>"; };
+		F362EFD92C76CD0B0095F7C6 /* StructuredFormattingModel.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = StructuredFormattingModel.kt; sourceTree = "<group>"; };
+		F362EFDA2C76CD0B0095F7C6 /* TermModel.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TermModel.kt; sourceTree = "<group>"; };
+		F362EFDC2C76CD0B0095F7C6 /* LocationRepository.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LocationRepository.kt; sourceTree = "<group>"; };
+		F362EFDF2C76CD0B0095F7C6 /* AddAddressComponent.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddAddressComponent.kt; sourceTree = "<group>"; };
+		F362EFE02C76CD0B0095F7C6 /* AddAddressEvent.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddAddressEvent.kt; sourceTree = "<group>"; };
+		F362EFE12C76CD0B0095F7C6 /* AddChoosePlanComponent.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddChoosePlanComponent.kt; sourceTree = "<group>"; };
+		F362EFE22C76CD0B0095F7C6 /* AddChoosePlanEvent.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddChoosePlanEvent.kt; sourceTree = "<group>"; };
+		F362EFE32C76CD0B0095F7C6 /* AddDescriptionServiceComponent.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddDescriptionServiceComponent.kt; sourceTree = "<group>"; };
+		F362EFE42C76CD0B0095F7C6 /* AddDescriptionServiceEvent.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddDescriptionServiceEvent.kt; sourceTree = "<group>"; };
+		F362EFE52C76CD0B0095F7C6 /* AddFinalDetailsComponent.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddFinalDetailsComponent.kt; sourceTree = "<group>"; };
+		F362EFE62C76CD0B0095F7C6 /* AddFinalDetailsEvent.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddFinalDetailsEvent.kt; sourceTree = "<group>"; };
+		F362EFE72C76CD0B0095F7C6 /* AddImageComponent.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddImageComponent.kt; sourceTree = "<group>"; };
+		F362EFE82C76CD0B0095F7C6 /* AddImageEvent.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddImageEvent.kt; sourceTree = "<group>"; };
+		F362EFE92C76CD0B0095F7C6 /* AddListingComponent.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddListingComponent.kt; sourceTree = "<group>"; };
+		F362EFEA2C76CD0B0095F7C6 /* AddListingEvent.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddListingEvent.kt; sourceTree = "<group>"; };
+		F362EFEB2C76CD0B0095F7C6 /* AddRequestReviewComponent.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddRequestReviewComponent.kt; sourceTree = "<group>"; };
+		F362EFEC2C76CD0B0095F7C6 /* AddRequestReviewEvent.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddRequestReviewEvent.kt; sourceTree = "<group>"; };
+		F362EFED2C76CD0B0095F7C6 /* AddServiceNameComponent.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddServiceNameComponent.kt; sourceTree = "<group>"; };
+		F362EFEE2C76CD0B0095F7C6 /* AddServiceNameEvent.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddServiceNameEvent.kt; sourceTree = "<group>"; };
+		F362EFF02C76CD0B0095F7C6 /* DashboardComponent.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DashboardComponent.kt; sourceTree = "<group>"; };
+		F362EFF22C76CD0B0095F7C6 /* HomeComponent.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HomeComponent.kt; sourceTree = "<group>"; };
+		F362EFF32C76CD0B0095F7C6 /* HomeEvent.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HomeEvent.kt; sourceTree = "<group>"; };
+		F362EFF52C76CD0B0095F7C6 /* LandingComponent.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LandingComponent.kt; sourceTree = "<group>"; };
+		F362EFF62C76CD0B0095F7C6 /* LandingEvent.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LandingEvent.kt; sourceTree = "<group>"; };
+		F362EFF82C76CD0B0095F7C6 /* Child.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Child.kt; sourceTree = "<group>"; };
+		F362EFF92C76CD0B0095F7C6 /* Configuration.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Configuration.kt; sourceTree = "<group>"; };
+		F362EFFA2C76CD0B0095F7C6 /* RootComponent.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RootComponent.kt; sourceTree = "<group>"; };
+		F362EFFB2C76CD0B0095F7C6 /* UrlHandler.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = UrlHandler.kt; sourceTree = "<group>"; };
+		F362EFFD2C76CD0B0095F7C6 /* ArtistasTheme.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ArtistasTheme.kt; sourceTree = "<group>"; };
+		F362EFFE2C76CD0B0095F7C6 /* BaseDataSource.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BaseDataSource.kt; sourceTree = "<group>"; };
+		F362EFFF2C76CD0B0095F7C6 /* ByteArrayExtensions.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ByteArrayExtensions.kt; sourceTree = "<group>"; };
+		F362F0002C76CD0B0095F7C6 /* CreateHttpClient.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CreateHttpClient.kt; sourceTree = "<group>"; };
+		F362F0012C76CD0B0095F7C6 /* DispatcherProvider.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DispatcherProvider.kt; sourceTree = "<group>"; };
+		F362F0022C76CD0B0095F7C6 /* ErrorDomain.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ErrorDomain.kt; sourceTree = "<group>"; };
+		F362F0032C76CD0B0095F7C6 /* ErrorHandler.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ErrorHandler.kt; sourceTree = "<group>"; };
+		F362F0042C76CD0B0095F7C6 /* ErrorMapper.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ErrorMapper.kt; sourceTree = "<group>"; };
+		F362F0052C76CD0B0095F7C6 /* GenericErrorMapper.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GenericErrorMapper.kt; sourceTree = "<group>"; };
+		F362F0062C76CD0B0095F7C6 /* HovelableButton.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HovelableButton.kt; sourceTree = "<group>"; };
+		F362F0072C76CD0B0095F7C6 /* ImagePicker.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ImagePicker.kt; sourceTree = "<group>"; };
+		F362F0082C76CD0B0095F7C6 /* NetworkException.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NetworkException.kt; sourceTree = "<group>"; };
+		F362F0092C76CD0B0095F7C6 /* NetworkStatus.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NetworkStatus.kt; sourceTree = "<group>"; };
+		F362F00A2C76CD0B0095F7C6 /* PrivateInterceptor.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PrivateInterceptor.kt; sourceTree = "<group>"; };
+		F362F00B2C76CD0B0095F7C6 /* Result.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Result.kt; sourceTree = "<group>"; };
+		F362F00C2C76CD0B0095F7C6 /* ResultDomain.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ResultDomain.kt; sourceTree = "<group>"; };
+		F362F00D2C76CD0B0095F7C6 /* Session.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Session.kt; sourceTree = "<group>"; };
+		F362F00E2C76CD0B0095F7C6 /* SettingsManager.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SettingsManager.kt; sourceTree = "<group>"; };
+		F362F00F2C76CD0B0095F7C6 /* TopNavigationBar.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TopNavigationBar.kt; sourceTree = "<group>"; };
+		F362F0112C76CD0B0095F7C6 /* App.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = App.kt; sourceTree = "<group>"; };
+		F362F0122C76CD0B0095F7C6 /* Common.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Common.kt; sourceTree = "<group>"; };
+		F362F0132C76CD0B0095F7C6 /* HowWokrsSection.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HowWokrsSection.kt; sourceTree = "<group>"; };
+		F362F0142C76CD0B0095F7C6 /* Navigation.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Navigation.kt; sourceTree = "<group>"; };
+		F362F0902C76CD870095F7C6 /* RootComponent.native.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RootComponent.native.kt; sourceTree = "<group>"; };
+		F362F0912C76CD870095F7C6 /* UrlHandler.native.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = UrlHandler.native.kt; sourceTree = "<group>"; };
+		F362F0932C76CD870095F7C6 /* DispatcherProvider.native.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DispatcherProvider.native.kt; sourceTree = "<group>"; };
+		F362F0942C76CD870095F7C6 /* ImagePicker.native.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ImagePicker.native.kt; sourceTree = "<group>"; };
+		F362F0962C76CD870095F7C6 /* Common.native.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Common.native.kt; sourceTree = "<group>"; };
+		F362F0972C76CD870095F7C6 /* HowWokrsSection.native.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HowWokrsSection.native.kt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +304,7 @@
 		7555FF72242A565900829871 = {
 			isa = PBXGroup;
 			children = (
+				F362EF712C76CC4C0095F7C6 /* kotlin-debug */,
 				AB1DB47929225F7C00F7AF9C /* Configuration */,
 				7555FF7D242A565900829871 /* iosApp */,
 				7555FF7C242A565900829871 /* Products */,
@@ -85,6 +338,542 @@
 				AB3632DC29227652001CCB65 /* Config.xcconfig */,
 			);
 			path = Configuration;
+			sourceTree = "<group>";
+		};
+		F362EF712C76CC4C0095F7C6 /* kotlin-debug */ = {
+			isa = PBXGroup;
+			children = (
+				F362F0162C76CD0B0095F7C6 /* commonMain */,
+				F362EF7A2C76CD0B0095F7C6 /* iosMain */,
+			);
+			path = "kotlin-debug";
+			sourceTree = "<group>";
+		};
+		F362EF732C76CD0B0095F7C6 /* di */ = {
+			isa = PBXGroup;
+			children = (
+				F362EF722C76CD0B0095F7C6 /* IosModule.kt */,
+			);
+			path = di;
+			sourceTree = "<group>";
+		};
+		F362EF772C76CD0B0095F7C6 /* support */ = {
+			isa = PBXGroup;
+			children = (
+				F362EF742C76CD0B0095F7C6 /* ByteArrayExtensions.ios.kt */,
+				F362EF752C76CD0B0095F7C6 /* CreateHttpClient.ios.kt */,
+				F362EF762C76CD0B0095F7C6 /* SettingsManager.ios.kt */,
+			);
+			path = support;
+			sourceTree = "<group>";
+		};
+		F362EF792C76CD0B0095F7C6 /* kotlin */ = {
+			isa = PBXGroup;
+			children = (
+				F362EF732C76CD0B0095F7C6 /* di */,
+				F362EF772C76CD0B0095F7C6 /* support */,
+				F362EF782C76CD0B0095F7C6 /* MainViewController.kt */,
+			);
+			path = kotlin;
+			sourceTree = "<group>";
+		};
+		F362EF7A2C76CD0B0095F7C6 /* iosMain */ = {
+			isa = PBXGroup;
+			children = (
+				F362EF792C76CD0B0095F7C6 /* kotlin */,
+			);
+			name = iosMain;
+			path = ../../composeApp/src/iosMain;
+			sourceTree = "<group>";
+		};
+		F362EF7E2C76CD0B0095F7C6 /* drawable */ = {
+			isa = PBXGroup;
+			children = (
+				F362EF7B2C76CD0B0095F7C6 /* band.webp */,
+				F362EF7C2C76CD0B0095F7C6 /* check_success.png */,
+				F362EF7D2C76CD0B0095F7C6 /* compose-multiplatform.xml */,
+			);
+			path = drawable;
+			sourceTree = "<group>";
+		};
+		F362EF7F2C76CD0B0095F7C6 /* composeResources */ = {
+			isa = PBXGroup;
+			children = (
+				F362EF7E2C76CD0B0095F7C6 /* drawable */,
+			);
+			path = composeResources;
+			sourceTree = "<group>";
+		};
+		F362EF822C76CD0B0095F7C6 /* api */ = {
+			isa = PBXGroup;
+			children = (
+				F362EF802C76CD0B0095F7C6 /* LandingApi.kt */,
+				F362EF812C76CD0B0095F7C6 /* LandingApiImpl.kt */,
+			);
+			path = api;
+			sourceTree = "<group>";
+		};
+		F362EF852C76CD0B0095F7C6 /* data_source */ = {
+			isa = PBXGroup;
+			children = (
+				F362EF832C76CD0B0095F7C6 /* LandingDataSource.kt */,
+				F362EF842C76CD0B0095F7C6 /* LandingDataSourceImpl.kt */,
+			);
+			path = data_source;
+			sourceTree = "<group>";
+		};
+		F362EF8A2C76CD0B0095F7C6 /* entity */ = {
+			isa = PBXGroup;
+			children = (
+				F362EF862C76CD0B0095F7C6 /* CategoryEntity.kt */,
+				F362EF872C76CD0B0095F7C6 /* CategoryQueryRequest.kt */,
+				F362EF882C76CD0B0095F7C6 /* CityEntity.kt */,
+				F362EF892C76CD0B0095F7C6 /* CityQueryRequest.kt */,
+			);
+			path = entity;
+			sourceTree = "<group>";
+		};
+		F362EF8C2C76CD0B0095F7C6 /* repository */ = {
+			isa = PBXGroup;
+			children = (
+				F362EF8B2C76CD0B0095F7C6 /* LandingRepositoryImpl.kt */,
+			);
+			path = repository;
+			sourceTree = "<group>";
+		};
+		F362EF8D2C76CD0B0095F7C6 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				F362EF822C76CD0B0095F7C6 /* api */,
+				F362EF852C76CD0B0095F7C6 /* data_source */,
+				F362EF8A2C76CD0B0095F7C6 /* entity */,
+				F362EF8C2C76CD0B0095F7C6 /* repository */,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
+		F362EF922C76CD0B0095F7C6 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				F362EF8E2C76CD0B0095F7C6 /* CategoryModel.kt */,
+				F362EF8F2C76CD0B0095F7C6 /* CategoryRequestModel.kt */,
+				F362EF902C76CD0B0095F7C6 /* CityModel.kt */,
+				F362EF912C76CD0B0095F7C6 /* CityRequestModel.kt */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		F362EF942C76CD0B0095F7C6 /* domain */ = {
+			isa = PBXGroup;
+			children = (
+				F362EF922C76CD0B0095F7C6 /* model */,
+				F362EF932C76CD0B0095F7C6 /* LandingRepository.kt */,
+			);
+			path = domain;
+			sourceTree = "<group>";
+		};
+		F362EF9C2C76CD0B0095F7C6 /* add_listing_steps */ = {
+			isa = PBXGroup;
+			children = (
+				F362EF952C76CD0B0095F7C6 /* AddImagesScreen.kt */,
+				F362EF962C76CD0B0095F7C6 /* AddressScreen.kt */,
+				F362EF972C76CD0B0095F7C6 /* ChoosePlanScreen.kt */,
+				F362EF982C76CD0B0095F7C6 /* DescribeServiceScreen.kt */,
+				F362EF992C76CD0B0095F7C6 /* FinalDetailsScreen.kt */,
+				F362EF9A2C76CD0B0095F7C6 /* RequestReviewsScreen.kt */,
+				F362EF9B2C76CD0B0095F7C6 /* ServiceActorNameScreen.kt */,
+			);
+			path = add_listing_steps;
+			sourceTree = "<group>";
+		};
+		F362EFA12C76CD0B0095F7C6 /* presentation */ = {
+			isa = PBXGroup;
+			children = (
+				F362EF9C2C76CD0B0095F7C6 /* add_listing_steps */,
+				F362EF9D2C76CD0B0095F7C6 /* LandingListScreen.kt */,
+				F362EF9E2C76CD0B0095F7C6 /* LandingState.kt */,
+				F362EF9F2C76CD0B0095F7C6 /* LandingViewModel.kt */,
+				F362EFA02C76CD0B0095F7C6 /* ListingFormState.kt */,
+			);
+			path = presentation;
+			sourceTree = "<group>";
+		};
+		F362EFA22C76CD0B0095F7C6 /* add_listing */ = {
+			isa = PBXGroup;
+			children = (
+				F362EF8D2C76CD0B0095F7C6 /* data */,
+				F362EF942C76CD0B0095F7C6 /* domain */,
+				F362EFA12C76CD0B0095F7C6 /* presentation */,
+			);
+			path = add_listing;
+			sourceTree = "<group>";
+		};
+		F362EFA42C76CD0B0095F7C6 /* admin_dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFA32C76CD0B0095F7C6 /* DashboardLayout.kt */,
+			);
+			path = admin_dashboard;
+			sourceTree = "<group>";
+		};
+		F362EFA72C76CD0B0095F7C6 /* api */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFA52C76CD0B0095F7C6 /* AuthApi.kt */,
+				F362EFA62C76CD0B0095F7C6 /* AuthApiImpl.kt */,
+			);
+			path = api;
+			sourceTree = "<group>";
+		};
+		F362EFAA2C76CD0B0095F7C6 /* data_source */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFA82C76CD0B0095F7C6 /* AuthDataSource.kt */,
+				F362EFA92C76CD0B0095F7C6 /* AuthDataSourceImpl.kt */,
+			);
+			path = data_source;
+			sourceTree = "<group>";
+		};
+		F362EFAF2C76CD0B0095F7C6 /* entity */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFAB2C76CD0B0095F7C6 /* LoginEntity.kt */,
+				F362EFAC2C76CD0B0095F7C6 /* LoginRequestEntity.kt */,
+				F362EFAD2C76CD0B0095F7C6 /* RegisterUserEntity.kt */,
+				F362EFAE2C76CD0B0095F7C6 /* RegisterUserRequestEntity.kt */,
+			);
+			path = entity;
+			sourceTree = "<group>";
+		};
+		F362EFB12C76CD0B0095F7C6 /* repository */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFB02C76CD0B0095F7C6 /* AuthRepositoryImpl.kt */,
+			);
+			path = repository;
+			sourceTree = "<group>";
+		};
+		F362EFB22C76CD0B0095F7C6 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFA72C76CD0B0095F7C6 /* api */,
+				F362EFAA2C76CD0B0095F7C6 /* data_source */,
+				F362EFAF2C76CD0B0095F7C6 /* entity */,
+				F362EFB12C76CD0B0095F7C6 /* repository */,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
+		F362EFB72C76CD0B0095F7C6 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFB32C76CD0B0095F7C6 /* LoginModel.kt */,
+				F362EFB42C76CD0B0095F7C6 /* LoginRequest.kt */,
+				F362EFB52C76CD0B0095F7C6 /* RegisterUserModel.kt */,
+				F362EFB62C76CD0B0095F7C6 /* RegisterUserRequestModel.kt */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		F362EFB92C76CD0B0095F7C6 /* repository */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFB82C76CD0B0095F7C6 /* AuthRepository.kt */,
+			);
+			path = repository;
+			sourceTree = "<group>";
+		};
+		F362EFBA2C76CD0B0095F7C6 /* domain */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFB72C76CD0B0095F7C6 /* model */,
+				F362EFB92C76CD0B0095F7C6 /* repository */,
+			);
+			path = domain;
+			sourceTree = "<group>";
+		};
+		F362EFBF2C76CD0B0095F7C6 /* presentation */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFBB2C76CD0B0095F7C6 /* AuthViewModel.kt */,
+				F362EFBC2C76CD0B0095F7C6 /* LoginDialog.kt */,
+				F362EFBD2C76CD0B0095F7C6 /* LoginState.kt */,
+				F362EFBE2C76CD0B0095F7C6 /* RegisterState.kt */,
+			);
+			path = presentation;
+			sourceTree = "<group>";
+		};
+		F362EFC02C76CD0B0095F7C6 /* auth */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFB22C76CD0B0095F7C6 /* data */,
+				F362EFBA2C76CD0B0095F7C6 /* domain */,
+				F362EFBF2C76CD0B0095F7C6 /* presentation */,
+			);
+			path = auth;
+			sourceTree = "<group>";
+		};
+		F362EFC22C76CD0B0095F7C6 /* di */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFC12C76CD0B0095F7C6 /* SharedModule.kt */,
+			);
+			path = di;
+			sourceTree = "<group>";
+		};
+		F362EFC42C76CD0B0095F7C6 /* home */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFC32C76CD0B0095F7C6 /* HomeScreen.kt */,
+			);
+			path = home;
+			sourceTree = "<group>";
+		};
+		F362EFC72C76CD0B0095F7C6 /* api */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFC52C76CD0B0095F7C6 /* LocationApi.kt */,
+				F362EFC62C76CD0B0095F7C6 /* LocationApiImpl.kt */,
+			);
+			path = api;
+			sourceTree = "<group>";
+		};
+		F362EFCA2C76CD0B0095F7C6 /* data_source */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFC82C76CD0B0095F7C6 /* LocationDataSource.kt */,
+				F362EFC92C76CD0B0095F7C6 /* LocationDataSourceImpl.kt */,
+			);
+			path = data_source;
+			sourceTree = "<group>";
+		};
+		F362EFD12C76CD0B0095F7C6 /* entity */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFCB2C76CD0B0095F7C6 /* AddressRequestEntity.kt */,
+				F362EFCC2C76CD0B0095F7C6 /* AutocompleteResponseEntity.kt */,
+				F362EFCD2C76CD0B0095F7C6 /* MatchedSubstringEntity.kt */,
+				F362EFCE2C76CD0B0095F7C6 /* PredictionEntity.kt */,
+				F362EFCF2C76CD0B0095F7C6 /* StructuredFormattingEntity.kt */,
+				F362EFD02C76CD0B0095F7C6 /* TermEntity.kt */,
+			);
+			path = entity;
+			sourceTree = "<group>";
+		};
+		F362EFD32C76CD0B0095F7C6 /* repository */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFD22C76CD0B0095F7C6 /* LocationRepositoryImpl.kt */,
+			);
+			path = repository;
+			sourceTree = "<group>";
+		};
+		F362EFD42C76CD0B0095F7C6 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFC72C76CD0B0095F7C6 /* api */,
+				F362EFCA2C76CD0B0095F7C6 /* data_source */,
+				F362EFD12C76CD0B0095F7C6 /* entity */,
+				F362EFD32C76CD0B0095F7C6 /* repository */,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
+		F362EFDB2C76CD0B0095F7C6 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFD52C76CD0B0095F7C6 /* AddressRequestModel.kt */,
+				F362EFD62C76CD0B0095F7C6 /* AutocompleteResponseModel.kt */,
+				F362EFD72C76CD0B0095F7C6 /* MatchedSubstringModel.kt */,
+				F362EFD82C76CD0B0095F7C6 /* PredictionModel.kt */,
+				F362EFD92C76CD0B0095F7C6 /* StructuredFormattingModel.kt */,
+				F362EFDA2C76CD0B0095F7C6 /* TermModel.kt */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		F362EFDD2C76CD0B0095F7C6 /* domain */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFDB2C76CD0B0095F7C6 /* model */,
+				F362EFDC2C76CD0B0095F7C6 /* LocationRepository.kt */,
+			);
+			path = domain;
+			sourceTree = "<group>";
+		};
+		F362EFDE2C76CD0B0095F7C6 /* location */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFD42C76CD0B0095F7C6 /* data */,
+				F362EFDD2C76CD0B0095F7C6 /* domain */,
+			);
+			path = location;
+			sourceTree = "<group>";
+		};
+		F362EFEF2C76CD0B0095F7C6 /* add_listing */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFDF2C76CD0B0095F7C6 /* AddAddressComponent.kt */,
+				F362EFE02C76CD0B0095F7C6 /* AddAddressEvent.kt */,
+				F362EFE12C76CD0B0095F7C6 /* AddChoosePlanComponent.kt */,
+				F362EFE22C76CD0B0095F7C6 /* AddChoosePlanEvent.kt */,
+				F362EFE32C76CD0B0095F7C6 /* AddDescriptionServiceComponent.kt */,
+				F362EFE42C76CD0B0095F7C6 /* AddDescriptionServiceEvent.kt */,
+				F362EFE52C76CD0B0095F7C6 /* AddFinalDetailsComponent.kt */,
+				F362EFE62C76CD0B0095F7C6 /* AddFinalDetailsEvent.kt */,
+				F362EFE72C76CD0B0095F7C6 /* AddImageComponent.kt */,
+				F362EFE82C76CD0B0095F7C6 /* AddImageEvent.kt */,
+				F362EFE92C76CD0B0095F7C6 /* AddListingComponent.kt */,
+				F362EFEA2C76CD0B0095F7C6 /* AddListingEvent.kt */,
+				F362EFEB2C76CD0B0095F7C6 /* AddRequestReviewComponent.kt */,
+				F362EFEC2C76CD0B0095F7C6 /* AddRequestReviewEvent.kt */,
+				F362EFED2C76CD0B0095F7C6 /* AddServiceNameComponent.kt */,
+				F362EFEE2C76CD0B0095F7C6 /* AddServiceNameEvent.kt */,
+			);
+			path = add_listing;
+			sourceTree = "<group>";
+		};
+		F362EFF12C76CD0B0095F7C6 /* dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFF02C76CD0B0095F7C6 /* DashboardComponent.kt */,
+			);
+			path = dashboard;
+			sourceTree = "<group>";
+		};
+		F362EFF42C76CD0B0095F7C6 /* home */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFF22C76CD0B0095F7C6 /* HomeComponent.kt */,
+				F362EFF32C76CD0B0095F7C6 /* HomeEvent.kt */,
+			);
+			path = home;
+			sourceTree = "<group>";
+		};
+		F362EFF72C76CD0B0095F7C6 /* lading */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFF52C76CD0B0095F7C6 /* LandingComponent.kt */,
+				F362EFF62C76CD0B0095F7C6 /* LandingEvent.kt */,
+			);
+			path = lading;
+			sourceTree = "<group>";
+		};
+		F362EFFC2C76CD0B0095F7C6 /* navigation */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFEF2C76CD0B0095F7C6 /* add_listing */,
+				F362EFF12C76CD0B0095F7C6 /* dashboard */,
+				F362EFF42C76CD0B0095F7C6 /* home */,
+				F362EFF72C76CD0B0095F7C6 /* lading */,
+				F362EFF82C76CD0B0095F7C6 /* Child.kt */,
+				F362EFF92C76CD0B0095F7C6 /* Configuration.kt */,
+				F362EFFA2C76CD0B0095F7C6 /* RootComponent.kt */,
+				F362EFFB2C76CD0B0095F7C6 /* UrlHandler.kt */,
+			);
+			path = navigation;
+			sourceTree = "<group>";
+		};
+		F362F0102C76CD0B0095F7C6 /* support */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFFD2C76CD0B0095F7C6 /* ArtistasTheme.kt */,
+				F362EFFE2C76CD0B0095F7C6 /* BaseDataSource.kt */,
+				F362EFFF2C76CD0B0095F7C6 /* ByteArrayExtensions.kt */,
+				F362F0002C76CD0B0095F7C6 /* CreateHttpClient.kt */,
+				F362F0012C76CD0B0095F7C6 /* DispatcherProvider.kt */,
+				F362F0022C76CD0B0095F7C6 /* ErrorDomain.kt */,
+				F362F0032C76CD0B0095F7C6 /* ErrorHandler.kt */,
+				F362F0042C76CD0B0095F7C6 /* ErrorMapper.kt */,
+				F362F0052C76CD0B0095F7C6 /* GenericErrorMapper.kt */,
+				F362F0062C76CD0B0095F7C6 /* HovelableButton.kt */,
+				F362F0072C76CD0B0095F7C6 /* ImagePicker.kt */,
+				F362F0082C76CD0B0095F7C6 /* NetworkException.kt */,
+				F362F0092C76CD0B0095F7C6 /* NetworkStatus.kt */,
+				F362F00A2C76CD0B0095F7C6 /* PrivateInterceptor.kt */,
+				F362F00B2C76CD0B0095F7C6 /* Result.kt */,
+				F362F00C2C76CD0B0095F7C6 /* ResultDomain.kt */,
+				F362F00D2C76CD0B0095F7C6 /* Session.kt */,
+				F362F00E2C76CD0B0095F7C6 /* SettingsManager.kt */,
+				F362F00F2C76CD0B0095F7C6 /* TopNavigationBar.kt */,
+			);
+			path = support;
+			sourceTree = "<group>";
+		};
+		F362F0152C76CD0B0095F7C6 /* kotlin */ = {
+			isa = PBXGroup;
+			children = (
+				F362EFA22C76CD0B0095F7C6 /* add_listing */,
+				F362EFA42C76CD0B0095F7C6 /* admin_dashboard */,
+				F362EFC02C76CD0B0095F7C6 /* auth */,
+				F362EFC22C76CD0B0095F7C6 /* di */,
+				F362EFC42C76CD0B0095F7C6 /* home */,
+				F362EFDE2C76CD0B0095F7C6 /* location */,
+				F362EFFC2C76CD0B0095F7C6 /* navigation */,
+				F362F0102C76CD0B0095F7C6 /* support */,
+				F362F0112C76CD0B0095F7C6 /* App.kt */,
+				F362F0122C76CD0B0095F7C6 /* Common.kt */,
+				F362F0132C76CD0B0095F7C6 /* HowWokrsSection.kt */,
+				F362F0142C76CD0B0095F7C6 /* Navigation.kt */,
+			);
+			path = kotlin;
+			sourceTree = "<group>";
+		};
+		F362F0162C76CD0B0095F7C6 /* commonMain */ = {
+			isa = PBXGroup;
+			children = (
+				F362F0992C76CD870095F7C6 /* nativeMain */,
+				F362EF7F2C76CD0B0095F7C6 /* composeResources */,
+				F362F0152C76CD0B0095F7C6 /* kotlin */,
+			);
+			name = commonMain;
+			path = ../../composeApp/src/commonMain;
+			sourceTree = "<group>";
+		};
+		F362F08F2C76CD870095F7C6 /* admin_dashboard */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = admin_dashboard;
+			sourceTree = "<group>";
+		};
+		F362F0922C76CD870095F7C6 /* navigation */ = {
+			isa = PBXGroup;
+			children = (
+				F362F0902C76CD870095F7C6 /* RootComponent.native.kt */,
+				F362F0912C76CD870095F7C6 /* UrlHandler.native.kt */,
+			);
+			path = navigation;
+			sourceTree = "<group>";
+		};
+		F362F0952C76CD870095F7C6 /* support */ = {
+			isa = PBXGroup;
+			children = (
+				F362F0932C76CD870095F7C6 /* DispatcherProvider.native.kt */,
+				F362F0942C76CD870095F7C6 /* ImagePicker.native.kt */,
+			);
+			path = support;
+			sourceTree = "<group>";
+		};
+		F362F0982C76CD870095F7C6 /* kotlin */ = {
+			isa = PBXGroup;
+			children = (
+				F362F08F2C76CD870095F7C6 /* admin_dashboard */,
+				F362F0922C76CD870095F7C6 /* navigation */,
+				F362F0952C76CD870095F7C6 /* support */,
+				F362F0962C76CD870095F7C6 /* Common.native.kt */,
+				F362F0972C76CD870095F7C6 /* HowWokrsSection.native.kt */,
+			);
+			path = kotlin;
+			sourceTree = "<group>";
+		};
+		F362F0992C76CD870095F7C6 /* nativeMain */ = {
+			isa = PBXGroup;
+			children = (
+				F362F0982C76CD870095F7C6 /* kotlin */,
+			);
+			name = nativeMain;
+			path = ../nativeMain;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,8 +940,134 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F362F09D2C76CD870095F7C6 /* ImagePicker.native.kt in Resources */,
+				F362F01A2C76CD0B0095F7C6 /* SettingsManager.ios.kt in Resources */,
+				F362F0622C76CD0B0095F7C6 /* AddChoosePlanEvent.kt in Resources */,
+				F362F03E2C76CD0B0095F7C6 /* LoginRequestEntity.kt in Resources */,
+				F362F0682C76CD0B0095F7C6 /* AddImageEvent.kt in Resources */,
+				F362F0522C76CD0B0095F7C6 /* AutocompleteResponseEntity.kt in Resources */,
+				F362F02B2C76CD0B0095F7C6 /* CityRequestModel.kt in Resources */,
+				F362F0242C76CD0B0095F7C6 /* CategoryQueryRequest.kt in Resources */,
+				F362F0772C76CD0B0095F7C6 /* UrlHandler.kt in Resources */,
+				F362F0472C76CD0B0095F7C6 /* AuthViewModel.kt in Resources */,
+				F362F0422C76CD0B0095F7C6 /* LoginModel.kt in Resources */,
+				F362F0352C76CD0B0095F7C6 /* LandingState.kt in Resources */,
+				F362F07F2C76CD0B0095F7C6 /* ErrorMapper.kt in Resources */,
+				F362F0262C76CD0B0095F7C6 /* CityQueryRequest.kt in Resources */,
+				F362F0792C76CD0B0095F7C6 /* BaseDataSource.kt in Resources */,
+				F362F0732C76CD0B0095F7C6 /* LandingEvent.kt in Resources */,
+				F362F0642C76CD0B0095F7C6 /* AddDescriptionServiceEvent.kt in Resources */,
+				F362F06A2C76CD0B0095F7C6 /* AddListingEvent.kt in Resources */,
+				F362F0392C76CD0B0095F7C6 /* AuthApi.kt in Resources */,
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
+				F362F0582C76CD0B0095F7C6 /* AddressRequestModel.kt in Resources */,
+				F362F01C2C76CD0B0095F7C6 /* band.webp in Resources */,
+				F362F0752C76CD0B0095F7C6 /* Configuration.kt in Resources */,
+				F362F0462C76CD0B0095F7C6 /* AuthRepository.kt in Resources */,
+				F362F0482C76CD0B0095F7C6 /* LoginDialog.kt in Resources */,
+				F362F0852C76CD0B0095F7C6 /* PrivateInterceptor.kt in Resources */,
+				F362F0452C76CD0B0095F7C6 /* RegisterUserRequestModel.kt in Resources */,
+				F362F0692C76CD0B0095F7C6 /* AddListingComponent.kt in Resources */,
+				F362F0202C76CD0B0095F7C6 /* LandingApiImpl.kt in Resources */,
+				F362F0432C76CD0B0095F7C6 /* LoginRequest.kt in Resources */,
+				F362F0502C76CD0B0095F7C6 /* LocationDataSourceImpl.kt in Resources */,
+				F362F08E2C76CD0B0095F7C6 /* Navigation.kt in Resources */,
+				F362F06F2C76CD0B0095F7C6 /* DashboardComponent.kt in Resources */,
+				F362F08D2C76CD0B0095F7C6 /* HowWokrsSection.kt in Resources */,
+				F362F09C2C76CD870095F7C6 /* DispatcherProvider.native.kt in Resources */,
+				F362F0612C76CD0B0095F7C6 /* AddChoosePlanComponent.kt in Resources */,
+				F362F0512C76CD0B0095F7C6 /* AddressRequestEntity.kt in Resources */,
+				F362F06B2C76CD0B0095F7C6 /* AddRequestReviewComponent.kt in Resources */,
+				F362F02F2C76CD0B0095F7C6 /* ChoosePlanScreen.kt in Resources */,
+				F362F0312C76CD0B0095F7C6 /* FinalDetailsScreen.kt in Resources */,
+				F362F0212C76CD0B0095F7C6 /* LandingDataSource.kt in Resources */,
+				F362F0362C76CD0B0095F7C6 /* LandingViewModel.kt in Resources */,
+				F362F0272C76CD0B0095F7C6 /* LandingRepositoryImpl.kt in Resources */,
+				F362F05B2C76CD0B0095F7C6 /* PredictionModel.kt in Resources */,
+				F362F07E2C76CD0B0095F7C6 /* ErrorHandler.kt in Resources */,
+				F362F05C2C76CD0B0095F7C6 /* StructuredFormattingModel.kt in Resources */,
+				F362F05A2C76CD0B0095F7C6 /* MatchedSubstringModel.kt in Resources */,
+				F362F0762C76CD0B0095F7C6 /* RootComponent.kt in Resources */,
+				F362F0402C76CD0B0095F7C6 /* RegisterUserRequestEntity.kt in Resources */,
+				F362F0282C76CD0B0095F7C6 /* CategoryModel.kt in Resources */,
+				F362F06D2C76CD0B0095F7C6 /* AddServiceNameComponent.kt in Resources */,
+				F362F07C2C76CD0B0095F7C6 /* DispatcherProvider.kt in Resources */,
+				F362F0372C76CD0B0095F7C6 /* ListingFormState.kt in Resources */,
+				F362F0812C76CD0B0095F7C6 /* HovelableButton.kt in Resources */,
+				F362F0562C76CD0B0095F7C6 /* TermEntity.kt in Resources */,
+				F362F0192C76CD0B0095F7C6 /* CreateHttpClient.ios.kt in Resources */,
+				F362F0252C76CD0B0095F7C6 /* CityEntity.kt in Resources */,
+				F362F0862C76CD0B0095F7C6 /* Result.kt in Resources */,
+				F362F0442C76CD0B0095F7C6 /* RegisterUserModel.kt in Resources */,
+				F362F08C2C76CD0B0095F7C6 /* Common.kt in Resources */,
+				F362F01B2C76CD0B0095F7C6 /* MainViewController.kt in Resources */,
+				F362F0702C76CD0B0095F7C6 /* HomeComponent.kt in Resources */,
+				F362F0572C76CD0B0095F7C6 /* LocationRepositoryImpl.kt in Resources */,
+				F362F02E2C76CD0B0095F7C6 /* AddressScreen.kt in Resources */,
+				F362F0662C76CD0B0095F7C6 /* AddFinalDetailsEvent.kt in Resources */,
+				F362F0322C76CD0B0095F7C6 /* RequestReviewsScreen.kt in Resources */,
+				F362F06E2C76CD0B0095F7C6 /* AddServiceNameEvent.kt in Resources */,
+				F362F0632C76CD0B0095F7C6 /* AddDescriptionServiceComponent.kt in Resources */,
+				F362F03A2C76CD0B0095F7C6 /* AuthApiImpl.kt in Resources */,
+				F362F0602C76CD0B0095F7C6 /* AddAddressEvent.kt in Resources */,
+				F362F01E2C76CD0B0095F7C6 /* compose-multiplatform.xml in Resources */,
+				F362F0822C76CD0B0095F7C6 /* ImagePicker.kt in Resources */,
+				F362F02C2C76CD0B0095F7C6 /* LandingRepository.kt in Resources */,
+				F362F0832C76CD0B0095F7C6 /* NetworkException.kt in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
+				F362F0672C76CD0B0095F7C6 /* AddImageComponent.kt in Resources */,
+				F362F0802C76CD0B0095F7C6 /* GenericErrorMapper.kt in Resources */,
+				F362F0332C76CD0B0095F7C6 /* ServiceActorNameScreen.kt in Resources */,
+				F362F0232C76CD0B0095F7C6 /* CategoryEntity.kt in Resources */,
+				F362F08B2C76CD0B0095F7C6 /* App.kt in Resources */,
+				F362F0492C76CD0B0095F7C6 /* LoginState.kt in Resources */,
+				F362F04D2C76CD0B0095F7C6 /* LocationApi.kt in Resources */,
+				F362F0302C76CD0B0095F7C6 /* DescribeServiceScreen.kt in Resources */,
+				F362F0292C76CD0B0095F7C6 /* CategoryRequestModel.kt in Resources */,
+				F362F09A2C76CD870095F7C6 /* RootComponent.native.kt in Resources */,
+				F362F0552C76CD0B0095F7C6 /* StructuredFormattingEntity.kt in Resources */,
+				F362F09E2C76CD870095F7C6 /* Common.native.kt in Resources */,
+				F362F0892C76CD0B0095F7C6 /* SettingsManager.kt in Resources */,
+				F362F05F2C76CD0B0095F7C6 /* AddAddressComponent.kt in Resources */,
+				F362F04A2C76CD0B0095F7C6 /* RegisterState.kt in Resources */,
+				F362F0652C76CD0B0095F7C6 /* AddFinalDetailsComponent.kt in Resources */,
+				F362F05E2C76CD0B0095F7C6 /* LocationRepository.kt in Resources */,
+				F362F07A2C76CD0B0095F7C6 /* ByteArrayExtensions.kt in Resources */,
+				F362F03B2C76CD0B0095F7C6 /* AuthDataSource.kt in Resources */,
+				F362F01F2C76CD0B0095F7C6 /* LandingApi.kt in Resources */,
+				F362F06C2C76CD0B0095F7C6 /* AddRequestReviewEvent.kt in Resources */,
+				F362F0542C76CD0B0095F7C6 /* PredictionEntity.kt in Resources */,
+				F362F02D2C76CD0B0095F7C6 /* AddImagesScreen.kt in Resources */,
+				F362F04C2C76CD0B0095F7C6 /* HomeScreen.kt in Resources */,
+				F362F0872C76CD0B0095F7C6 /* ResultDomain.kt in Resources */,
+				F362F0782C76CD0B0095F7C6 /* ArtistasTheme.kt in Resources */,
+				F362F0342C76CD0B0095F7C6 /* LandingListScreen.kt in Resources */,
+				F362F09B2C76CD870095F7C6 /* UrlHandler.native.kt in Resources */,
+				F362F07B2C76CD0B0095F7C6 /* CreateHttpClient.kt in Resources */,
+				F362F03C2C76CD0B0095F7C6 /* AuthDataSourceImpl.kt in Resources */,
+				F362F0712C76CD0B0095F7C6 /* HomeEvent.kt in Resources */,
+				F362F0172C76CD0B0095F7C6 /* IosModule.kt in Resources */,
+				F362F0592C76CD0B0095F7C6 /* AutocompleteResponseModel.kt in Resources */,
+				F362F01D2C76CD0B0095F7C6 /* check_success.png in Resources */,
+				F362F05D2C76CD0B0095F7C6 /* TermModel.kt in Resources */,
+				F362F0722C76CD0B0095F7C6 /* LandingComponent.kt in Resources */,
+				F362F02A2C76CD0B0095F7C6 /* CityModel.kt in Resources */,
+				F362F0412C76CD0B0095F7C6 /* AuthRepositoryImpl.kt in Resources */,
+				F362F04B2C76CD0B0095F7C6 /* SharedModule.kt in Resources */,
+				F362F03F2C76CD0B0095F7C6 /* RegisterUserEntity.kt in Resources */,
+				F362F0532C76CD0B0095F7C6 /* MatchedSubstringEntity.kt in Resources */,
+				F362F09F2C76CD870095F7C6 /* HowWokrsSection.native.kt in Resources */,
+				F362F0742C76CD0B0095F7C6 /* Child.kt in Resources */,
+				F362F0382C76CD0B0095F7C6 /* DashboardLayout.kt in Resources */,
+				F362F03D2C76CD0B0095F7C6 /* LoginEntity.kt in Resources */,
+				F362F0182C76CD0B0095F7C6 /* ByteArrayExtensions.ios.kt in Resources */,
+				F362F0842C76CD0B0095F7C6 /* NetworkStatus.kt in Resources */,
+				F362F07D2C76CD0B0095F7C6 /* ErrorDomain.kt in Resources */,
+				F362F04E2C76CD0B0095F7C6 /* LocationApiImpl.kt in Resources */,
+				F362F08A2C76CD0B0095F7C6 /* TopNavigationBar.kt in Resources */,
+				F362F0222C76CD0B0095F7C6 /* LandingDataSourceImpl.kt in Resources */,
+				F362F04F2C76CD0B0095F7C6 /* LocationDataSource.kt in Resources */,
+				F362F0882C76CD0B0095F7C6 /* Session.kt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,7 +1234,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "${TEAM_ID}";
+				DEVELOPMENT_TEAM = NU7TJ3VMQC;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -346,7 +1261,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "${TEAM_ID}";
+				DEVELOPMENT_TEAM = NU7TJ3VMQC;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

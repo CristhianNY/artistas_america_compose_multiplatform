@@ -1,8 +1,10 @@
 package support
 
+import android.content.Context
 import android.net.Uri
 import androidx.activity.result.ActivityResultLauncher
 import kotlinx.coroutines.suspendCancellableCoroutine
+import java.io.InputStream
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
@@ -28,9 +30,19 @@ actual class ImagePicker {
         }
     }
 
-    fun handleImageResult(uri: Uri?) {
+    fun Context.readBytesFromUri(uri: Uri): ByteArray? {
+        return try {
+            val inputStream: InputStream? = contentResolver.openInputStream(uri)
+            inputStream?.buffered()?.use { it.readBytes() }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    fun handleImageResult(context: Context, uri: Uri?) {
         if (uri != null) {
-            val byteArray = uri.toString().toByteArray() // Simulación de conversión
+            val byteArray = context.readBytesFromUri(uri)
             continuation?.invoke(byteArray)
         } else {
             continuation?.invoke(null)
