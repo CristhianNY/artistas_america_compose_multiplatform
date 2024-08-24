@@ -210,8 +210,8 @@ fun LoginForm(
             LaunchedEffect(Unit) {
                 onDismiss()
                 when (component) {
-                    is LandingComponent -> component.onEvent(LandingEvent.GoToDashboard)
-                    is HomeComponent -> component.onEvent(HomeEvent.GoToDashboard)
+                    is LandingComponent -> {}
+                    is HomeComponent -> {}
                 }
             }
         } else {

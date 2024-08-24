@@ -89,7 +89,12 @@ fun LandingListScreen(component: LandingComponent) {
                 isLoggedIn,
                 { showLoginDialog = true },
                 { authViewModel.logout() },
-                component
+                component,
+                showAddOption = false,
+                onBackClick = {
+                    component.onEvent(LandingEvent.GoBack)
+                },
+                showBackButton = true
             )
 
             if (isSmallScreen) {

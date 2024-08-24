@@ -10,13 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
-import androidx.compose.material.TopAppBar
-import androidx.compose.runtime.Composable
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,12 +20,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import artistas.composeapp.generated.resources.Res
-import artistas.composeapp.generated.resources.compose_multiplatform
+import artistas.composeapp.generated.resources.arrow_back
 import com.arkivanov.decompose.ComponentContext
-import navigation.home.HomeComponent
-import navigation.home.HomeEvent
-import navigation.lading.LandingComponent
-import navigation.lading.LandingEvent
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -38,8 +29,16 @@ fun TopNavigationBar(
     isLoggedIn: Boolean,
     onLoginClick: () -> Unit,
     onLogoutClick: () -> Unit,
-    component: ComponentContext
+    component: ComponentContext,
+    onBackClick: () -> Unit, // Añadido para manejar el clic en back
+    showBackButton: Boolean = false, // Añadido para controlar la visibilidad del botón back
+    showAddOption: Boolean = true,
+    showDashboardOption: Boolean = true,
+    showLogoutOption: Boolean = true,
+    showLoginOption: Boolean = true
 ) {
+    var expanded by remember { mutableStateOf(false) } // Estado para controlar el menú desplegable
+
     TopAppBar(
         backgroundColor = Color.White,
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
@@ -53,75 +52,75 @@ fun TopNavigationBar(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Image(
-                        painterResource(Res.drawable.compose_multiplatform), null,
-                        modifier = Modifier.size(40.dp).clip(CircleShape)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
+                    if (showBackButton) {
+                        IconButton(onClick = onBackClick) {
+                            Image(
+                                painterResource(Res.drawable.arrow_back),
+                                contentDescription = "Back",
+                                modifier = Modifier.size(20.dp).clip(CircleShape)
+                            )
+                        }
+                        Spacer(modifier = Modifier.width(8.dp))
+                    }
                     Text(
-                        text = "Menu",
+                        text = "App Title",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold
                     )
-                    Icon(
-                        painter = painterResource(Res.drawable.compose_multiplatform),
-                        contentDescription = "Arrow Down",
-                        modifier = Modifier.size(16.dp)
-                    )
-                    Spacer(modifier = Modifier.width(16.dp))
                 }
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        painter = painterResource(Res.drawable.compose_multiplatform),
-                        contentDescription = "Favorite",
-                        modifier = Modifier.size(24.dp)
-                    )
-                    Spacer(modifier = Modifier.width(16.dp))
-                    if (!isLoggedIn) {
-                        TextButton(onClick = onLoginClick) {
-                            Text(
-                                text = "Log In",
-                                color = Color.Black,
-                                fontSize = 16.sp
-                            )
-                        }
-                    } else {
-                        TextButton(onClick = {
-                            when (component) {
-                                is HomeComponent -> component.onEvent(HomeEvent.GoToDashboard)
-                                is LandingComponent -> component.onEvent(LandingEvent.GoToDashboard)
-                            }
 
-                        }) {
-                            Text(
-                                text = "Dashboard",
-                                color = Color.Black,
-                                fontSize = 16.sp
-                            )
-                        }
-
-                        TextButton(onClick = onLogoutClick) {
-                            Text(
-                                text = "Log Out",
-                                color = Color.Black,
-                                fontSize = 16.sp
-                            )
-                        }
-                    }
-                    Spacer(modifier = Modifier.width(16.dp))
-                    Button(
-                        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF007BFF)),
-                        onClick = {
-                            when (component) {
-                                is HomeComponent -> component.onEvent(HomeEvent.GoToJoin)
-                                is LandingComponent -> component.onEvent(LandingEvent.GoToServiceActorNameScreen)
-                            }
-                        }) {
+                    TextButton(onClick = { expanded = !expanded }) { // Botón de menú desplegable
                         Text(
-                            text = if (isSmallScreen) "Add" else "List your Services",
-                            color = Color.White,
+                            text = "Menu",
+                            color = Color.Black,
                             fontSize = 16.sp
                         )
+                    }
+
+                    DropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false }
+                    ) {
+                        if (showAddOption) {
+                            DropdownMenuItem(onClick = {
+                                expanded = false
+                                when (component) {
+                                    is navigation.home.HomeComponent -> component.onEvent(navigation.home.HomeEvent.GoToJoin)
+                                    is navigation.lading.LandingComponent -> component.onEvent(navigation.lading.LandingEvent.GoToServiceActorNameScreen)
+                                }
+                            }) {
+                                Text(if (isSmallScreen) "Add" else "List your Services")
+                            }
+                        }
+
+                        if (isLoggedIn && showDashboardOption) {
+                            DropdownMenuItem(onClick = {
+                                expanded = false
+                                when (component) {
+                                    is navigation.home.HomeComponent -> component.onEvent(navigation.home.HomeEvent.GoToDashboard)
+                                    is navigation.lading.LandingComponent -> component.onEvent(navigation.lading.LandingEvent.GoToDashboard)
+                                }
+                            }) {
+                                Text("Dashboard")
+                            }
+                        }
+
+                        if (isLoggedIn && showLogoutOption) {
+                            DropdownMenuItem(onClick = {
+                                expanded = false
+                                onLogoutClick()
+                            }) {
+                                Text("Log Out")
+                            }
+                        } else if (!isLoggedIn && showLoginOption) {
+                            DropdownMenuItem(onClick = {
+                                expanded = false
+                                onLoginClick()
+                            }) {
+                                Text("Log In")
+                            }
+                        }
                     }
                 }
             }

@@ -12,6 +12,7 @@ class LandingComponent(
         when (event) {
             LandingEvent.GoToDashboard -> onBack()
             is LandingEvent.GoToServiceActorNameScreen -> goToServiceActorNameScreen() // Llamar a la función
+            is LandingEvent.GoBack -> onBack()
         }
     }
 }

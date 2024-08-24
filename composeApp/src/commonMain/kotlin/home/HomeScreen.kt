@@ -64,6 +64,7 @@ import auth.presentation.AuthViewModel
 import coil3.compose.AsyncImage
 import kotlinx.coroutines.delay
 import navigation.home.HomeComponent
+import navigation.home.HomeEvent
 import org.koin.compose.koinInject
 import support.TopNavigationBar
 
@@ -82,7 +83,10 @@ fun HomeScreen(component: HomeComponent) {
             isLoggedIn,
             { showLoginDialog = true },
             { authViewModel.logout() },
-            component
+            component,
+            showBackButton = false,
+            onBackClick = {
+            }
         )
         PlatformSpecificMainContent()
         Spacer(modifier = Modifier.height(40.dp))
