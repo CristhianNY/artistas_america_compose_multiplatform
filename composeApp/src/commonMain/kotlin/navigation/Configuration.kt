@@ -36,4 +36,10 @@ sealed class Configuration {
 
     @Serializable
     data class ServiceActorNameScreen(val uniqueId: Int) : Configuration()
+
+    @Serializable
+    data class  ChoosePlanScreen(val uniqueId: Int) : Configuration()
+
+    @Serializable
+    data class PaymentScreen(val uniqueId: Int) : Configuration()
 }

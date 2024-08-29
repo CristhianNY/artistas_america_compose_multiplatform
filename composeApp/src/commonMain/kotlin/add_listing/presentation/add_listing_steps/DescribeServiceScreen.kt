@@ -1,6 +1,7 @@
 package add_listing.presentation.add_listing_steps
 
 import Strings
+import add_listing.presentation.LandingViewModel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -25,6 +26,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,8 +43,17 @@ import artistas.composeapp.generated.resources.compose_multiplatform
 import navigation.add_listing.AddDescriptionServiceComponent
 import navigation.add_listing.AddDescriptionServiceEvent
 import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.koinInject
+
 @Composable
 fun DescribeServiceScreen(component: AddDescriptionServiceComponent) {
+    val landingViewModel: LandingViewModel = koinInject()
+    val formState by landingViewModel.formState.collectAsState()
+    val serviceDescription = formState.description ?: ""
+
+    // El botón solo estará habilitado si la descripción no está en blanco
+    val isFormValid = serviceDescription.isNotBlank()
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -111,10 +122,9 @@ fun DescribeServiceScreen(component: AddDescriptionServiceComponent) {
                     )
                     Spacer(modifier = Modifier.height(32.dp))
 
-                    var serviceDescription by remember { mutableStateOf("") }
                     OutlinedTextField(
                         value = serviceDescription,
-                        onValueChange = { serviceDescription = it },
+                        onValueChange = { landingViewModel.updateDescription(it) },
                         label = { Text("Service overview") },
                         modifier = Modifier
                             .fillMaxWidth()
@@ -126,7 +136,10 @@ fun DescribeServiceScreen(component: AddDescriptionServiceComponent) {
                     Spacer(modifier = Modifier.height(32.dp))
                     Button(
                         onClick = { component.onEvent(AddDescriptionServiceEvent.GoToFinalDetailsScreen) },
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding)
+                        enabled = isFormValid,  // Habilitar solo si el formulario es válido
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = horizontalPadding)
                     ) {
                         Text(text = "Continue")
                     }

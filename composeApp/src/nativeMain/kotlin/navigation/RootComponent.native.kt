@@ -18,6 +18,7 @@ import navigation.add_listing.AddServiceNameComponent
 import navigation.dashboard.DashboardComponent
 import navigation.home.HomeComponent
 import navigation.lading.LandingComponent
+import navigation.payment.AddPaymentComponent
 
 private var uniqueIdCounter = 0
 
@@ -119,7 +120,7 @@ actual class RootComponent actual constructor(
                     context,
                     onBack = { navigation.pop() },
                     onNavigationToAllDoneScreen = {
-                        navigation.pushNew(Configuration.RequestReviewsScreen(generateUniqueId()))
+                        navigation.pushNew(Configuration.ChoosePlanScreen(generateUniqueId()))
                     }
                 )
             )
@@ -130,6 +131,9 @@ actual class RootComponent actual constructor(
                     onBack = { navigation.pop() },
                     onNavigationToDashBoardScreen = {
                         navigation.pushNew(Configuration.RequestReviewsScreen(generateUniqueId()))
+                    },
+                    onNavigationGoToPaymentScreen = {
+                        navigation.pushNew(Configuration.PaymentScreen(generateUniqueId()))
                     }
                 ))
 
@@ -141,6 +145,25 @@ actual class RootComponent actual constructor(
                         navigation.pushNew(Configuration.AddressScreen(generateUniqueId()))
                     })
             )
+
+            is Configuration.ChoosePlanScreen -> Child.ChoosePlanScreen(AddChoosePlanComponent(
+                context,
+                onBack = { navigation.pop() },
+                onNavigationToDashBoardScreen = {
+                    navigation.pushNew(Configuration.ChoosePlanScreen(generateUniqueId()))
+                },
+                onNavigationGoToPaymentScreen = {
+                    navigation.pushNew(Configuration.PaymentScreen(generateUniqueId()))
+                }
+            ))
+
+            is Configuration.PaymentScreen -> Child.AddPaymentScreen(AddPaymentComponent(
+                context,
+                onBack = { navigation.pop() },
+                onNavigationToDashboard = {
+                    navigation.pushNew(Configuration.ChoosePlanScreen(generateUniqueId()))
+                }
+            ))
         }
     }
 

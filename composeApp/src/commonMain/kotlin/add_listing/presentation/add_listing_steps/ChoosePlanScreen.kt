@@ -95,7 +95,7 @@ fun ChoosePlanScreen(component: AddChoosePlanComponent) {
                     )
                     Spacer(modifier = Modifier.height(32.dp))
 
-                    PricingTableComposable(isSmallScreen)
+                    PricingTableComposable(isSmallScreen, component)
                 }
             }
         }
@@ -103,7 +103,7 @@ fun ChoosePlanScreen(component: AddChoosePlanComponent) {
 }
 
 @Composable
-fun PricingTableComposable(isSmallScreen: Boolean) {
+fun PricingTableComposable(isSmallScreen: Boolean, component: AddChoosePlanComponent) {
     if (isSmallScreen) {
         Column(
             modifier = Modifier
@@ -126,7 +126,8 @@ fun PricingTableComposable(isSmallScreen: Boolean) {
                     "Up to 10 photos"
                 ),
                 buttonText = "Choose This Plan",
-                isCheckIconVisible = false
+                isCheckIconVisible = false,
+                component = component,
             )
             Spacer(modifier = Modifier.height(16.dp))
             PricingCard(
@@ -145,7 +146,8 @@ fun PricingTableComposable(isSmallScreen: Boolean) {
                     "Up to 50 photos"
                 ),
                 buttonText = "Choose This Plan",
-                isCheckIconVisible = false
+                isCheckIconVisible = false,
+                component = component
             )
             Spacer(modifier = Modifier.height(16.dp))
             PricingCard(
@@ -165,7 +167,8 @@ fun PricingTableComposable(isSmallScreen: Boolean) {
                 ),
                 buttonText = "Choose This Plan",
                 isButtonHoveredInitially = true,
-                isCheckIconVisible = true
+                isCheckIconVisible = true,
+                component = component
             )
         }
     } else {
@@ -193,7 +196,8 @@ fun PricingTableComposable(isSmallScreen: Boolean) {
                 ),
                 buttonText = "Choose This Plan",
                 modifier = Modifier.weight(1f),
-                isCheckIconVisible = false
+                isCheckIconVisible = false,
+                component = component
             )
             Spacer(modifier = Modifier.width(16.dp))
             PricingCard(
@@ -213,7 +217,8 @@ fun PricingTableComposable(isSmallScreen: Boolean) {
                 ),
                 buttonText = "Choose This Plan",
                 modifier = Modifier.weight(1f),
-                isCheckIconVisible = false
+                isCheckIconVisible = false,
+                component = component
             )
             Spacer(modifier = Modifier.width(16.dp))
             PricingCard(
@@ -234,7 +239,8 @@ fun PricingTableComposable(isSmallScreen: Boolean) {
                 buttonText = "Choose This Plan",
                 modifier = Modifier.weight(1f),
                 isButtonHoveredInitially = true,
-                isCheckIconVisible = true
+                isCheckIconVisible = true,
+                component
             )
         }
     }
@@ -249,7 +255,8 @@ fun PricingCard(
     buttonText: String,
     modifier: Modifier = Modifier,
     isButtonHoveredInitially: Boolean = false,
-    isCheckIconVisible: Boolean
+    isCheckIconVisible: Boolean,
+    component: AddChoosePlanComponent
 ) {
     Card(
         shape = RoundedCornerShape(16.dp),
@@ -312,7 +319,7 @@ fun PricingCard(
             Spacer(modifier = Modifier.height(16.dp))
             HoverableButton(
                 buttonText = buttonText,
-                onClick = { /* handle click */ },
+                onClick = { component.onEvent(AddChoosePlanEvent.GoToPaymentScreen) },
                 modifier = Modifier,
                 isHoveredInitially = isButtonHoveredInitially
             )

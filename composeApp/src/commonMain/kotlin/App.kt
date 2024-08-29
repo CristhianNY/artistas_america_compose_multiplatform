@@ -1,10 +1,12 @@
 import add_listing.presentation.LandingListScreen
 import add_listing.presentation.add_listing_steps.AddImagesScreen
 import add_listing.presentation.add_listing_steps.AddressScreen
+import add_listing.presentation.add_listing_steps.ChoosePlanScreen
 import add_listing.presentation.add_listing_steps.DescribeServiceScreen
 import add_listing.presentation.add_listing_steps.FinalDetailsScreen
 import add_listing.presentation.add_listing_steps.RequestReviewsScreen
 import add_listing.presentation.add_listing_steps.ServiceNameScreen
+import payment.PaymentScreen
 import admin_dashboard.DashboardLayout
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -39,6 +41,8 @@ fun App(rootComponent: RootComponent) {
                 is FinalDetailsScreen -> FinalDetailsScreen(instance.component)
                 is PriceTableScreen -> PriceTableScreen(instance.component)
                 is RequestReviewsScreen -> RequestReviewsScreen(instance.component)
+                is ChoosePlanScreen -> ChoosePlanScreen(instance.component)
+                is AddPaymentScreen -> PaymentScreen(instance.component)
             }
         }
     }

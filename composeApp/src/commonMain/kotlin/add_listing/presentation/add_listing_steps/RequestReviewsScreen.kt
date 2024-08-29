@@ -1,5 +1,6 @@
 package add_listing.presentation.add_listing_steps
 
+import add_listing.presentation.LandingViewModel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -27,6 +28,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -42,8 +44,21 @@ import artistas.composeapp.generated.resources.compose_multiplatform
 import navigation.add_listing.AddRequestReviewComponent
 import navigation.add_listing.AddRequestReviewEvent
 import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.koinInject
+import support.isValidEmail
+
 @Composable
 fun RequestReviewsScreen(component: AddRequestReviewComponent) {
+    val landingViewModel: LandingViewModel = koinInject()
+
+    // Lista que contiene pares de nombre y correo electrónico
+    val clientReviews = remember { mutableStateListOf<Pair<String, String>>() }
+
+    // Variables para el nuevo par que se desea agregar
+    var clientName by remember { mutableStateOf("") }
+    var clientEmail by remember { mutableStateOf("") }
+    var emailError by remember { mutableStateOf(false) }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -97,9 +112,41 @@ fun RequestReviewsScreen(component: AddRequestReviewComponent) {
                     )
                     Spacer(modifier = Modifier.height(32.dp))
 
-                    var clientName by remember { mutableStateOf("") }
-                    var clientEmail by remember { mutableStateOf("") }
+                    // Mostrar los campos actuales
+                    clientReviews.forEachIndexed { index, (name, email) ->
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = horizontalPadding),
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            OutlinedTextField(
+                                value = name,
+                                onValueChange = { newName -> clientReviews[index] = newName to email },
+                                label = { Text("Client name") },
+                                modifier = Modifier.weight(1f)
+                            )
+                            Column(modifier = Modifier.weight(1f)) {
+                                OutlinedTextField(
+                                    value = email,
+                                    onValueChange = { newEmail -> clientReviews[index] = name to newEmail },
+                                    label = { Text("Client email address") },
+                                    isError = !isValidEmail(email),
+                                )
+                                if (!isValidEmail(email)) {
+                                    Text(
+                                        text = "Invalid email address",
+                                        color = Color.Red,
+                                        style = MaterialTheme.typography.body2,
+                                        modifier = Modifier.padding(start = 16.dp)
+                                    )
+                                }
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(16.dp))
+                    }
 
+                    // Campos para agregar un nuevo cliente
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -112,18 +159,40 @@ fun RequestReviewsScreen(component: AddRequestReviewComponent) {
                             label = { Text("Client name") },
                             modifier = Modifier.weight(1f)
                         )
-                        OutlinedTextField(
-                            value = clientEmail,
-                            onValueChange = { clientEmail = it },
-                            label = { Text("Client email address") },
-                            modifier = Modifier.weight(1f)
-                        )
+                        Column(modifier = Modifier.weight(1f)) {
+                            OutlinedTextField(
+                                value = clientEmail,
+                                onValueChange = {
+                                    clientEmail = it
+                                    emailError = !isValidEmail(it)
+                                },
+                                label = { Text("Client email address") },
+                                isError = emailError,
+                            )
+                            if (emailError) {
+                                Text(
+                                    text = "Invalid email address",
+                                    color = Color.Red,
+                                    style = MaterialTheme.typography.body2,
+                                    modifier = Modifier.padding(start = 16.dp)
+                                )
+                            }
+                        }
                     }
 
                     Spacer(modifier = Modifier.height(16.dp))
 
                     TextButton(
-                        onClick = { /* Lógica para agregar otra solicitud de reseña */ }
+                        onClick = {
+                            if (clientName.isNotBlank() && clientEmail.isNotBlank() && !emailError) {
+                                clientReviews.add(clientName to clientEmail)
+                                landingViewModel.addClientReviewRequest(clientName, clientEmail)
+                                clientName = ""
+                                clientEmail = ""
+                                emailError = false
+                            }
+                        },
+                        enabled = clientName.isNotBlank() && clientEmail.isNotBlank() && !emailError
                     ) {
                         Text(text = "+ Request another review")
                     }

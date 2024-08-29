@@ -60,6 +60,18 @@ class LandingViewModel(
         _formState.value = _formState.value.copy(description = description)
     }
 
+    fun updatePhoneNumber(phoneNumber: String) {
+       _formState.value = _formState.value.copy(phoneNumber = phoneNumber)
+    }
+
+    fun updateSelectedOption(selectedOption: String) {
+        _formState.value = _formState.value.copy(selectedOption = selectedOption)
+    }
+
+    fun addClientReviewRequest(clientName: String, clientEmail: String) {
+       _formState.value = _formState.value.copy(clientsToReview = _formState.value.clientsToReview?.plus(Pair(clientName, clientEmail)))
+    }
+
     fun updateImageUri(imageUri: String) {
         _formState.value = _formState.value.copy(imageUri = imageUri)
     }
@@ -124,4 +136,6 @@ class LandingViewModel(
     fun clearState() {
         _uiState.value = LandingState.Idle
     }
+
+
 }

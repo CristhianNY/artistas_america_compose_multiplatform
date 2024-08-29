@@ -1,10 +1,10 @@
 package add_listing.presentation.add_listing_steps
 
+import add_listing.presentation.LandingViewModel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,17 +19,14 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.RadioButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,8 +38,17 @@ import artistas.composeapp.generated.resources.compose_multiplatform
 import navigation.add_listing.AddFinalDetailsComponent
 import navigation.add_listing.AddFinalDetailsEvent
 import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.koinInject
+
 @Composable
 fun FinalDetailsScreen(component: AddFinalDetailsComponent) {
+    val landingViewModel: LandingViewModel = koinInject()
+    val formState by landingViewModel.formState.collectAsState()
+    val phoneNumber = formState.phoneNumber ?: ""
+    val selectedOption = formState.selectedOption ?: ""
+
+    val isFormValid = phoneNumber.isNotBlank() && selectedOption.isNotBlank()
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -96,10 +102,13 @@ fun FinalDetailsScreen(component: AddFinalDetailsComponent) {
                     )
                     Spacer(modifier = Modifier.height(32.dp))
 
-                    var phoneNumber by remember { mutableStateOf("") }
                     OutlinedTextField(
                         value = phoneNumber,
-                        onValueChange = { phoneNumber = it },
+                        onValueChange = {
+                            // Filtrar la entrada para permitir solo números
+                            val filteredValue = it.filter { char -> char.isDigit() }
+                            landingViewModel.updatePhoneNumber(filteredValue)
+                        },
                         label = { Text("Primary phone number") },
                         modifier = Modifier
                             .fillMaxWidth()
@@ -108,11 +117,10 @@ fun FinalDetailsScreen(component: AddFinalDetailsComponent) {
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    var selectedOption by remember { mutableStateOf("") }
                     OutlinedTextField(
                         value = selectedOption,
-                        onValueChange = { selectedOption = it },
-                        label = { Text("How did you hear about GigSalad? (Optional)") },
+                        onValueChange = { landingViewModel.updateSelectedOption(it) },
+                        label = { Text("How did you hear about GigSalad?") },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = horizontalPadding)
@@ -130,45 +138,9 @@ fun FinalDetailsScreen(component: AddFinalDetailsComponent) {
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    Column {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(vertical = 4.dp)
-                        ) {
-                            RadioButton(
-                                selected = true,
-                                onClick = { /* Lógica para manejar la selección */ }
-                            )
-                            Text(text = "Yes, text me at the number above.")
-                        }
-
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(vertical = 4.dp)
-                        ) {
-                            RadioButton(
-                                selected = false,
-                                onClick = { /* Lógica para manejar la selección */ }
-                            )
-                            Text(text = "Yes, but I want to use a different number for texts.")
-                        }
-
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(vertical = 4.dp)
-                        ) {
-                            RadioButton(
-                                selected = false,
-                                onClick = { /* Lógica para manejar la selección */ }
-                            )
-                            Text(text = "No, I only want email notifications.")
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.height(32.dp))
-
                     Button(
                         onClick = { component.onEvent(AddFinalDetailsEvent.GoToRequestReviewsScreen) },
+                        enabled = isFormValid,
                         modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding)
                     ) {
                         Text(text = "Continue")
